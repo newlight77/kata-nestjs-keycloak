@@ -1,0 +1,107 @@
+# VERSION=latest
+# ENV=dev
+# ENABLE_BUILD=false
+
+version: "3.6"
+
+services:
+
+  backend:
+    container_name: backend
+    hostname: backend
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        ENV: ${ENV}
+    networks:
+      - internal-subnet
+    ports:
+      - 3000:3000
+      - 9229:9229
+    env_file:
+      - ./config/backend.${ENV}.env
+    volumes:
+      - ./config/backend.${ENV}.env:/app/config/backend.env:ro
+      - .:/code/app
+      - /code/app/node_modules
+      - backend_files:/data/files:rw
+      - backend_logs:/data/logs:rw
+    command: npm run start:dev
+
+  db:
+    image: postgres:13.1
+    container_name: dbbackend
+    hostname: dbbackend
+    networks:
+      internal-subnet:
+        ipv4_address: 172.28.5.20
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=backend
+      - POSTGRES_USER=backend
+      - POSTGRES_PASSWORD=Pa55w0rd
+    volumes:
+      - dbbackend_data:/var/lib/postgresql/data
+    restart: always
+
+  keycloak:
+    image: jboss/keycloak:12.0.3
+    container_name: keycloak
+    hostname: keycloak
+    networks:
+      - internal-subnet
+    ports:
+      - "1080:8080"
+      - "1443:8443"
+    depends_on:
+      - dbkeycloak
+    environment:
+      - DB_VENDOR=postgres
+      - DB_ADDR=docker_dbkeycloak
+      - DB_PORT=5432
+      - DB_DATABASE=keycloak
+      - DB_USER=keycloak
+      - DB_PASSWORD=Pa55w0rd
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=Pa55w0rd
+      - PROXY_ADDRESS_FORWARDING=true
+    volumes:
+      - ./config/keycloak/:/opt/jboss/keycloak/imports/:rw
+    command:
+      - "-Dkeycloak.profile.feature.docker=enabled"
+      - "-Dkeycloak.migration.action=import"
+      - "-Dkeycloak.migration.dir=/opt/jboss/keycloak/imports/"
+      - "-Dkeycloak.migration.strategy=IGNORE_EXISTING"
+    restart: unless-stopped
+
+  dbkeycloak:
+    image: postgres:13.1
+    container_name: dbkeycloak
+    hostname: dbkeycloak
+    networks:
+      - internal-subnet
+    environment:
+      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=Pa55w0rd
+    volumes:
+      - dbkeycloak_data:/var/lib/postgresql/data
+    restart: always
+
+networks:
+  internal-subnet:
+    name: internal_subnet
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.5.0/24
+
+volumes:  
+  backend_files:
+  backend_logs:
+  backend_data:
+  dbbackend_data:
+  dbkeycloak_data:

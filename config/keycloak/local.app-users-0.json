@@ -1,0 +1,104 @@
+{
+  "realm": "local.app",
+  "users": [
+
+    {
+      "id": "98fc2ec4-1342-48bc-aad5-8d850a4e3c55",
+      "createdTimestamp": 1605479390940,
+      "username": "newlight77@gmail.com",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": true,
+      "firstName": "Kong",
+      "lastName": "To",
+      "email": "newlight77@gmail.com",
+      "credentials": [
+        {
+          "id": "9379c066-3cc7-4c9c-bcb3-64eab1f9d48f",
+          "type": "password",
+          "createdDate": 1605527390264,
+          "secretData": "{\"value\":\"sJ3VVZ4g9fiPVamon07qOdzHKeuA6MrReaGCNOGrCysEt52UI/W6fF3tOr34zpROPxggyT1uxa0ags6NulMPgg==\",\"salt\":\"yAAhDCnqGoPtq/Y2EoRGQA==\"}",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\"}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "ac_collaborator_r",
+        "ac_billing_r",
+        "ac_freelance_r",
+        "ac_freelance_w",
+        "user-role",
+        "ac_contract_w",
+        "ac_steering_w",
+        "ac_billing_w",
+        "user-manager-role",
+        "ac_collaborator_w",
+        "ac_client_w",
+        "ac_oneprofile_r",
+        "ac_oneprofile_w",
+        "ac_contract_r",
+        "ac_client_r",
+        "uma_authorization",
+        "offline_access",
+        "ac_steering_r"
+      ],
+      "clientRoles": {
+        "account": [
+          "manage-account",
+          "view-profile"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "d31b9696-3a21-497a-bdf2-7327ee288259",
+      "createdTimestamp": 1598534616614,
+      "username": "service-account-admin-cli",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "admin-cli",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "uma_authorization",
+        "offline_access"
+      ],
+      "clientRoles": {
+        "account": [
+          "manage-account",
+          "view-profile"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "6042415c-6f1d-4d07-9d8f-b5403abc419f",
+      "createdTimestamp": 1598531799079,
+      "username": "service-account-local.backend.confidential",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "local.backend.confidential",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "uma_authorization",
+        "offline_access"
+      ],
+      "clientRoles": {
+        "account": [
+          "manage-account",
+          "view-profile"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    }
+  ]
+}
