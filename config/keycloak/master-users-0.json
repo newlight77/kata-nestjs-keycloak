@@ -1,0 +1,65 @@
+{
+  "realm" : "master",
+  "users" : [ {
+    "id" : "c9b0d1b5-c8b9-4fda-8f74-4d74253b7fd6",
+    "createdTimestamp" : 1597585923097,
+    "username" : "admin",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "credentials" : [ {
+      "id" : "39bb70ec-5e74-4633-bfef-1dc22d2c3917",
+      "type" : "password",
+      "createdDate" : 1597585923302,
+      "secretData" : "{\"value\":\"vHZOfzpeiyppGW3SNqaoIzIsndoqSI1k1EBAekCzzAWI4vWQjFBQSV1ul3ZhLggZe5jYmXOjHFzaltLDoq8RhA==\",\"salt\":\"R0HBjo/u0aYfJiu1MerDSA==\"}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\"}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "admin", "uma_authorization", "offline_access" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "2e32bf74-cd84-42bf-a978-02fa09bfa18d",
+    "createdTimestamp" : 1598532784056,
+    "username" : "service-account-admin-cli",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "serviceAccountClientId" : "admin-cli",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "uma_authorization", "offline_access" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "417039fe-c06b-4551-8061-246ef0ee83f7",
+    "createdTimestamp" : 1598546106910,
+    "username" : "user-admin",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "credentials" : [ {
+      "id" : "736566bd-bf8b-45ed-9a39-6c2c5e9f4262",
+      "type" : "password",
+      "createdDate" : 1598546772414,
+      "secretData" : "{\"value\":\"DCftl1WR3GxtxbfBHSTfmjtNVzS0cfzhT/LfX1iDn5MWCG4Vv63xJDoJjKvuigg7j+XxmDsOfF+SQB2sm0ftwA==\",\"salt\":\"SxlEZM0gpYteL0GWt2UJcg==\"}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\"}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "admin", "uma_authorization", "offline_access" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}
