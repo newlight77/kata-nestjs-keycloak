@@ -132,4 +132,3 @@ else
   echo "notice : inside the container, the issuer is http://docker_keycloak_1:8080/auth"
   echo "         and the is script is trying with issuer is http://localhost:1080/auth"
 fi
-

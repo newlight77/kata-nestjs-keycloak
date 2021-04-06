@@ -20,8 +20,12 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "sve!"', () => {
+    it('should return "saved!"', () => {
       expect(controller.create()).toBe('saved');
+    });
+
+    it('should find one', () => {
+      expect(controller.find()).toBe('found one');
     });
   });
 });
