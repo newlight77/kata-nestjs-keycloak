@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { SignupAdapter } from '../../infrastructure/signup/signup.adapter';
 import { SignupPort } from './signup.port';
 
 @Injectable()
@@ -9,5 +8,9 @@ export class SignupService {
 
   create(): string {
     return this.adapter.save();
+  }
+  
+  find(): string {
+    return this.adapter.find();
   }
 }
