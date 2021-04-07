@@ -15,15 +15,16 @@ import { SignupService } from './domain/signup/signup.service';
 import { SignupAdapter } from './infrastructure/signup/signup.adapter';
 import { SignupPort } from './domain/signup/signup.port';
 import { SignupRepository } from './infrastructure/signup/signup.repository';
+import { ConfigModule } from '@nestjs/config';
+import dbConfig from './environment/db.config';
+import keycloakConfig from './environment/keycloak.config';
 
 @Module({
   imports: [
     HttpModule,
-    KeycloakConnectModule.register({
-      authServerUrl: 'https://dev.tricefal.io/auth',
-      realm: 'dev.app',
-      clientId: 'dev.backend.bearer',
-      secret: '3ce3d1c5-ab8f-412d-9880-217cfa2f2e7a',
+    KeycloakConnectModule.register(keycloakConfig),
+    ConfigModule.forRoot({
+      load: [dbConfig],
     }),
   ],
   controllers: [AppController, SignupController],
