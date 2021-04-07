@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class SignupClient {
-
+export class SignupRepository {
   findAll(): string {
     return 'found all';
   }
