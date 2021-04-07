@@ -2,10 +2,10 @@ import { Controller, Get, Post } from '@nestjs/common';
 import { SignupService } from '../../domain/signup/signup.service';
 
 import { Roles, AllowAnyRole } from 'nest-keycloak-connect';
+import { Observable } from 'rxjs';
 
 @Controller('signup')
 export class SignupController {
-
   constructor(private readonly appService: SignupService) {}
 
   @Roles('user')
@@ -16,7 +16,7 @@ export class SignupController {
 
   @AllowAnyRole()
   @Get()
-  find(): string {
-    return this.appService.find();
+  findAll(): Observable<Array<SignupDomain>> {
+    return this.appService.findAll();
   }
 }
