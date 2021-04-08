@@ -17,14 +17,21 @@ import { SignupPort } from './domain/signup/signup.port';
 import { SignupRepository } from './infrastructure/signup/signup.repository';
 import { ConfigModule } from '@nestjs/config';
 import dbConfig from './environment/db.config';
-import keycloakConfig from './environment/keycloak.config';
+import coreConfig from './environment/core.config';
 
 @Module({
   imports: [
     HttpModule,
-    KeycloakConnectModule.register(keycloakConfig),
     ConfigModule.forRoot({
-      load: [dbConfig],
+      envFilePath: 'config/.env',
+      load: [dbConfig, coreConfig],
+      isGlobal: true,
+    }),
+    KeycloakConnectModule.register({
+      authServerUrl: process.env.AUTH_SERVER_URL,
+      realm: process.env.REALM,
+      clientId: process.env.CLIENT_ID,
+      secret: process.env.CLIENT_SECRET,
     }),
   ],
   controllers: [AppController, SignupController],

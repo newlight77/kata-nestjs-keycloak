@@ -17,6 +17,7 @@ export class SignupController {
   @AllowAnyRole()
   @Get()
   findAll(): Observable<Array<SignupDomain>> {
+    console.info('api find all');
     return this.appService.findAll();
   }
 }
