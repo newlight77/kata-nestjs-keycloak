@@ -4,6 +4,7 @@ import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import coreConfig from 'src/environment/core.config';
+import axios from 'axios';
 
 @Injectable()
 export class SignupClient {
@@ -16,6 +17,8 @@ export class SignupClient {
   }
 
   findAll(): Observable<Array<SignupDomain>> {
+    console.info('axios.defaults.headers', axios.defaults.headers);
+
     return this.http.get(this.config.coreApiUrl).pipe(
       map((axiosResponse: AxiosResponse) => {
         return axiosResponse.data;

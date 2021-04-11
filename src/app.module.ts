@@ -9,7 +9,7 @@ import {
   RoleGuard,
   AuthGuard,
 } from 'nest-keycloak-connect';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { SignupController } from './api/signup/signup.controller';
 import { SignupService } from './domain/signup/signup.service';
 import { SignupAdapter } from './infrastructure/signup/signup.adapter';
@@ -18,6 +18,7 @@ import { SignupRepository } from './infrastructure/signup/signup.repository';
 import { ConfigModule } from '@nestjs/config';
 import dbConfig from './environment/db.config';
 import coreConfig from './environment/core.config';
+import { TokenInterceptor } from './shared/token.interceptor';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import coreConfig from './environment/core.config';
       realm: process.env.REALM,
       clientId: process.env.CLIENT_ID,
       secret: process.env.CLIENT_SECRET,
+      cookieKey: 'KEYCLOAK_JWT',
     }),
   ],
   controllers: [AppController, SignupController],
@@ -41,6 +43,10 @@ import coreConfig from './environment/core.config';
     { provide: SignupPort, useClass: SignupAdapter },
     SignupClient,
     SignupRepository,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TokenInterceptor,
+    },
 
     // This adds a global level authentication guard,
     // you can also have it scoped
