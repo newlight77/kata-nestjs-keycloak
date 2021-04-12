@@ -6,7 +6,6 @@ import { SignupAdapter } from '../../infrastructure/signup/signup.adapter';
 import { SignupPort } from '../../domain/signup/signup.port';
 import { SignupRepository } from '../../infrastructure/signup/signup.repository';
 import { HttpModule } from '@nestjs/common';
-import { of } from 'rxjs';
 
 const signup = {
   usename: 'Test News',
