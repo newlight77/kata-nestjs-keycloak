@@ -5,6 +5,17 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import keycloakConfig from 'src/environment/keycloak.config';
 
+export type AccessToken = {
+  access_token: string;
+  expires_in: number;
+  refresh_expires_in: number;
+  token_type: string;
+  id_token: string;
+  session_stage: string;
+  scope: string;
+  jit: string;
+};
+
 @Injectable()
 export class KeycloakClient {
   constructor(
@@ -15,23 +26,23 @@ export class KeycloakClient {
     console.log(`keycloakConfig = ${this.config}`);
   }
 
-  token(): Observable<string> {
-    const accessToken = new Subject<string>();
+  loginForToken(username: string, password: string): Observable<AccessToken> {
+    const accessToken = new Subject<AccessToken>();
     this.http
       .post(this.config.authServerUrl, {
         data: {
           grant_type: 'password',
           client_id: this.config.clientId,
           client_secret: this.config.secret,
-          // scope: this.config.scope,
-          // username: this.config.username,
-          // password: this.config.password,
+          scope: 'email openid',
+          username,
+          password,
         },
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       })
       .pipe(
         map((axiosResponse: AxiosResponse) => {
-          accessToken.next(axiosResponse.data.access_token);
+          accessToken.next(axiosResponse.data);
         }),
       );
     return accessToken;

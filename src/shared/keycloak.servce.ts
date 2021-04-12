@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
-import { Keycloak, GrantManager, Grant } from 'keycloak-connect';
+import { Keycloak, Grant } from 'keycloak-connect';
 
 export type KeycloakedRequest<T = Request> = {
   access_token: string;

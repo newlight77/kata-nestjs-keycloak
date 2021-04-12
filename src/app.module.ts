@@ -19,6 +19,7 @@ import { ConfigModule } from '@nestjs/config';
 import dbConfig from './environment/db.config';
 import coreConfig from './environment/core.config';
 import { TokenInterceptor } from './shared/token.interceptor';
+import { JwtAuthGuard } from './shared/auth/jwt.auth';
 
 @Module({
   imports: [
@@ -40,14 +41,13 @@ import { TokenInterceptor } from './shared/token.interceptor';
   providers: [
     AppService,
     SignupService,
-    { provide: SignupPort, useClass: SignupAdapter },
     SignupClient,
     SignupRepository,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: TokenInterceptor,
-    },
-
+    { provide: SignupPort, useClass: SignupAdapter },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: TokenInterceptor,
+    // },
     // This adds a global level authentication guard,
     // you can also have it scoped
     // if you like.
@@ -74,6 +74,10 @@ import { TokenInterceptor } from './shared/token.interceptor';
     {
       provide: APP_GUARD,
       useClass: RoleGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
     },
   ],
 })
