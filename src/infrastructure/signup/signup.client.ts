@@ -18,8 +18,9 @@ export class SignupClient {
 
   findAll(): Observable<Array<SignupDomain>> {
     console.info('axios.defaults.headers', axios.defaults.headers);
-
-    return this.http.get(this.config.coreApiUrl).pipe(
+    const url = this.config.coreApiUrl + '/signup/list';
+    console.info('calling url', url);
+    return this.http.get(url).pipe(
       map((axiosResponse: AxiosResponse) => {
         return axiosResponse.data;
       }),
