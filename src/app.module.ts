@@ -1,7 +1,5 @@
 import { SignupClient } from './infrastructure/signup/signup.client';
 import { HttpModule, Module } from '@nestjs/common';
-import { AppController } from './api/app.controller';
-import { AppService } from './domain/app.service';
 
 import {
   KeycloakConnectModule,
@@ -36,9 +34,8 @@ import { JwtAuthGuard } from './auth/jwt.auth';
       cookieKey: 'KEYCLOAK_JWT',
     }),
   ],
-  controllers: [AppController, SignupController],
+  controllers: [SignupController],
   providers: [
-    AppService,
     SignupService,
     SignupClient,
     SignupRepository,
