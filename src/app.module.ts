@@ -18,7 +18,7 @@ import { SignupRepository } from './infrastructure/signup/signup.repository';
 import { ConfigModule } from '@nestjs/config';
 import dbConfig from './environment/db.config';
 import coreConfig from './environment/core.config';
-import { JwtAuthGuard } from './shared/auth/jwt.auth';
+import { JwtAuthGuard } from './auth/jwt.auth';
 
 @Module({
   imports: [
