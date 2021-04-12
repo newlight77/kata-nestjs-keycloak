@@ -3,17 +3,11 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import { AuthGuard } from '@nestjs/passport';
-import { Role, ROLES_KEY } from './role.model';
 import axios from 'axios';
+import { CanActivate } from '@nestjs/common';
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private reflector: Reflector) {
-    super();
-  }
-
+export class JwtAuthGuard implements CanActivate {
   canActivate(context: ExecutionContext) {
     // Add your custom authentication logic here
     // for example, call super.logIn(request) to establish a session.
@@ -28,19 +22,11 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token[1]}`;
     }
 
-    const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
-    if (!requiredRoles) {
-      return true;
-    }
-
     //const { user } = context.switchToHttp().getRequest();
     //console.info('RolesGuard user', user);
     //return requiredRoles.some((role) => user.roles?.includes(role));
 
-    return super.canActivate(context);
+    return true;
   }
 
   handleRequest(err, user, info) {

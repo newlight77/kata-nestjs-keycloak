@@ -26,7 +26,7 @@ export class TokenInterceptor implements NestInterceptor {
 
       if (authorization !== '') {
         const token = authorization.split(' ');
-        console.info('JwtAuthGuard token', token[1]);
+        console.info('TokenInterceptor token', token[1]);
         axios.defaults.headers.common['Authorization'] = `Bearer ${token[1]}`;
       }
     }
