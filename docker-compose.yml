@@ -1,6 +1,4 @@
 # VERSION=latest
-# ENV=dev
-# ENABLE_BUILD=false
 
 version: "3.6"
 
@@ -12,17 +10,16 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-      args:
-        ENV: ${ENV}
+      target: development
     networks:
       - internal-subnet
     ports:
+      - 3080:3080
       - 3000:3000
-      - 9229:9229
     env_file:
-      - ./config/backend.${ENV}.env
+      - ./config/backend.env
     volumes:
-      - ./config/backend.${ENV}.env:/app/config/backend.env:ro
+      - ./config/backend.env:/app/config/backend.env:ro
       - .:/code/app
       - /code/app/node_modules
       - backend_files:/data/files:rw
@@ -34,8 +31,7 @@ services:
     container_name: dbbackend
     hostname: dbbackend
     networks:
-      internal-subnet:
-        ipv4_address: 172.28.5.20
+      - internal-subnet
     ports:
       - "5432:5432"
     environment:
