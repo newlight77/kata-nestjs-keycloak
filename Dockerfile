@@ -1,37 +1,32 @@
-FROM node:14.15.5-alpine3.13 AS builder
+FROM node:14.15.5-alpine3.13 AS development
 
-ARG ENV=production
-ENV ENV=${ENV}
+WORKDIR /code/app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+#########################################
+
+FROM node:14.15.5-alpine3.13 as production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+RUN addgroup -S backend && adduser -S backend -G backend
+# RUN adduser backend
 
 WORKDIR /code/app
 
 COPY package*.json ./
 
-RUN if [ "$ENV" = "local" -o "$ENV" = "localhost" ] ; then \
-        npm install --only=development ; \
-    fi
-
-RUN if [ "$ENV" = "dev" -o "$ENV" = "prod" ] ; then \
-        npm install --only=production ; \
-    fi
+RUN npm install --only=production
 
 COPY . .
 
-RUN npm run build
-
-#########################################
-
-FROM node:14.15.5-alpine3.13
-
-RUN addgroup -S backend && adduser -S backend -G backend
-# RUN adduser backend
-
-COPY --from=builder /code/app/dist ./dist
-
-RUN echo '# front' >> ./.build
-RUN echo 'ENV=${ENV}' >> ./.build
-
-RUN cat ./.build
+COPY --from=development /code/app/dist ./dist
 
 USER backend:backend
 

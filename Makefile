@@ -5,7 +5,6 @@ SHELL := /bin/sh
 
 
 export ENV ?= local
-export ENABLE_BUILD?= true
 
 #export BUILD = $(shell git describe --always)-$(shell date +%Y%m%d%H%M%S)
 export TAG = $(shell git describe --abbrev=0 --tags)
@@ -15,7 +14,6 @@ export SHORT_VERSION ?= $(git describe --always | cut -d'-' -f1)
 
 $(info environment = $(ENV))
 $(info version = $(VERSION))
-$(info enable build = $(ENABLE_BUILD))
 
 env:
 	@env
