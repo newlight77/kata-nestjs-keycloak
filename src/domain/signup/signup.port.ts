@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 abstract class SignupPort {
   abstract save(): string;
-  abstract find(): string;
+  abstract find(): Observable<SignupDomain>;
   abstract findAll(): Observable<Array<SignupDomain>>;
 }
 

@@ -16,6 +16,17 @@ export class SignupClient {
     console.log(`coreApiUrl = ${this.config.coreApiUrl}`);
   }
 
+  find(): Observable<SignupDomain> {
+    console.info('axios.defaults.headers', axios.defaults.headers);
+    const url = this.config.coreApiUrl + '/signup';
+    console.info('calling url', url);
+    return this.http.get(url).pipe(
+      map((axiosResponse: AxiosResponse) => {
+        return axiosResponse.data;
+      }),
+    );
+  }
+
   findAll(): Observable<Array<SignupDomain>> {
     console.info('axios.defaults.headers', axios.defaults.headers);
     const url = this.config.coreApiUrl + '/signup/list';

@@ -17,8 +17,8 @@ export class SignupAdapter extends SignupPort {
     return 'saved';
   }
 
-  find(): string {
-    return 'found one';
+  find(): Observable<SignupDomain> {
+    return this.client.find();
   }
 
   findAll(): Observable<Array<SignupDomain>> {
