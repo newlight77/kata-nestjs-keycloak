@@ -10,7 +10,7 @@ export class SignupService {
     return this.adapter.save();
   }
 
-  find(): string {
+  find(): Observable<SignupDomain> {
     return this.adapter.find();
   }
 
