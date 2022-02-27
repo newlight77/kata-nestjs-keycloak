@@ -1,5 +1,6 @@
 import { SignupClient } from './infrastructure/signup/signup.client';
-import { HttpModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
 
 import {
   KeycloakConnectModule,
@@ -17,6 +18,7 @@ import { ConfigModule } from '@nestjs/config';
 import dbConfig from './environment/db.config';
 import coreConfig from './environment/core.config';
 import { JwtAuthGuard } from './auth/jwt.auth';
+import { DatabaseModule } from './infrastructure/database.module';
 
 @Module({
   imports: [
@@ -33,6 +35,7 @@ import { JwtAuthGuard } from './auth/jwt.auth';
       secret: process.env.CLIENT_SECRET,
       cookieKey: 'KEYCLOAK_JWT',
     }),
+    DatabaseModule,
   ],
   controllers: [SignupController],
   providers: [

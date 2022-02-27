@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SignupPort } from './signup.port';
 import { Observable } from 'rxjs';
+import { SignupDomain } from './signup.domain';
 
 @Injectable()
 export class SignupService {

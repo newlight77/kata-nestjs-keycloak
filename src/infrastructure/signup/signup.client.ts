@@ -1,10 +1,12 @@
-import { HttpService, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { ConfigType } from '@nestjs/config';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import coreConfig from 'src/environment/core.config';
+import coreConfig from '../../environment/core.config';
 import axios from 'axios';
+import { SignupDomain } from 'src/domain/signup/signup.domain';
 
 @Injectable()
 export class SignupClient {

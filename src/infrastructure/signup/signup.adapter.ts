@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { SignupPort } from '../../domain/signup/signup.port';
+import { SignupDomain } from '../../domain/signup/signup.domain';
 import { SignupClient } from './signup.client';
 import { Observable } from 'rxjs';
 import { SignupRepository } from './signup.repository';
