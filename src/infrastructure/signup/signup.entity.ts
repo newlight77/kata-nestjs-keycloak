@@ -1,4 +1,4 @@
-class SignupEntity {
+export class SignupEntity {
   username = '';
   password = '';
   firstname = '';

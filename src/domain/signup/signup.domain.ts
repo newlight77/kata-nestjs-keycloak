@@ -1,4 +1,4 @@
-class SignupDomain {
+export class SignupDomain {
   username = '';
   password = '';
   firstname = '';
