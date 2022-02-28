@@ -1,6 +1,6 @@
 import { JobDomain } from '../job/job.domain';
 
-export interface JobRepository {
-  save(job: JobDomain): string;
-  getAll(): Promise<JobDomain[]>;
+export abstract class JobRepository {
+  abstract save(job: JobDomain): string;
+  abstract getAll(): Promise<JobDomain[]>;
 }

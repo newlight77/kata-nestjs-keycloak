@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-import dbConfig from '../../src/environment/db.config';
+import dbConfig from '../environment/db.config';
 
 export enum ConfigEnum {
   TYPEORM = 'typeorm',
