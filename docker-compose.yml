@@ -39,6 +39,7 @@ services:
       - POSTGRES_USER=backend
       - POSTGRES_PASSWORD=Pa55w0rd
     volumes:
+      - ./db:/docker-entrypoint-initdb.d
       - dbbackend_data:/var/lib/postgresql/data
     restart: always
 
