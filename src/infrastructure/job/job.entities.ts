@@ -1,7 +1,7 @@
 import { JobDomain } from 'src/domain/job/job.domain';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity({ name: 'jobTable' })
+@Entity({ name: 'job_offer' })
 export class JobEntity {
   @PrimaryGeneratedColumn({ name: 'id' })
   id!: number;
