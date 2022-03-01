@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { JobDomain } from '../../domain/job/job.domain';
 import { JobPort } from '../../domain/job/job.port';
-import { fromDomain, JobEntity, toDomain } from './job.entities';
+import { fromDomain, JobEntity, toDomain } from './job.entity';
 import { JobEntityRepository } from './job.entity.repository';
 
 @Injectable()

@@ -2,9 +2,9 @@ import { Given, Then, When } from '@cucumber/cucumber';
 
 import { JobDomain } from '../../../src/domain/job/job.domain';
 import { JobService } from '../../../src/domain/job/job.service';
-import { JobRepository } from '../../../src/domain/job/job.repository';
+import { JobPort } from '../../../src/domain/job/job.port';
 
-class JobRepositoryMock implements JobRepository {
+class JobRepositoryMock implements JobPort {
   save(job: JobDomain): string {
     throw new Error('Method not implemented.');
   }

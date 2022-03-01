@@ -6,10 +6,6 @@ import { JobRepositoryAdapter } from '../infrastructure/job/job.repository.adapt
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JobEntityRepository } from 'src/infrastructure/job/job.entity.repository';
 
-export enum ConfigEnum {
-  TYPEORM = 'typeorm',
-}
-
 @Module({
   imports: [TypeOrmModule.forFeature([JobEntityRepository])],
   controllers: [JobController],
