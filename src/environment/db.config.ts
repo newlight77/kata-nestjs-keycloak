@@ -1,27 +1,16 @@
 import { registerAs } from '@nestjs/config';
+import { join } from 'path';
+import { JobEntity } from 'src/infrastructure/job/job.entity';
 import { ConnectionOptions } from 'typeorm';
-// import { ConfigType } from '@nestjs/config';
 
-export interface Config {
-  typeorm: TypeOrmConfig;
-}
-
-export interface TypeOrmConfig {
-  type: string;
-  host: string;
-  port: number;
-  username: string;
-  password: string;
-  database: string;
-  synchronize: boolean;
-  logging: boolean;
-  entities: any[];
+export enum ConfigEnum {
+  TYPEORM = 'typeorm',
 }
 
 const CONNECTION_TYPE = 'postgres';
 
 export default registerAs(
-  'typeorm',
+  ConfigEnum.TYPEORM,
   (): ConnectionOptions => ({
     type: CONNECTION_TYPE,
     host: process.env.DB_HOST || 'default_value',
@@ -32,33 +21,7 @@ export default registerAs(
     synchronize: process.env.NODE_ENV !== 'prod',
     logging: true,
     entities: [],
+    //entities: [JobEntity],
+    //entities: [join(__dirname, '../infrastructure/**', '*.entity.{ts, js}')],
   }),
 );
-
-// interface DatabaseConfig {
-//   url: string;
-//   port: number;
-//   database: string;
-//   user: string;
-//   password: string;
-// }
-
-// const config: DatabaseConfig = registerAs('database', () => ({
-//   url: process.env.DB_URL,
-//   port: parseInt(process.env.DB_PORT, 5432),
-//   database: process.env.DB_NAME,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-// } as DatabaseConfig));
-
-// const config = () => ({
-//   host: process.env.DB_HOST,
-//   port: parseInt(process.env.DB_PORT, 10),
-//   username: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
-// });
-
-// const dbConfig: ConfigType<typeof databaseConfig>;
-
-// export default config as ConfigType<typeof config>;

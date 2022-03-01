@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
+import { JobEntity } from 'src/infrastructure/job/job.entity';
+import { ConnectionOptions } from 'typeorm';
 
-import dbConfig from '../environment/db.config';
-
-export enum ConfigEnum {
-  TYPEORM = 'typeorm',
-}
+import dbConfig, { ConfigEnum } from '../environment/db.config';
 
 @Module({
   imports: [
@@ -17,8 +16,11 @@ export enum ConfigEnum {
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) =>
-        configService.get<TypeOrmModuleOptions>(ConfigEnum.TYPEORM),
+      useFactory: (configService: ConfigService) => {
+        const config = configService.get<ConnectionOptions>(ConfigEnum.TYPEORM);
+        config.entities.push(...[JobEntity]);
+        return config;
+      },
       inject: [ConfigService],
     }),
   ],

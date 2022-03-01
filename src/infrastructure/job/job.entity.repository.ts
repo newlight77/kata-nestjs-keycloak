@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 
-import { JobEntity } from './job.entities';
+import { JobEntity } from './job.entity';
 
 @EntityRepository(JobEntity)
 export class JobEntityRepository extends Repository<JobEntity> {
