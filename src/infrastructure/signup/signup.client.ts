@@ -4,23 +4,23 @@ import { ConfigType } from '@nestjs/config';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import coreConfig from '../../environment/core.config';
+import backendConfig from '../../environment/backend.config';
 import axios from 'axios';
 import { SignupDomain } from 'src/domain/signup/signup.domain';
 
 @Injectable()
 export class SignupClient {
   constructor(
-    @Inject(coreConfig.KEY)
-    private config: ConfigType<typeof coreConfig>,
+    @Inject(backendConfig.KEY)
+    private config: ConfigType<typeof backendConfig>,
     private readonly http: HttpService,
   ) {
-    console.log(`coreApiUrl = ${this.config.coreApiUrl}`);
+    console.log(`backendApiUrl = ${this.config.backendApiUrl}`);
   }
 
   find(): Observable<SignupDomain> {
     console.info('axios.defaults.headers', axios.defaults.headers);
-    const url = this.config.coreApiUrl + '/signup';
+    const url = this.config.backendApiUrl + '/signup';
     console.info('calling url', url);
     return this.http.get(url).pipe(
       map((axiosResponse: AxiosResponse) => {
@@ -31,7 +31,7 @@ export class SignupClient {
 
   findAll(): Observable<Array<SignupDomain>> {
     console.info('axios.defaults.headers', axios.defaults.headers);
-    const url = this.config.coreApiUrl + '/signup/list';
+    const url = this.config.backendApiUrl + '/signup/list';
     console.info('calling url', url);
     return this.http.get(url).pipe(
       map((axiosResponse: AxiosResponse) => {

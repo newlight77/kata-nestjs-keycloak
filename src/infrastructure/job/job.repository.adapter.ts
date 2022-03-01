@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 
 import { JobDomain } from '../../domain/job/job.domain';
-import { JobRepository } from '../../domain/job/job.repository';
+import { JobPort } from '../../domain/job/job.port';
 import { fromDomain, JobEntity, toDomain } from './job.entities';
+import { JobEntityRepository } from './job.entity.repository';
 
 @Injectable()
-export class JobAdapter implements JobRepository {
+export class JobRepositoryAdapter implements JobPort {
   constructor(
-    @InjectRepository(JobEntity)
-    private readonly jobEntityRepository: Repository<JobEntity>,
+    //@InjectRepository(JobEntity)
+    private readonly jobEntityRepository: JobEntityRepository,
   ) {}
 
   public save(job: JobDomain) {
@@ -18,6 +18,7 @@ export class JobAdapter implements JobRepository {
     this.jobEntityRepository.save(entity);
     return 'success';
   }
+
   public getAll(): Promise<JobDomain[]> {
     return new Promise((resolve) => {
       this.jobEntityRepository
