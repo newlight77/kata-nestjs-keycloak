@@ -1,21 +1,22 @@
-import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { JobController } from '../api/job/job.controller';
 import { JobService } from '../domain/job/job.service';
-import { JobRepository } from '../domain/job/job.repository';
-import { JobAdapter } from '../infrastructure/job/job.repository.adapter';
+import { JobPort } from '../domain/job/job.port';
+import { JobRepositoryAdapter } from '../infrastructure/job/job.repository.adapter';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { JobEntityRepository } from 'src/infrastructure/job/job.entity.repository';
 
 export enum ConfigEnum {
   TYPEORM = 'typeorm',
 }
 
 @Module({
-  imports: [HttpModule],
+  imports: [TypeOrmModule.forFeature([JobEntityRepository])],
   controllers: [JobController],
   providers: [
     //
     JobService,
-    { provide: JobRepository, useClass: JobAdapter },
+    { provide: JobPort, useClass: JobRepositoryAdapter },
   ],
 })
 export class JobComponentModule {}

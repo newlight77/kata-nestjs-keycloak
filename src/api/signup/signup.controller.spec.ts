@@ -8,7 +8,7 @@ import { SignupRepository } from '../../infrastructure/signup/signup.repository'
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { ConfigModule } from '@nestjs/config';
-import coreConfig from '../../environment/core.config';
+import backendConfig from '../../environment/backend.config';
 import { error } from 'console';
 import { of } from 'rxjs';
 
@@ -31,7 +31,7 @@ describe('SignupController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule, ConfigModule.forFeature(coreConfig)],
+      imports: [HttpModule, ConfigModule.forFeature(backendConfig)],
       controllers: [SignupController],
       providers: [
         SignupService,

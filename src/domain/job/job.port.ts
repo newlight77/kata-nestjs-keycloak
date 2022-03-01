@@ -1,6 +1,6 @@
-import { JobDomain } from '../job/job.domain';
+import { JobDomain } from './job.domain';
 
-export abstract class JobRepository {
+export abstract class JobPort {
   abstract save(job: JobDomain): string;
   abstract getAll(): Promise<JobDomain[]>;
 }

@@ -11,6 +11,7 @@ export enum ConfigEnum {
 @Module({
   imports: [
     ConfigModule.forRoot({
+      envFilePath: 'config/db.env',
       isGlobal: true,
       load: [dbConfig],
     }),

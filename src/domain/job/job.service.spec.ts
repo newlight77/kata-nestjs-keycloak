@@ -1,6 +1,6 @@
 import { JobService } from './job.service';
 import { JobDomain } from './job.domain';
-import { JobRepository } from './job.repository';
+import { JobPort } from './job.port';
 
 const completeJobs = new JobDomain({
   title: 'title',
@@ -11,7 +11,7 @@ const completeJobs = new JobDomain({
   description: 'description',
 });
 
-class JobRepositoryMock implements JobRepository {
+class JobRepositoryMock implements JobPort {
   save(_job: JobDomain): string {
     return 'success';
   }
