@@ -18,7 +18,7 @@ import dbConfig, { ConfigEnum } from '../environment/db.config';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
         const config = configService.get<ConnectionOptions>(ConfigEnum.TYPEORM);
-        config.entities.push(...[JobEntity]);
+        //config.entities.push(...[JobEntity]);
         return config;
       },
       inject: [ConfigService],
