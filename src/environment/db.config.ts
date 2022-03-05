@@ -2,7 +2,12 @@ import { registerAs } from '@nestjs/config';
 import { ConnectionOptions } from 'typeorm';
 import * as dotenv from 'dotenv';
 
-dotenv.config({ path: __dirname + '/../../config/db.env' });
+dotenv.config({ path: __dirname + '/../../../config/db.env' });
+
+console.log(__dirname + '/../../config/db.env');
+console.log(__dirname + '/../**/*.entity.ts');
+console.log(`database url : ${process.env.DB_HOST}`);
+
 export enum ConfigEnum {
   TYPEORM = 'typeorm',
 }
@@ -18,18 +23,20 @@ export const DBConnectionConfig: ConnectionOptions = {
   logging: true,
   logger: 'file',
   ssl: process.env.NODE_ENV === 'prod',
-  //entities: [],
-  //entities: [JobEntity],
+  entities: [],
+  //entities: [__dirname + '/../../../**/*.entity.ts'],
+
   //migrations: ['dist/src/db/migrations.js'],
   //cli: { migrationsDir: 'src/db/migrations' },
-  entities: [__dirname + '/**/*.entity.ts'],
-  migrations: [__dirname + '/**/*.migration.ts'],
-  subscribers: [__dirname + '/**/*.subscriber.ts'],
-  cli: {
-    entitiesDir: __dirname + '/typeorm/entity',
-    migrationsDir: __dirname + '/typeorm/migration',
-    subscribersDir: __dirname + '/typeorm/subscriber',
-  },
+
+  // entities: [__dirname + '../**/*.entity.ts'],
+  // migrations: [__dirname + '../**/*.migration.ts'],
+  // subscribers: [__dirname + '../**/*.subscriber.ts'],
+  // cli: {
+  //   entitiesDir: __dirname + '../typeorm/entity',
+  //   migrationsDir: __dirname + '../typeorm/migration',
+  //   subscribersDir: __dirname + '../typeorm/subscriber',
+  // },
 };
 
 export default registerAs(
