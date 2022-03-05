@@ -1,4 +1,4 @@
-import { JobDomain } from 'src/domain/job/job.domain';
+import { JobDomain } from '../../domain/job/job.domain';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity({ name: 'job_offer' })

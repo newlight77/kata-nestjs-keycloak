@@ -16,21 +16,19 @@ export class JobRepositoryAdapter implements JobPort {
   public save(job: JobDomain) {
     const entity = fromDomain(job);
     this.jobEntityRepository.save(entity);
-    return 'success';
+    return job;
   }
 
-  public getAll(): Promise<JobDomain[]> {
-    return new Promise((resolve) => {
-      this.jobEntityRepository
-        .find()
-        .then((data) => {
-          const domains = data.map((entity) => toDomain(entity));
-          resolve(domains);
-        })
-        .catch((error) => {
-          console.log(error);
-          resolve(null);
-        });
-    });
+  public getAll(): JobDomain[] | void {
+    this.jobEntityRepository
+      .find()
+      .then((data) => {
+        const domains = data.map((entity) => toDomain(entity));
+        return domains;
+      })
+      .catch((error) => {
+        console.log(error);
+        return null;
+      });
   }
 }

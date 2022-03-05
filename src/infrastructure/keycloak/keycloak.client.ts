@@ -3,7 +3,7 @@ import { ConfigType } from '@nestjs/config';
 import { AxiosResponse } from 'axios';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import keycloakConfig from 'src/environment/keycloak.config';
+import keycloakConfig from '../../environment/keycloak.config';
 
 export type AccessToken = {
   access_token: string;

@@ -1,13 +1,27 @@
-import { JobDomain } from "src/domain/job/job.domain";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsUUID } from 'class-validator';
+import { JobDomain } from '../../domain/job/job.domain';
 
 export class JobModel {
-  private _id: number;
+  @ApiProperty({ required: true })
+  @IsUUID()
+  private _id: string;
+  @ApiProperty({ required: true })
+  @IsString()
   private _title: string;
+  @ApiProperty({ required: true })
+  @IsString()
   private _address: string;
   private _salary: string;
+  @IsString()
+  @ApiProperty({ required: true })
   private _contract_type: string;
   private _description: string;
+  @ApiProperty({ required: true })
+  @IsString()
   private _author: string;
+  @ApiProperty({ required: true })
+  @IsString()
   private _created_at: Date;
   private _updated_at: Date;
 
@@ -36,10 +50,10 @@ export class JobModel {
     this._description = description;
   }
 
-  public get id(): number {
+  public get id(): string {
     return this._id;
   }
-  public set id(value: number) {
+  public set id(value: string) {
     this._id = value;
   }
 
