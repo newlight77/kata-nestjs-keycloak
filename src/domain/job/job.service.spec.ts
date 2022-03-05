@@ -2,7 +2,7 @@ import { JobService } from './job.service';
 import { JobDomain } from './job.domain';
 import { JobPort } from './job.port';
 
-const completeJobs = new JobDomain({
+const job = new JobDomain({
   title: 'title',
   address: 'address',
   salary: 'address',
@@ -12,11 +12,11 @@ const completeJobs = new JobDomain({
 });
 
 class JobRepositoryMock implements JobPort {
-  save(_job: JobDomain): string {
-    return 'success';
+  save(_job: JobDomain): JobDomain {
+    return _job;
   }
-  getAll(): Promise<JobDomain[]> {
-    throw new Error('Method not implemented.');
+  getAll(): JobDomain[] {
+    throw null;
   }
 }
 
@@ -25,6 +25,6 @@ describe('should create job Offer', () => {
   const jobService = new JobService(adapter);
 
   it('Should send message successfully', () => {
-    expect(jobService.create(completeJobs)).toBe('success');
+    expect(jobService.create(job)).toBe(job);
   });
 });

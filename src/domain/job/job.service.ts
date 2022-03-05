@@ -6,11 +6,11 @@ import { JobPort } from './job.port';
 export class JobService {
   constructor(private adapter: JobPort) {}
 
-  create(job: JobDomain): string {
+  create(job: JobDomain): JobDomain {
     return this.adapter.save(job);
   }
 
-  getAll(): Promise<JobDomain[]> {
+  getAll(): JobDomain[] | void {
     return this.adapter.getAll();
   }
 }
