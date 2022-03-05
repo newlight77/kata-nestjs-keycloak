@@ -1,5 +1,5 @@
 export class JobDomain {
-  private _id: number;
+  private _id: string;
   private _title: string;
   private _address: string;
   private _salary: string;
@@ -34,10 +34,10 @@ export class JobDomain {
     this._description = description;
   }
 
-  public get id(): number {
+  public get id(): string {
     return this._id;
   }
-  public set id(value: number) {
+  public set id(value: string) {
     this._id = value;
   }
 

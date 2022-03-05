@@ -1,4 +1,13 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Res,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -37,8 +46,28 @@ export class JobController {
   })
   @Roles({ roles: ['user', 'other'] })
   @Scopes('view')
-  async getById(@Res() response: Response): Promise<JobModel | void> {
-    const jobs = await this.jobService.getAll();
+  async getById(
+    @Param('id') id: string,
+    @Res() response: Response,
+  ): Promise<JobModel | void> {
+    const jobs = await this.jobService.find(id);
+    response.status(HttpStatus.FOUND).send(jobs);
+  }
+
+  @Put(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'The found record',
+    type: JobModel,
+  })
+  @Roles({ roles: ['user', 'other'] })
+  @Scopes('view')
+  async update(
+    @Param('id') id: string,
+    @Body() job: JobModel,
+    @Res() response: Response,
+  ): Promise<JobModel | void> {
+    const jobs = await this.jobService.update(id, toDomain(job));
     response.status(HttpStatus.OK).send(jobs);
   }
 
