@@ -19,6 +19,27 @@ export class JobRepositoryAdapter implements JobPort {
     return job;
   }
 
+  public update(id: string, job: JobDomain): JobDomain | void {
+    const entity = fromDomain(job);
+    this.jobEntityRepository.updateJob(id, entity).then((data) => data);
+  }
+
+  public delete(id: string): JobDomain | void {
+    this.jobEntityRepository.deleteJob(id).then((data) => data);
+  }
+
+  public find(id: string): JobDomain | void {
+    this.jobEntityRepository
+      .findById(id)
+      .then((data) => {
+        return toDomain(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        return null;
+      });
+  }
+
   public getAll(): JobDomain[] | void {
     this.jobEntityRepository
       .find()

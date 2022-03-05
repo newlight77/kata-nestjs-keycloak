@@ -15,6 +15,15 @@ class JobRepositoryMock implements JobPort {
   save(_job: JobDomain): JobDomain {
     return _job;
   }
+  update(id: string, _job: JobDomain): JobDomain {
+    return _job;
+  }
+  delete(id: string): JobDomain {
+    return null;
+  }
+  find(id: string): JobDomain {
+    throw null;
+  }
   getAll(): JobDomain[] {
     throw null;
   }

@@ -10,6 +10,18 @@ export class JobService {
     return this.adapter.save(job);
   }
 
+  update(id: string, job: JobDomain): JobDomain | void {
+    return this.adapter.update(id, job);
+  }
+
+  delete(id: string): JobDomain | void {
+    return this.adapter.delete(id);
+  }
+
+  find(id: string): JobDomain | void {
+    return this.adapter.find(id);
+  }
+
   getAll(): JobDomain[] | void {
     return this.adapter.getAll();
   }
