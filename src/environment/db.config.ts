@@ -2,7 +2,7 @@ import { registerAs } from '@nestjs/config';
 import { ConnectionOptions } from 'typeorm';
 import * as dotenv from 'dotenv';
 
-dotenv.config({ path: __dirname + '/../../../config/db.env' });
+dotenv.config({ path: __dirname + '/../../config/db.env' });
 
 console.log(__dirname + '/../../config/db.env');
 console.log(__dirname + '/../**/*.entity.ts');
@@ -12,6 +12,10 @@ export enum ConfigEnum {
   TYPEORM = 'typeorm',
 }
 
+export const isProduction = () => {
+  return process.env.NODE_ENV === 'prod';
+};
+
 export const DBConnectionConfig: ConnectionOptions = {
   type: 'postgres',
   host: process.env.DB_HOST || 'default_value',
@@ -19,11 +23,12 @@ export const DBConnectionConfig: ConnectionOptions = {
   username: process.env.DB_USERNAME || 'default_value',
   password: process.env.DB_PASSWORD || 'default_value',
   database: process.env.DB_NAME || 'default_value',
-  synchronize: process.env.NODE_ENV !== 'prod',
+  synchronize: !isProduction(),
   logging: true,
   logger: 'file',
-  ssl: process.env.NODE_ENV === 'prod',
-  entities: [],
+  ssl: isProduction(),
+  entities: ['../**/*.entity{.ts,.js}'],
+  //entities: [],
   //entities: [__dirname + '/../../../**/*.entity.ts'],
 
   //migrations: ['dist/src/db/migrations.js'],
