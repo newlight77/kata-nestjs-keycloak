@@ -1,35 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 
 import { JobDomain } from '../../domain/job/job.domain';
 import { JobPort } from '../../domain/job/job.port';
-import { fromDomain, JobEntity, toDomain } from './job.entity';
-import { JobEntityRepository } from './job.entity.repository';
+import { fromDomain, toDomain } from './job.entity';
+import { JobRepository } from './job.repository';
 
 @Injectable()
 export class JobRepositoryAdapter implements JobPort {
-  constructor(
-    //@InjectRepository(JobEntity)
-    private readonly jobEntityRepository: JobEntityRepository,
-  ) {}
+  constructor(private readonly jobRepository: JobRepository) {}
 
   public save(job: JobDomain) {
     const entity = fromDomain(job);
-    this.jobEntityRepository.save(entity);
+    this.jobRepository.createJob(entity);
     return job;
   }
 
   public update(id: string, job: JobDomain): JobDomain | void {
     const entity = fromDomain(job);
-    this.jobEntityRepository.updateJob(id, entity).then((data) => data);
+    this.jobRepository.updateJob(id, entity).then((data) => data);
   }
 
   public delete(id: string): JobDomain | void {
-    this.jobEntityRepository.deleteJob(id).then((data) => data);
+    this.jobRepository.deleteJob(id).then((data) => data);
   }
 
   public find(id: string): JobDomain | void {
-    this.jobEntityRepository
+    this.jobRepository
       .findById(id)
       .then((data) => {
         return toDomain(data);
@@ -41,8 +37,8 @@ export class JobRepositoryAdapter implements JobPort {
   }
 
   public getAll(): JobDomain[] | void {
-    this.jobEntityRepository
-      .find()
+    this.jobRepository
+      .findAll()
       .then((data) => {
         const domains = data.map((entity) => toDomain(entity));
         return domains;

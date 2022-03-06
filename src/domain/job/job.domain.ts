@@ -97,3 +97,14 @@ export class JobDomain {
     this._description = value;
   }
 }
+
+export const toDomain = (it: Partial<JobDomain>) => {
+  return new JobDomain({
+    title: it.title,
+    address: it.address,
+    salary: it.salary,
+    contract_type: it.contract_type,
+    author: it.author,
+    description: it.description,
+  });
+};

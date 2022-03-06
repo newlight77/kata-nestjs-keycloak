@@ -15,6 +15,7 @@
     "start:debug:remote": "nest start --debug 0.0.0.0:3080 --watch",
     "start:prod": "node dist/main",
     "start:dev:db": "./run.db.sh",
+    "start:dev:db:seed": "ts-node -r tsconfig-paths/register ./src/scripts/data.seeds.ts",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -23,7 +24,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:bdd:domain": "cucumber-js -p profile",
     "test:bdd:api": "cucumber-js -p profileApi",
-    "typeorm:config": "ts-node -r tsconfig-paths/register ./scripts/typeorm-config-to-file.ts",
+    "typeorm:config": "ts-node -r tsconfig-paths/register ./src/scripts/typeorm-config-to-file.ts",
     "typeorm:cli": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "typeorm:migration:generate": "npm run typeorm:cli -- migration:generate -n",
     "typeorm:migration:run": "npm run typeorm:cli -- migration:run"
