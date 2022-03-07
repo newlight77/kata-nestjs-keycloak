@@ -10,6 +10,7 @@ export class JobDomain {
   private _updated_at: Date;
 
   constructor({
+    id,
     title,
     address,
     salary,
@@ -17,6 +18,7 @@ export class JobDomain {
     author,
     description,
   }: {
+    id: string;
     title: string;
     address: string;
     salary: string;
@@ -24,6 +26,7 @@ export class JobDomain {
     author: string;
     description: string;
   }) {
+    this._id = id;
     this._title = title;
     this._address = address;
     this._salary = salary;
@@ -100,6 +103,7 @@ export class JobDomain {
 
 export const toDomain = (it: Partial<JobDomain>) => {
   return new JobDomain({
+    id: it.id,
     title: it.title,
     address: it.address,
     salary: it.salary,
