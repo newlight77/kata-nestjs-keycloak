@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { createConnection, ConnectionOptions } from 'typeorm';
 import { JobRepository } from '../infrastructure/job/job.repository';
 import { JobEntity } from '../infrastructure/job/job.entity';
-import { toDomain } from '../domain/job/job.domain';
+import { toDomain } from '../core/domain/job/job.domain';
 import { DBConnectionConfig } from 'src/environment/db.config';
 
 const run = async () => {

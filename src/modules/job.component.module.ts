@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { JobController } from '../api/job/job.controller';
-import { JobService } from '../domain/job/job.service';
-import { JobPort } from '../domain/job/job.port';
+import { JobController } from '../interface/job/job.controller';
+import { JobService } from '../core/domain/job/job.service';
+import { JobPort } from '../core/domain/job/job.port';
 import { JobRepositoryAdapter } from '../infrastructure/job/job.repository.adapter';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JobRepository } from 'src/infrastructure/job/job.repository';

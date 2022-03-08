@@ -16,7 +16,7 @@ import {
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import { RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
-import { JobService } from '../../domain/job/job.service';
+import { JobService } from '../../core/domain/job/job.service';
 import { fromDomain, JobModel, toDomain } from './job.model';
 
 @ApiBearerAuth()

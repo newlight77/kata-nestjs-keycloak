@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { JobDomain } from '../../domain/job/job.domain';
-import { JobPort } from '../../domain/job/job.port';
+import { JobDomain } from '../../core/domain/job/job.domain';
+import { JobPort } from '../../core/domain/job/job.port';
 import { fromDomain, toDomain } from './job.entity';
 import { JobRepository } from './job.repository';
 

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsUUID } from 'class-validator';
-import { JobDomain } from '../../domain/job/job.domain';
+import { JobDomain } from '../../core/domain/job/job.domain';
 
 export class JobModel {
   @ApiProperty({ required: true })
@@ -127,6 +127,7 @@ export const fromDomain = (domain: JobDomain): JobModel => {
 
 export const toDomain = (model: JobModel): JobDomain => {
   return new JobDomain({
+    id: model.id,
     title: model.title,
     address: model.address,
     salary: model.salary,

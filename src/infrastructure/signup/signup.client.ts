@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import backendConfig from '../../environment/backend.config';
 import axios from 'axios';
-import { SignupDomain } from '../../domain/signup/signup.domain';
+import { SignupDomain } from '../../core/domain/signup/signup.domain';
 
 @Injectable()
 export class SignupClient {

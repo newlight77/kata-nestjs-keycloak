@@ -1,8 +1,8 @@
 import { Given, Then, When } from '@cucumber/cucumber';
 
-import { JobDomain } from '../../../src/domain/job/job.domain';
-import { JobService } from '../../../src/domain/job/job.service';
-import { JobPort } from '../../../src/domain/job/job.port';
+import { JobDomain } from '../../../src/core/domain/job/job.domain';
+import { JobService } from '../../../src/core/domain/job/job.service';
+import { JobPort } from '../../../src/core/domain/job/job.port';
 
 class JobRepositoryMock implements JobPort {
   save(job: JobDomain): string {
