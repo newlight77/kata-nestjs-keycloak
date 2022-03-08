@@ -80,7 +80,7 @@ export class JobController {
   @Roles({ roles: ['user', 'other'] })
   @Scopes('view')
   async getAll(): Promise<JobModel[] | void> {
-    const jobs = this.jobService.getAll();
+    const jobs = await this.jobService.getAll();
     if (jobs) return jobs.map((it) => fromDomain(it));
   }
 }

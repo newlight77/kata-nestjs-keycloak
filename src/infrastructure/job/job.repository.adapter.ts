@@ -9,23 +9,22 @@ import { JobRepository } from './job.repository';
 export class JobRepositoryAdapter implements JobPort {
   constructor(private readonly jobRepository: JobRepository) {}
 
-  public save(job: JobDomain) {
+  public async save(job: JobDomain): Promise<JobDomain | void> {
     const entity = fromDomain(job);
-    this.jobRepository.createJob(entity);
-    return job;
+    return this.jobRepository.createJob(entity).then((data) => toDomain(data));
   }
 
-  public update(id: string, job: JobDomain): JobDomain | void {
+  public async update(id: string, job: JobDomain): Promise<JobDomain | void> {
     const entity = fromDomain(job);
-    this.jobRepository.updateJob(id, entity).then((data) => data);
+    this.jobRepository.updateJob(id, entity).then((data) => toDomain(data));
   }
 
-  public delete(id: string): JobDomain | void {
-    this.jobRepository.deleteJob(id).then((data) => data);
+  public async delete(id: string): Promise<JobDomain> {
+    return this.jobRepository.deleteJob(id).then((data) => toDomain(data));
   }
 
-  public find(id: string): JobDomain | void {
-    this.jobRepository
+  public async find(id: string): Promise<JobDomain | void> {
+    return this.jobRepository
       .findById(id)
       .then((data) => {
         return toDomain(data);
@@ -36,7 +35,7 @@ export class JobRepositoryAdapter implements JobPort {
       });
   }
 
-  public getAll(): JobDomain[] | void {
+  public async getAll(): Promise<JobDomain[] | void> {
     this.jobRepository
       .findAll()
       .then((data) => {

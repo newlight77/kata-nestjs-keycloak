@@ -7,7 +7,7 @@ import { PostJobCommand } from './post.job.command';
 export class JobCommandHandler {
   constructor(private service: JobService) {}
 
-  postJob(command: PostJobCommand): JobDomain {
+  async postJob(command: PostJobCommand): Promise<void | JobDomain> {
     return this.service.create(toDomain(command));
   }
 }
