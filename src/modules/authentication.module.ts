@@ -9,7 +9,7 @@ import {
 } from 'nest-keycloak-connect';
 import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule, ConfigType } from '@nestjs/config';
-import { JwtAuthGuard } from '../auth/jwt.auth';
+import { JwtAuthGuard } from '../infrastructure/auth/jwt.auth';
 
 import keycloakConfig from '../environment/keycloak.config';
 

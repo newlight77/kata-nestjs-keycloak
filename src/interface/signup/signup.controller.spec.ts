@@ -1,9 +1,9 @@
-import { SignupClient } from './../../infrastructure/signup/signup.client';
-import { SignupService } from './../../domain/signup/signup.service';
+import { SignupClient } from '../../infrastructure/signup/signup.client';
+import { SignupService } from '../../core/domain/signup/signup.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SignupController } from './signup.controller';
 import { SignupAdapter } from '../../infrastructure/signup/signup.adapter';
-import { SignupPort } from '../../domain/signup/signup.port';
+import { SignupPort } from '../../core/domain/signup/signup.port';
 import { SignupRepository } from '../../infrastructure/signup/signup.repository';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';

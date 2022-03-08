@@ -1,5 +1,5 @@
 import { Controller, Get, Post } from '@nestjs/common';
-import { SignupService } from '../../domain/signup/signup.service';
+import { SignupService } from '../../core/domain/signup/signup.service';
 
 import { Roles, Scopes, Public, RoleMatchingMode } from 'nest-keycloak-connect';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
