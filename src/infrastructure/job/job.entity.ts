@@ -33,6 +33,7 @@ export class JobEntity {
 
 export const fromDomain = (domain: JobDomain): JobEntity => {
   const entity = new JobEntity();
+  entity.id = domain.id;
   entity.title = domain.title;
   entity.address = domain.address;
   entity.salary = domain.salary;
@@ -44,6 +45,7 @@ export const fromDomain = (domain: JobDomain): JobEntity => {
 
 export const toDomain = (entity: JobEntity): JobDomain => {
   return new JobDomain({
+    id: entity.id,
     title: entity.title,
     address: entity.address,
     salary: entity.salary,
