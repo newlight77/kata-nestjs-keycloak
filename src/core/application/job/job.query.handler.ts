@@ -6,4 +6,8 @@ import { FindJobQuery } from './job.find.query';
 @Injectable()
 export class JobQueryHandler {
   constructor(private service: JobService) {}
+
+  async findJobs(query: FindJobQuery): Promise<JobDomain[]> {
+    return this.service.findByQuery(query);
+  }
 }

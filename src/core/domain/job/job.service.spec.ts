@@ -1,6 +1,7 @@
 import { JobService } from './job.service';
 import { JobDomain } from './job.domain';
 import { JobPort } from './job.port';
+import { FindJobQuery } from '../../application/job/job.find.query';
 
 const createJob = (id: string) => {
   return new JobDomain({
@@ -108,5 +109,47 @@ describe('should create job Offer', () => {
 
     // THEN
     expect(result).toBe(jobs);
+  });
+
+  it('Should find job offers by keyword match', async () => {
+    // GIVEN
+    jobs['1'] = createJob('1');
+    jobs['2'] = createJob('2');
+    jobs['3'] = createJob('3');
+    const query = new FindJobQuery({
+      keywords: '1,5,7'.split(','),
+      minSalary: null,
+      maxSalary: null,
+    });
+
+    // WHEN
+    const result = await jobService.findByQuery(query);
+
+    // THEN
+    expect(result).toStrictEqual([jobs['1']]);
+  });
+
+  it('Should find job offers by salary range match', async () => {
+    // GIVEN
+    jobs['1'] = createJob('1');
+    jobs['2'] = createJob('2');
+    jobs['3'] = createJob('3');
+    const query = new FindJobQuery({
+      keywords: [],
+      minSalary: 50000,
+      maxSalary: 60000,
+    });
+
+    // WHEN
+    const result = await jobService.findByQuery(query);
+
+    // THEN
+    expect(result).toStrictEqual(jobs);
+    console.log(jobs['1']);
+    console.log(jobs['2']);
+    console.log(jobs['3']);
+    console.log(result['1']);
+    console.log(result['2']);
+    console.log(result['3']);
   });
 });
