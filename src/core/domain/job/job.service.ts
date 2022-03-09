@@ -6,23 +6,23 @@ import { JobPort } from './job.port';
 export class JobService {
   constructor(private adapter: JobPort) {}
 
-  async create(job: JobDomain): Promise<void | JobDomain> {
+  async create(job: JobDomain): Promise<JobDomain> {
     return this.adapter.save(job);
   }
 
-  async update(id: string, job: JobDomain): Promise<void | JobDomain> {
+  async update(id: string, job: JobDomain): Promise<JobDomain> {
     return this.adapter.update(id, job);
   }
 
-  async delete(id: string): Promise<void | JobDomain> {
+  async delete(id: string): Promise<JobDomain> {
     return this.adapter.delete(id);
   }
 
-  async find(id: string): Promise<void | JobDomain> {
+  async find(id: string): Promise<JobDomain> {
     return this.adapter.find(id);
   }
 
-  async getAll(): Promise<void | JobDomain[]> {
-    return this.adapter.getAll();
+  async findAll(): Promise<JobDomain[]> {
+    return this.adapter.findAll();
   }
 }

@@ -39,6 +39,7 @@ export class JobController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Find a job by id' })
   @ApiResponse({
     status: 200,
     description: 'The found record',
@@ -55,6 +56,7 @@ export class JobController {
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Update an existing job' })
   @ApiResponse({
     status: 200,
     description: 'The found record',
@@ -72,6 +74,7 @@ export class JobController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Find all jobs' })
   @ApiResponse({
     status: 200,
     description: 'The job records are found',
@@ -79,8 +82,8 @@ export class JobController {
   })
   @Roles({ roles: ['user', 'other'] })
   @Scopes('view')
-  async getAll(): Promise<JobModel[] | void> {
-    const jobs = await this.jobService.getAll();
+  async findAll(): Promise<JobModel[] | void> {
+    const jobs = await this.jobService.findAll();
     if (jobs) return jobs.map((it) => fromDomain(it));
   }
 }
