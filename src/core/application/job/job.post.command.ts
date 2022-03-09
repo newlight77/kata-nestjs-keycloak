@@ -1,7 +1,7 @@
 export class PostJobCommand {
   title: string;
   address: string;
-  salary: string;
+  salary: number;
   contract_type: string;
   description: string;
   author: string;
@@ -18,7 +18,7 @@ export class PostJobCommand {
   }: {
     title: string;
     address: string;
-    salary: string;
+    salary: number;
     contract_type: string;
     author: string;
     description: string;

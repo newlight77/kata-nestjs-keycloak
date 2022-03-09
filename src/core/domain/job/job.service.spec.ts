@@ -7,7 +7,8 @@ const createJob = (id: string) => {
     id,
     title: 'title' + id,
     address: 'address' + id,
-    salary: 'address' + id,
+    salary: 50000,
+    currency: 'EUR',
     contract_type: 'contract' + id,
     author: 'author' + id,
     description: 'description' + id,
@@ -33,7 +34,7 @@ class JobRepositoryMock implements JobPort {
   async find(id: string): Promise<JobDomain> {
     return this.jobs[id];
   }
-  async getAll(): Promise<JobDomain[]> {
+  async findAll(): Promise<JobDomain[]> {
     return this.jobs;
   }
 }
@@ -103,7 +104,7 @@ describe('should create job Offer', () => {
     jobs['3'] = createJob('3');
 
     // WHEN
-    const result = await jobService.getAll();
+    const result = await jobService.findAll();
 
     // THEN
     expect(result).toBe(jobs);

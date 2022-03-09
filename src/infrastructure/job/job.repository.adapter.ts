@@ -9,21 +9,23 @@ import { JobRepository } from './job.repository';
 export class JobRepositoryAdapter implements JobPort {
   constructor(private readonly jobRepository: JobRepository) {}
 
-  public async save(job: JobDomain): Promise<JobDomain | void> {
+  public async save(job: JobDomain): Promise<JobDomain> {
     const entity = fromDomain(job);
     return this.jobRepository.createJob(entity).then((data) => toDomain(data));
   }
 
-  public async update(id: string, job: JobDomain): Promise<JobDomain | void> {
+  public async update(id: string, job: JobDomain): Promise<JobDomain> {
     const entity = fromDomain(job);
-    this.jobRepository.updateJob(id, entity).then((data) => toDomain(data));
+    return this.jobRepository
+      .updateJob(id, entity)
+      .then((data) => toDomain(data));
   }
 
   public async delete(id: string): Promise<JobDomain> {
     return this.jobRepository.deleteJob(id).then((data) => toDomain(data));
   }
 
-  public async find(id: string): Promise<JobDomain | void> {
+  public async find(id: string): Promise<JobDomain> {
     return this.jobRepository
       .findById(id)
       .then((data) => {
@@ -35,16 +37,15 @@ export class JobRepositoryAdapter implements JobPort {
       });
   }
 
-  public async getAll(): Promise<JobDomain[] | void> {
-    this.jobRepository
+  public async findAll(): Promise<JobDomain[]> {
+    return this.jobRepository
       .findAll()
       .then((data) => {
-        const domains = data.map((entity) => toDomain(entity));
-        return domains;
+        return data.map((entity) => toDomain(entity));
       })
       .catch((error) => {
         console.log(error);
-        return null;
+        return [];
       });
   }
 }
