@@ -45,6 +45,10 @@ describe('should create job Offer', () => {
   const adapter = new JobRepositoryMock(jobs);
   const jobService = new JobService(adapter);
 
+  beforeEach(async () => {
+    jobs.length = 0;
+  });
+
   it('Should create a job offer successfully', async () => {
     // GIVEN
     const id = '1';
@@ -135,7 +139,7 @@ describe('should create job Offer', () => {
     jobs['2'] = createJob('2');
     jobs['3'] = createJob('3');
     const query = new FindJobQuery({
-      keywords: [],
+      keywords: null,
       minSalary: 50000,
       maxSalary: 60000,
     });
@@ -144,12 +148,6 @@ describe('should create job Offer', () => {
     const result = await jobService.findByQuery(query);
 
     // THEN
-    expect(result).toStrictEqual(jobs);
-    console.log(jobs['1']);
-    console.log(jobs['2']);
-    console.log(jobs['3']);
-    console.log(result['1']);
-    console.log(result['2']);
-    console.log(result['3']);
+    expect(result.length).toBe(3);
   });
 });

@@ -36,7 +36,7 @@ export class JobService {
   }
 
   private matchKeywords(job: JobModel, keywords): boolean {
-    if (keywords.length == 0) return true;
+    if (keywords === null || keywords.length == 0) return true;
     if (includesKeywords(job.title, keywords)) return true;
     if (includesKeywords(job.address, keywords)) return true;
     if (includesKeywords(job.author, keywords)) return true;
