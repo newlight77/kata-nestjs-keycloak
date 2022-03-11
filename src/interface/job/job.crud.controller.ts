@@ -16,15 +16,14 @@ import {
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import { RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
-import { FindJobQuery } from 'src/core/application/job/job.find.query';
-import { JobService } from '../../core/domain/job/job.service';
+import { JobCrudService } from '../../core/domain/job/job.crud.service';
 import { fromDomain, JobModel, toDomain } from './job.model';
 
 @ApiBearerAuth()
 @ApiTags('jobs')
 @Controller('jobs')
-export class JobController {
-  constructor(private readonly jobService: JobService) {}
+export class JobCrudController {
+  constructor(private readonly jobService: JobCrudService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create job' })
@@ -85,29 +84,6 @@ export class JobController {
   @Scopes('view')
   async findAll(): Promise<JobModel[] | void> {
     const jobs = await this.jobService.findAll();
-    if (jobs) return jobs.map((it) => fromDomain(it));
-  }
-
-  @Get()
-  @ApiOperation({ summary: 'Find all jobs' })
-  @ApiResponse({
-    status: 200,
-    description: 'The job records are found',
-    type: JobModel,
-  })
-  @Roles({ roles: ['user', 'other'] })
-  @Scopes('view')
-  async getAll(
-    @Param('keywords') keywords: string,
-    @Param('minSalary') minSalary: number,
-    @Param('maxSalary') maxSalary: number,
-  ): Promise<JobModel[] | void> {
-    const query = new FindJobQuery({
-      keywords: keywords.split(','),
-      minSalary,
-      maxSalary,
-    });
-    const jobs = await this.jobService.findByQuery(query);
     if (jobs) return jobs.map((it) => fromDomain(it));
   }
 }
