@@ -8,8 +8,8 @@ Feature: Creating a job
     Then I received a <message> created
 
     Examples:
-      | title             | address | description          | salary      | contract_type | author     | message   |
-      | "developpeur web" | "paris" | "dev web javascript" | "5000 EURO" | "CDI"         | "wemanity" | "Success" |
+      | title             | address | salary | currency | contract_type | author     | message   | description          |
+      | "developpeur web" | "paris" | 50000  | "euro"   | "CDI"         | "wemanity" | "Success" | "dev web javascript" |
 
   @wip
   @component

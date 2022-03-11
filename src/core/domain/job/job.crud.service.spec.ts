@@ -1,7 +1,6 @@
-import { JobService } from './job.service';
+import { JobCrudService } from './job.crud.service';
 import { JobDomain } from './job.domain';
 import { JobPort } from './job.port';
-import { FindJobQuery } from '../../application/job/job.find.query';
 
 const createJob = (id: string, salary: number) => {
   return new JobDomain({
@@ -43,7 +42,7 @@ class JobRepositoryMock implements JobPort {
 describe('should create job Offer', () => {
   const jobs = [];
   const adapter = new JobRepositoryMock(jobs);
-  const jobService = new JobService(adapter);
+  const jobCrudService = new JobCrudService(adapter);
 
   beforeEach(async () => {
     jobs.length = 0;
@@ -55,7 +54,7 @@ describe('should create job Offer', () => {
     const job1 = createJob(id, 5000);
 
     // WHEN
-    const result = await jobService.create(job1);
+    const result = await jobCrudService.create(job1);
 
     // THEN
     expect(result).toBe(job1);
@@ -69,7 +68,7 @@ describe('should create job Offer', () => {
     const job1 = createJob(id, 50000);
 
     // WHEN
-    const result = await jobService.update(id, job1);
+    const result = await jobCrudService.update(id, job1);
 
     // THEN
     expect(result).toBe(job1);
@@ -83,7 +82,7 @@ describe('should create job Offer', () => {
     jobs[id] = job1;
 
     // WHEN
-    const result = await jobService.delete(id);
+    const result = await jobCrudService.delete(id);
 
     // THEN
     expect(result).toBe(job1);
@@ -96,7 +95,7 @@ describe('should create job Offer', () => {
     jobs[id] = createJob('1', 50000);
 
     // WHEN
-    const result = await jobService.find(id);
+    const result = await jobCrudService.find(id);
 
     // THEN
     expect(result).toBe(jobs[id]);
@@ -109,67 +108,10 @@ describe('should create job Offer', () => {
     jobs['2'] = createJob('2', 50000);
 
     // WHEN
-    const result = await jobService.findAll();
+    const result = await jobCrudService.findAll();
 
     // THEN
     expect(result.length).toBe(3);
     expect(result).toBe(jobs);
-  });
-
-  it('Should find job offers by keyword match', async () => {
-    // GIVEN
-    jobs['0'] = createJob('0', 50000);
-    jobs['1'] = createJob('1', 50000);
-    jobs['2'] = createJob('2', 50000);
-    const query = new FindJobQuery({
-      keywords: '1,5,7'.split(','),
-      minSalary: null,
-      maxSalary: null,
-    });
-
-    // WHEN
-    const result = await jobService.findByQuery(query);
-
-    // THEN
-    expect(result.length).toBe(1);
-    expect(result).toStrictEqual([jobs['1']]);
-  });
-
-  it('Should find job offers by salary range match', async () => {
-    // GIVEN
-    jobs['0'] = createJob('0', 40000);
-    jobs['1'] = createJob('1', 50000);
-    jobs['2'] = createJob('2', 70000);
-    const query = new FindJobQuery({
-      keywords: null,
-      minSalary: 50000,
-      maxSalary: 60000,
-    });
-
-    // WHEN
-    const result = await jobService.findByQuery(query);
-
-    // THEN
-    expect(result.length).toBe(1);
-    expect(result).toStrictEqual([jobs['1']]);
-  });
-
-  it('Should find job offers by keywords and salary range match', async () => {
-    // GIVEN
-    jobs['0'] = createJob('0', 40000);
-    jobs['1'] = createJob('1', 50000);
-    jobs['2'] = createJob('2', 60000);
-    const query = new FindJobQuery({
-      keywords: '0,1,7'.split(','),
-      minSalary: 50000,
-      maxSalary: 60000,
-    });
-
-    // WHEN
-    const result = await jobService.findByQuery(query);
-
-    // THEN
-    expect(result.length).toBe(1);
-    expect(result).toStrictEqual([jobs['1']]);
   });
 });
