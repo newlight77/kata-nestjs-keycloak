@@ -26,7 +26,8 @@ const run = async () => {
       toDomain({
         title: `title-seed-${seedId}-${n}`,
         address: `address-seed-${seedId}-${n}`,
-        salary: `salary-seed-${seedId}-${n}`,
+        salary: n,
+        currency: `currency-seed-${seedId}-${n}`,
         contract_type: `contract-type-seed-${seedId}-${n}`,
         author: `author-seed-${seedId}-${n}`,
         description: `description-seed-${seedId}-${n}`,
