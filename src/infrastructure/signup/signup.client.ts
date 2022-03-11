@@ -14,9 +14,7 @@ export class SignupClient {
     @Inject(backendConfig.KEY)
     private config: ConfigType<typeof backendConfig>,
     private readonly http: HttpService,
-  ) {
-    console.log(`backendApiUrl = ${this.config.backendApiUrl}`);
-  }
+  ) {}
 
   find(): Observable<SignupDomain> {
     console.info('axios.defaults.headers', axios.defaults.headers);
