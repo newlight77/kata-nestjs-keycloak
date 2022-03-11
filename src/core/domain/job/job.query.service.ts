@@ -8,6 +8,14 @@ import { JobPort } from './job.port';
 export class JobQueryService {
   constructor(private adapter: JobPort) {}
 
+  async findById(id: string): Promise<JobDomain> {
+    return this.adapter.find(id);
+  }
+
+  async findAll(): Promise<JobDomain[]> {
+    return this.adapter.findAll();
+  }
+
   async findByQuery(query: FindJobQuery): Promise<JobDomain[]> {
     const jobs = await this.adapter.findAll();
     return jobs
