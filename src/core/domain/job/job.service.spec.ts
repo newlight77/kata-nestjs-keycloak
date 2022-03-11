@@ -3,12 +3,12 @@ import { JobDomain } from './job.domain';
 import { JobPort } from './job.port';
 import { FindJobQuery } from '../../application/job/job.find.query';
 
-const createJob = (id: string) => {
+const createJob = (id: string, salary: number) => {
   return new JobDomain({
     id,
     title: 'title' + id,
     address: 'address' + id,
-    salary: 50000,
+    salary,
     currency: 'EUR',
     contract_type: 'contract' + id,
     author: 'author' + id,
@@ -52,7 +52,7 @@ describe('should create job Offer', () => {
   it('Should create a job offer successfully', async () => {
     // GIVEN
     const id = '1';
-    const job1 = createJob(id);
+    const job1 = createJob(id, 5000);
 
     // WHEN
     const result = await jobService.create(job1);
@@ -65,8 +65,8 @@ describe('should create job Offer', () => {
   it('Should update a job offer successfully', async () => {
     // GIVEN
     const id = '1';
-    jobs[id] = createJob('old');
-    const job1 = createJob(id);
+    jobs[id] = createJob('old', 50000);
+    const job1 = createJob(id, 50000);
 
     // WHEN
     const result = await jobService.update(id, job1);
@@ -79,7 +79,7 @@ describe('should create job Offer', () => {
   it('Should delete a job offer successfully', async () => {
     // GIVEN
     const id = '1';
-    const job1 = createJob('1');
+    const job1 = createJob('1', 50000);
     jobs[id] = job1;
 
     // WHEN
@@ -93,7 +93,7 @@ describe('should create job Offer', () => {
   it('Should find a job offer successfully', async () => {
     // GIVEN
     const id = '1';
-    jobs[id] = createJob('1');
+    jobs[id] = createJob('1', 50000);
 
     // WHEN
     const result = await jobService.find(id);
@@ -104,22 +104,23 @@ describe('should create job Offer', () => {
 
   it('Should find all job offers successfully', async () => {
     // GIVEN
-    jobs['1'] = createJob('1');
-    jobs['2'] = createJob('2');
-    jobs['3'] = createJob('3');
+    jobs['0'] = createJob('0', 50000);
+    jobs['1'] = createJob('1', 50000);
+    jobs['2'] = createJob('2', 50000);
 
     // WHEN
     const result = await jobService.findAll();
 
     // THEN
+    expect(result.length).toBe(3);
     expect(result).toBe(jobs);
   });
 
   it('Should find job offers by keyword match', async () => {
     // GIVEN
-    jobs['1'] = createJob('1');
-    jobs['2'] = createJob('2');
-    jobs['3'] = createJob('3');
+    jobs['0'] = createJob('0', 50000);
+    jobs['1'] = createJob('1', 50000);
+    jobs['2'] = createJob('2', 50000);
     const query = new FindJobQuery({
       keywords: '1,5,7'.split(','),
       minSalary: null,
@@ -130,14 +131,15 @@ describe('should create job Offer', () => {
     const result = await jobService.findByQuery(query);
 
     // THEN
+    expect(result.length).toBe(1);
     expect(result).toStrictEqual([jobs['1']]);
   });
 
   it('Should find job offers by salary range match', async () => {
     // GIVEN
-    jobs['1'] = createJob('1');
-    jobs['2'] = createJob('2');
-    jobs['3'] = createJob('3');
+    jobs['0'] = createJob('0', 40000);
+    jobs['1'] = createJob('1', 50000);
+    jobs['2'] = createJob('2', 70000);
     const query = new FindJobQuery({
       keywords: null,
       minSalary: 50000,
@@ -148,6 +150,26 @@ describe('should create job Offer', () => {
     const result = await jobService.findByQuery(query);
 
     // THEN
-    expect(result.length).toBe(3);
+    expect(result.length).toBe(1);
+    expect(result).toStrictEqual([jobs['1']]);
+  });
+
+  it('Should find job offers by keywords and salary range match', async () => {
+    // GIVEN
+    jobs['0'] = createJob('0', 40000);
+    jobs['1'] = createJob('1', 50000);
+    jobs['2'] = createJob('2', 60000);
+    const query = new FindJobQuery({
+      keywords: '0,1,7'.split(','),
+      minSalary: 50000,
+      maxSalary: 60000,
+    });
+
+    // WHEN
+    const result = await jobService.findByQuery(query);
+
+    // THEN
+    expect(result.length).toBe(1);
+    expect(result).toStrictEqual([jobs['1']]);
   });
 });
