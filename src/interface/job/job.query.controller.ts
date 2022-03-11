@@ -7,14 +7,14 @@ import {
 } from '@nestjs/swagger';
 import { Roles, Scopes } from 'nest-keycloak-connect';
 import { FindJobQuery } from 'src/core/application/job/job.find.query';
-import { JobCrudService } from '../../core/domain/job/job.crud.service';
+import { JobQueryHandler } from 'src/core/application/job/job.query.handler';
 import { fromDomain, JobModel } from './job.model';
 
 @ApiBearerAuth()
 @ApiTags('jobs')
 @Controller('jobs')
 export class JobQueryController {
-  constructor(private readonly jobService: JobCrudService) {}
+  constructor(private readonly handler: JobQueryHandler) {}
 
   @Get('query')
   @ApiOperation({ summary: 'Query jobs' })
@@ -35,7 +35,7 @@ export class JobQueryController {
       minSalary,
       maxSalary,
     });
-    const jobs = await this.jobService.findByQuery(query);
+    const jobs = await this.handler.queryJobs(query);
     if (jobs && jobs.length > 0) return jobs.map((it) => fromDomain(it));
   }
 }

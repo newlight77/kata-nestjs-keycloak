@@ -7,7 +7,7 @@ import { FindJobQuery } from './job.find.query';
 export class JobQueryHandler {
   constructor(private queryService: JobQueryService) {}
 
-  async findJobs(query: FindJobQuery): Promise<JobDomain[]> {
+  async queryJobs(query: FindJobQuery): Promise<JobDomain[]> {
     return this.queryService.findByQuery(query);
   }
 }
