@@ -1,3 +1,10 @@
+export class FindJobByIdCommand {
+  id: string;
+  constructor({ id }: { id: string }) {
+    this.id = id;
+  }
+}
+
 export class FindJobQuery {
   keywords: string[];
   minSalary: number;
