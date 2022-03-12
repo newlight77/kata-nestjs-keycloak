@@ -5,7 +5,7 @@ WORKDIR /code/app
 COPY package*.json ./
 RUN npm install
 
-COPY . .
+COPY ./src ./src
 RUN npm run build
 
 #########################################
@@ -23,8 +23,6 @@ WORKDIR /code/app
 COPY package*.json ./
 
 RUN npm install --only=production
-
-COPY . .
 
 COPY --from=development /code/app/dist ./dist
 
