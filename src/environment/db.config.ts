@@ -1,6 +1,7 @@
 import { registerAs } from '@nestjs/config';
 import { ConnectionOptions } from 'typeorm';
 import * as dotenv from 'dotenv';
+import { join } from 'path';
 
 dotenv.config({ path: __dirname + '/../../config/db.env' });
 
@@ -27,7 +28,7 @@ export const DBConnectionConfig: ConnectionOptions = {
   logging: true,
   logger: 'file',
   ssl: isProduction(),
-  entities: ['../**/*.entity{.ts,.js}'],
+  entities: [join(__dirname, '../**', '*.entity.{ts,js}')],
   //entities: [],
   //entities: [__dirname + '/../../../**/*.entity.ts'],
 
