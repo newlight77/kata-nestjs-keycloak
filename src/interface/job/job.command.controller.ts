@@ -24,7 +24,7 @@ import {
 import { JobCommandHandler } from 'src/core/application/job/job.command.handler';
 import { JobModel } from './job.model';
 
-@ApiBearerAuth()
+@ApiBearerAuth('access-token')
 @ApiTags('jobs')
 @Controller('jobs')
 export class JobCommandController {
