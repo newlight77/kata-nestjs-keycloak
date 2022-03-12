@@ -31,7 +31,7 @@ export class JobCommandController {
   constructor(private readonly jobHandler: JobCommandHandler) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create job' })
+  @ApiOperation({ summary: 'Post a job' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @Scopes('edit', 'create')
   @Roles({ roles: ['admin', 'realm:sysadmin'], mode: RoleMatchingMode.ALL })
@@ -54,10 +54,10 @@ export class JobCommandController {
   }
 
   @Put(':id')
-  @ApiOperation({ summary: 'Update an existing job' })
+  @ApiOperation({ summary: 'Edit an existing job' })
   @ApiResponse({
     status: 200,
-    description: 'The found record',
+    description: 'The job record has been edited',
     type: JobModel,
   })
   @Roles({ roles: ['user', 'other'] })
@@ -83,21 +83,21 @@ export class JobCommandController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Update an existing job' })
+  @ApiOperation({ summary: 'Removing an existing job' })
   @ApiResponse({
     status: 200,
-    description: 'The found record',
+    description: 'The job record has been removed',
     type: JobModel,
   })
   @Roles({ roles: ['user', 'other'] })
   @Scopes('view')
-  async delete(
+  async remove(
     @Param('id') id: string,
     @Body() job: JobModel,
     @Res() response: Response,
   ): Promise<JobModel | void> {
     const command = new DeleteJobCommand({ id });
-    const jobs = await this.jobHandler.deleteJob(command);
+    const jobs = await this.jobHandler.removeJob(command);
     response.status(HttpStatus.OK).send(jobs);
   }
 }

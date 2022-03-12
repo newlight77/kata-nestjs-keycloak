@@ -21,10 +21,10 @@ export class JobQueryController {
   constructor(private readonly handler: JobQueryHandler) {}
 
   @Get(':id')
-  @ApiOperation({ summary: 'Find a job by id' })
+  @ApiOperation({ summary: 'Query a job by id' })
   @ApiResponse({
     status: 200,
-    description: 'The found record',
+    description: 'The job record is found',
     type: JobModel,
   })
   @Roles({ roles: ['user', 'other'] })
@@ -39,7 +39,7 @@ export class JobQueryController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Find all jobs' })
+  @ApiOperation({ summary: 'Query all jobs' })
   @ApiResponse({
     status: 200,
     description: 'The job records are found',
@@ -53,7 +53,7 @@ export class JobQueryController {
   }
 
   @Get('query')
-  @ApiOperation({ summary: 'Query jobs' })
+  @ApiOperation({ summary: 'Query jobs by keywords' })
   @ApiResponse({
     status: 200,
     description: 'The job records are found',

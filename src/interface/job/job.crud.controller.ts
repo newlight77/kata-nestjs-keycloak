@@ -20,8 +20,8 @@ import { JobCrudService } from '../../core/domain/job/job.crud.service';
 import { fromDomain, JobModel, toDomain } from './job.model';
 
 @ApiBearerAuth()
-@ApiTags('jobs')
-@Controller('jobs')
+@ApiTags('jobs/crud')
+@Controller('jobs/crud')
 export class JobCrudController {
   constructor(private readonly jobService: JobCrudService) {}
 
@@ -59,7 +59,7 @@ export class JobCrudController {
   @ApiOperation({ summary: 'Update an existing job' })
   @ApiResponse({
     status: 200,
-    description: 'The found record',
+    description: 'The job record has been updated',
     type: JobModel,
   })
   @Roles({ roles: ['user', 'other'] })
