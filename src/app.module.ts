@@ -7,6 +7,7 @@ import { SignupComponentModule } from './modules/signup.component.module';
 import { JobComponentModule } from './modules/job.component.module';
 
 import backendConfig from './environment/backend.config';
+import { HelloController } from './interface/hello/hello.controller';
 
 @Module({
   imports: [
@@ -20,5 +21,6 @@ import backendConfig from './environment/backend.config';
     SignupComponentModule,
     JobComponentModule,
   ],
+  controllers: [HelloController],
 })
 export class AppModule {}
