@@ -18,7 +18,7 @@ export class SignupClient {
 
   find(): Observable<SignupDomain> {
     console.info('axios.defaults.headers', axios.defaults.headers);
-    const url = this.config.backendApiUrl + '/signup';
+    const url = this.config.signupApiUrl + '/signup';
     console.info('calling url', url);
     return this.http.get(url).pipe(
       map((axiosResponse: AxiosResponse) => {
@@ -29,7 +29,7 @@ export class SignupClient {
 
   findAll(): Observable<Array<SignupDomain>> {
     console.info('axios.defaults.headers', axios.defaults.headers);
-    const url = this.config.backendApiUrl + '/signup/list';
+    const url = this.config.signupApiUrl + '/signup/list';
     console.info('calling url', url);
     return this.http.get(url).pipe(
       map((axiosResponse: AxiosResponse) => {
