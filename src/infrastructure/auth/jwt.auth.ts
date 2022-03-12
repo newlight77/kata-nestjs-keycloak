@@ -9,7 +9,7 @@ export class JwtAuthGuard implements CanActivate {
     const request = ctx.getRequest<Request>();
     const authorization = request.headers['authorization'];
 
-    if (authorization !== '') {
+    if (authorization != undefined && authorization !== '') {
       const token = authorization.split(' ');
       //console.info('JwtAuthGuard token', token[1]);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token[1]}`;

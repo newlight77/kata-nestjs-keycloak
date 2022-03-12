@@ -14,7 +14,7 @@ if [ -x /usr/bin/tput ]; then
   reset=`tput sgr0`
 fi
 
-API_URL=http://localhost:5000/api
+API_URL=http://localhost:3000
 CLIENT_ID=local.frontend.https
 USERNAME=newlight77+test1@gmail.com
 PASSWORD=backend1
@@ -53,6 +53,10 @@ usage() {
   exit 1
 }
 
+helloApi() {
+  curl --location --request GET "${API_URL}/hello"
+}
+
 signup() {
   curl --insecure --location --request POST "${API_URL}/signup" \
     --header 'Content-Type: application/json' \
@@ -76,13 +80,9 @@ getToken() {
     --data-urlencode "grant_type=password" | jq -r .access_token
 }
 
-unsecureApi() {
-  curl --location --request GET "${API_URL}/unsecure"
-}
-
 secureApi() {
   token=$1
-  curl --location --request GET "${API_URL}/secure" \
+  curl --location --request GET "${API_URL}/jobs" \
     -H "Authorization: Bearer ${token}"
 }
 
@@ -119,8 +119,8 @@ TOKEN=$(getToken)
 echo $TOKEN
 echo ""
 
-echo "call secureUserApi..."
-result=$(secureUserApi ${TOKEN})
+echo "call secureApi..."
+result=$(secureApi ${TOKEN})
 
 echo $result
 
@@ -129,6 +129,6 @@ if [ "$result" != "" ]; then
 else
   echo "can't get the signup"
   echo "maybe the issue is not valid. "
-  echo "notice : inside the container, the issuer is http://docker_keycloak_1:8080/auth"
-  echo "         and the is script is trying with issuer is http://localhost:1080/auth"
+  echo "notice : inside the container, the issuer is http://keycloak:8080/auth"
+  echo "         and the is script is accessing from outside with issuer http://localhost:1080/auth"
 fi
