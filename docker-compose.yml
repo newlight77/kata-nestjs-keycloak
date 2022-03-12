@@ -18,22 +18,22 @@ services:
       - 3000:3000
     environment:
       - SIGNUP_API_URL=http://signup:5000/api
-      - DB_HOST=127.0.0.1
+      - DB_HOST=dbbackend
       - DB_PORT=5432
       - DB_NAME=backend
       - DB_USERNAME=backend
       - DB_PASSWORD=Pa55w0rd
-      - AUTH_SERVER_URL=http://keycloak:1080/auth
+      - AUTH_SERVER_URL=http://keycloak:8080/auth
       - REALM=local.app
-      - CLIENT_ID=local.backend.bearer
-      - CLIENT_SECRET=3ce3d1c5-ab8f-412d-9880-217cfa2f2e7a
+      - CLIENT_ID=local.backend.confidential
+      - CLIENT_SECRET=2964cce2-e875-4c22-92ae-225d544d3571
     volumes:
-      - ./config/backend.env:/app/config/backend.env:ro
+#      - ./config/backend.env:/code/app/config/db.env:ro
       - .:/code/app
       - /code/app/node_modules
       - backend_files:/data/files:rw
       - backend_logs:/data/logs:rw
-    command: npm run start:dev
+    command: npm run start
 
   db:
     image: postgres:13.1

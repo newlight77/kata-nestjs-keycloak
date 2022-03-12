@@ -1,104 +1,129 @@
 {
-  "realm": "local.app",
-  "users": [
-
-    {
-      "id": "98fc2ec4-1342-48bc-aad5-8d850a4e3c55",
-      "createdTimestamp": 1605479390940,
-      "username": "newlight77@gmail.com",
-      "enabled": true,
-      "totp": false,
-      "emailVerified": true,
-      "firstName": "Kong",
-      "lastName": "To",
-      "email": "newlight77@gmail.com",
-      "credentials": [
-        {
-          "id": "9379c066-3cc7-4c9c-bcb3-64eab1f9d48f",
-          "type": "password",
-          "createdDate": 1605527390264,
-          "secretData": "{\"value\":\"sJ3VVZ4g9fiPVamon07qOdzHKeuA6MrReaGCNOGrCysEt52UI/W6fF3tOr34zpROPxggyT1uxa0ags6NulMPgg==\",\"salt\":\"yAAhDCnqGoPtq/Y2EoRGQA==\"}",
-          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\"}"
-        }
-      ],
-      "disableableCredentialTypes": [],
-      "requiredActions": [],
-      "realmRoles": [
-        "ac_collaborator_r",
-        "ac_billing_r",
-        "ac_freelance_r",
-        "ac_freelance_w",
-        "user-role",
-        "ac_contract_w",
-        "ac_steering_w",
-        "ac_billing_w",
-        "user-manager-role",
-        "ac_collaborator_w",
-        "ac_client_w",
-        "ac_oneprofile_r",
-        "ac_oneprofile_w",
-        "ac_contract_r",
-        "ac_client_r",
-        "uma_authorization",
-        "offline_access",
-        "ac_steering_r"
-      ],
-      "clientRoles": {
-        "account": [
-          "manage-account",
-          "view-profile"
-        ]
-      },
-      "notBefore": 0,
-      "groups": []
+  "realm" : "local.app",
+  "users" : [ {
+    "id" : "90e86f79-39be-4886-8c1d-7d015158e43a",
+    "createdTimestamp" : 1647124072505,
+    "username" : "newlight77+admin1@gmail.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Kong",
+    "lastName" : "To",
+    "email" : "newlight77+admin1@gmail.com",
+    "credentials" : [ {
+      "id" : "d698e7c2-ddf7-459e-9d0a-5025c16bb46b",
+      "type" : "password",
+      "createdDate" : 1647124081397,
+      "secretData" : "{\"value\":\"PsLggKWV9od7ug2KU5cHT0TFW9d3zs8gnYVYWLLXhdvrqO+DFKElIjp/eESHdfvBnpxPNuo0zx2fscLQmNJ5Sg==\",\"salt\":\"im74sWnwejc4u3d93RD1pw==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "role:admin", "default-roles-local.app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "0d7a2a45-e74d-4bb9-8372-77a24770795f",
+    "createdTimestamp" : 1647124136469,
+    "username" : "newlight77+manager1@gmail.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Kong",
+    "lastName" : "To",
+    "email" : "newlight77+manager1@gmail.com",
+    "credentials" : [ {
+      "id" : "ef615e1c-c03c-4fbd-b761-3cc185591bc9",
+      "type" : "password",
+      "createdDate" : 1647124145118,
+      "secretData" : "{\"value\":\"qwjUcFiU/bMi7nJpqHSu72mDjgoAgk8NAh6DXG1GsVKksX+ATkH8pYhJMOBvvsyb4shT6PzFFgo9/3rl8KtkqQ==\",\"salt\":\"gGcA3OPn8CrFOkxenie7Mg==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-local.app", "role:manager" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "98fc2ec4-1342-48bc-aad5-8d850a4e3c55",
+    "createdTimestamp" : 1605479390940,
+    "username" : "newlight77+test1@gmail.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Kong",
+    "lastName" : "To",
+    "email" : "newlight77+test1@gmail.com",
+    "credentials" : [ {
+      "id" : "9379c066-3cc7-4c9c-bcb3-64eab1f9d48f",
+      "type" : "password",
+      "createdDate" : 1605527390264,
+      "secretData" : "{\"value\":\"RmBf02Tix382Bj8ZyJvlcHkzAaQzoPWq4mWfHzm6r1Y9jr9X/waqhmWyYTzk2txmrF4IGBzjspH0ahRW5wf8Ng==\",\"salt\":\"mn3Tz3eIbY6YQgpzgK3A1Q==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "role:admin", "role:user", "role:manager", "uma_authorization", "offline_access" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
     },
-    {
-      "id": "d31b9696-3a21-497a-bdf2-7327ee288259",
-      "createdTimestamp": 1598534616614,
-      "username": "service-account-admin-cli",
-      "enabled": true,
-      "totp": false,
-      "emailVerified": false,
-      "serviceAccountClientId": "admin-cli",
-      "credentials": [],
-      "disableableCredentialTypes": [],
-      "requiredActions": [],
-      "realmRoles": [
-        "uma_authorization",
-        "offline_access"
-      ],
-      "clientRoles": {
-        "account": [
-          "manage-account",
-          "view-profile"
-        ]
-      },
-      "notBefore": 0,
-      "groups": []
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "53d128dd-4887-4146-97a7-61c5025ade1a",
+    "createdTimestamp" : 1647124208873,
+    "username" : "newlight77+user1@gmail.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Kong",
+    "lastName" : "To",
+    "email" : "newlight77+user1@gmail.com",
+    "credentials" : [ {
+      "id" : "93089e5d-0302-4e6b-80b4-c4cfe712e671",
+      "type" : "password",
+      "createdDate" : 1647124224504,
+      "secretData" : "{\"value\":\"WczM+oFtgazNL1cQkseUhM4xKRvIOrQDu5AIhASLbLDz5oCPhODhsO+mOrF/n7CMXv3v/c7YBaZa7dJC2acyuA==\",\"salt\":\"LSPr0tcZFDmxZWALGr++Xw==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "role:user", "default-roles-local.app" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "d31b9696-3a21-497a-bdf2-7327ee288259",
+    "createdTimestamp" : 1598534616614,
+    "username" : "service-account-admin-cli",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "serviceAccountClientId" : "admin-cli",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "uma_authorization", "offline_access" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
     },
-    {
-      "id": "6042415c-6f1d-4d07-9d8f-b5403abc419f",
-      "createdTimestamp": 1598531799079,
-      "username": "service-account-local.backend.confidential",
-      "enabled": true,
-      "totp": false,
-      "emailVerified": false,
-      "serviceAccountClientId": "local.backend.confidential",
-      "credentials": [],
-      "disableableCredentialTypes": [],
-      "requiredActions": [],
-      "realmRoles": [
-        "uma_authorization",
-        "offline_access"
-      ],
-      "clientRoles": {
-        "account": [
-          "manage-account",
-          "view-profile"
-        ]
-      },
-      "notBefore": 0,
-      "groups": []
-    }
-  ]
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "6042415c-6f1d-4d07-9d8f-b5403abc419f",
+    "createdTimestamp" : 1598531799079,
+    "username" : "service-account-local.backend.confidential",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "serviceAccountClientId" : "local.backend.confidential",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "uma_authorization", "offline_access" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
 }
