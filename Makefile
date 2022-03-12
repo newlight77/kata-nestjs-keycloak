@@ -24,6 +24,9 @@ help: ## Display this help screen
 clean: dc-clean
 
 dc-build:
+# required for M1
+	@./build-keycloak-image.sh
+
 	@docker system prune -f
 	@docker-compose build backend
 
@@ -63,3 +66,6 @@ dc-restart: down up
 # make test-api testId=test1
 test-api-local:
 	@./test-api.sh --api-url=http://localhost:5000/api --client-id=local.frontend.http.localhost-4200 --token-url=http://localhost:1080/auth/realms/local.app/protocol/openid-connect/token --username=newlight77+${testId}@gmail.com
+
+token: 
+	@./test-api.sh

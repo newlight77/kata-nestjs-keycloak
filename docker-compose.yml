@@ -16,8 +16,17 @@ services:
     ports:
       - 3080:3080
       - 3000:3000
-    env_file:
-      - ./config/backend.env
+    environment:
+      - SIGNUP_API_URL=http://signup:5000/api
+      - DB_HOST=127.0.0.1
+      - DB_PORT=5432
+      - DB_NAME=backend
+      - DB_USERNAME=backend
+      - DB_PASSWORD=Pa55w0rd
+      - AUTH_SERVER_URL=http://keycloak:1080/auth
+      - REALM=local.app
+      - CLIENT_ID=local.backend.bearer
+      - CLIENT_SECRET=3ce3d1c5-ab8f-412d-9880-217cfa2f2e7a
     volumes:
       - ./config/backend.env:/app/config/backend.env:ro
       - .:/code/app
@@ -44,7 +53,7 @@ services:
     restart: always
 
   keycloak:
-    image: jboss/keycloak:12.0.3
+    image: quay.io/keycloak/keycloak:15.1.1
     container_name: keycloak
     hostname: keycloak
     networks:
@@ -56,7 +65,7 @@ services:
       - dbkeycloak
     environment:
       - DB_VENDOR=postgres
-      - DB_ADDR=docker_dbkeycloak
+      - DB_ADDR=dbkeycloak
       - DB_PORT=5432
       - DB_DATABASE=keycloak
       - DB_USER=keycloak
