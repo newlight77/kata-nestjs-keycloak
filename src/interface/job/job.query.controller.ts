@@ -14,7 +14,7 @@ import {
 import { JobQueryHandler } from 'src/core/application/job/job.query.handler';
 import { fromDomain, JobModel } from './job.model';
 
-@ApiBearerAuth()
+@ApiBearerAuth('access-token')
 @ApiTags('jobs')
 @Controller('jobs')
 export class JobQueryController {

@@ -8,18 +8,11 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
 import { JobCrudService } from '../../core/domain/job/job.crud.service';
 import { fromDomain, JobModel, toDomain } from './job.model';
 
-@ApiBearerAuth()
 @ApiTags('jobs/crud')
 @Controller('jobs/crud')
 export class JobCrudController {
@@ -28,8 +21,6 @@ export class JobCrudController {
   @Post()
   @ApiOperation({ summary: 'Create job' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @Scopes('edit', 'create')
-  @Roles({ roles: ['admin', 'realm:sysadmin'], mode: RoleMatchingMode.ALL })
   async create(
     @Body() job: JobModel,
     @Res() response: Response,
@@ -45,8 +36,6 @@ export class JobCrudController {
     description: 'The found record',
     type: JobModel,
   })
-  @Roles({ roles: ['user', 'other'] })
-  @Scopes('view')
   async getById(
     @Param('id') id: string,
     @Res() response: Response,
@@ -62,8 +51,6 @@ export class JobCrudController {
     description: 'The job record has been updated',
     type: JobModel,
   })
-  @Roles({ roles: ['user', 'other'] })
-  @Scopes('view')
   async update(
     @Param('id') id: string,
     @Body() job: JobModel,
@@ -80,8 +67,6 @@ export class JobCrudController {
     description: 'The job records are found',
     type: JobModel,
   })
-  @Roles({ roles: ['user', 'other'] })
-  @Scopes('view')
   async findAll(): Promise<JobModel[] | void> {
     const jobs = await this.jobService.findAll();
     if (jobs) return jobs.map((it) => fromDomain(it));
