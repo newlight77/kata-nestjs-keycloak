@@ -10,10 +10,11 @@ import { JobEntity } from 'src/infrastructure/job/job.entity';
 import { JobCommandHandler } from 'src/core/application/job/job.command.handler';
 import { JobQueryHandler } from 'src/core/application/job/job.query.handler';
 import { JobQueryController } from 'src/interface/job/job.query.controller';
+import { JobCommandController } from 'src/interface/job/job.command.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([JobEntity])],
-  controllers: [JobCrudController, JobQueryController],
+  controllers: [JobCrudController, JobCommandController, JobQueryController],
   providers: [
     //
     JobCrudService,

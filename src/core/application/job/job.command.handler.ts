@@ -19,7 +19,7 @@ export class JobCommandHandler {
     return this.service.update(command.id, toDomain(command));
   }
 
-  async deleteJob(command: DeleteJobCommand): Promise<void | JobDomain> {
+  async removeJob(command: DeleteJobCommand): Promise<void | JobDomain> {
     return this.service.delete(command.id);
   }
 }
