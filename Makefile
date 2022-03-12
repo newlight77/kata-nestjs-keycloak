@@ -25,8 +25,7 @@ clean: dc-clean
 
 dc-build:
 # required for M1
-	@./build-keycloak-image.sh
-
+#	@./build-keycloak-image.sh
 	@docker system prune -f
 	@docker-compose build backend
 

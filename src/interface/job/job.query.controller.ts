@@ -27,8 +27,8 @@ export class JobQueryController {
     description: 'The job record is found',
     type: JobModel,
   })
-  @Roles({ roles: ['user', 'other'] })
-  @Scopes('view')
+  @Roles({ roles: ['role:user', 'role:manager', 'role:admin'] })
+  //@Scopes('jobs:view')
   async getById(
     @Param('id') id: string,
     @Res() response: Response,
@@ -45,8 +45,8 @@ export class JobQueryController {
     description: 'The job records are found',
     type: JobModel,
   })
-  @Roles({ roles: ['user', 'other'] })
-  @Scopes('view')
+  @Roles({ roles: ['role:user', 'role:manager', 'role:admin'] })
+  //@Scopes('jobs:view')
   async findAll(): Promise<JobModel[] | void> {
     const jobs = await this.handler.queryAll();
     if (jobs) return jobs.map((it) => fromDomain(it));
@@ -59,8 +59,8 @@ export class JobQueryController {
     description: 'The job records are found',
     type: JobModel,
   })
-  @Roles({ roles: ['user', 'other'] })
-  @Scopes('view')
+  @Roles({ roles: ['role:user', 'role:manager', 'role:admin'] })
+  //@Scopes('jobs:view')
   async queryJobs(
     @Param('keywords') keywords: string,
     @Param('minSalary') minSalary: number,
