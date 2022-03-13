@@ -43,7 +43,7 @@ export class KeycloakConfigService implements KeycloakConnectOptionsFactory {
       useNestLogger: false,
       policyEnforcement: PolicyEnforcementMode.PERMISSIVE,
       tokenValidation: TokenValidation.ONLINE,
-      verifyTokenAudience: true,
+      verifyTokenAudience: false,
     };
   }
 }
