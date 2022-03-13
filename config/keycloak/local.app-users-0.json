@@ -19,9 +19,9 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "role:admin" ],
+    "realmRoles" : [ "admin.role" ],
     "clientRoles" : {
-      "local.backend.confidential" : [ "role:admin" ]
+      "local.backend.confidential" : [ "admin.role" ]
     },
     "notBefore" : 0,
     "groups" : [ ]
@@ -44,9 +44,9 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "role:manager" ],
+    "realmRoles" : [ "manager.role" ],
     "clientRoles" : {
-      "local.backend.confidential" : [ "role:manager" ]
+      "local.backend.confidential" : [ "manager.role" ]
     },
     "notBefore" : 0,
     "groups" : [ ]
@@ -69,9 +69,9 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "role:user" ],
+    "realmRoles" : [ "user.role" ],
     "clientRoles" : {
-      "local.backend.confidential" : [ "role:user" ]
+      "local.backend.confidential" : [ "user.role" ]
     },
     "notBefore" : 0,
     "groups" : [ ]

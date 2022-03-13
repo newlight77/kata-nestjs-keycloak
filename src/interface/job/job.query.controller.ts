@@ -6,7 +6,13 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
-import { Public, Resource, RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
+import {
+  Public,
+  Resource,
+  RoleMatchingMode,
+  Roles,
+  Scopes,
+} from 'nest-keycloak-connect';
 import {
   FindJobByIdCommand,
   FindJobQuery,
@@ -32,7 +38,7 @@ export class JobQueryController {
     roles: ['realm:user.role', 'realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ANY,
   })
-  @Scopes('jobs:view')
+  @Scopes('job:view')
   async getById(
     @Param('id') id: string,
     @Res() response: Response,

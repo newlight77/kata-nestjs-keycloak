@@ -16,8 +16,8 @@ fi
 
 API_URL=http://localhost:3000
 CLIENT_ID=local.frontend.https
-USERNAME=newlight77+test1@gmail.com
-PASSWORD=backend1
+USERNAME=newlight77+user1@gmail.com
+PASSWORD=user
 TOKEN_URL=http://localhost:1080/auth/realms/local.app/protocol/openid-connect/token
 TOKEN=
 
@@ -132,9 +132,9 @@ echo $result
 echo ""
 echo ""
 
-#echo "call secureApi..."
-#result=$(secureApi ${TOKEN})
-#echo $result
+echo "call secure Api on jobs resource"
+result=$(secureApi ${TOKEN})
+echo $result
 
 if [ "$result" != "" ]; then 
   echo $result
