@@ -27,6 +27,10 @@ services:
       - REALM=local.app
       - CLIENT_ID=local.backend.confidential
       - CLIENT_SECRET=2964cce2-e875-4c22-92ae-225d544d3571
+      - COOKIE_KEY='KEYCLOAK_JWT'
+      - POLICY_ENFORCEMENT='enforcing'
+      - TOKEN_VALIDATION='online'
+      - VERIFY_TOKEN_AUDIENCE='false'
     volumes:
 #      - ./config/backend.env:/code/app/config/db.env:ro
       - .:/code/app
