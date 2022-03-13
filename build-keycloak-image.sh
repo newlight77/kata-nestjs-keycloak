@@ -1,6 +1,6 @@
 #/bin/zsh
 
-VERSION=15.1.1 # set version here
+VERSION=16.1.1 # set version here
 
 cd /tmp
 git clone git@github.com:keycloak/keycloak-containers.git
