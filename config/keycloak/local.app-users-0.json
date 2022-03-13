@@ -19,7 +19,7 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "role:admin", "default-roles-local.app" ],
+    "realmRoles" : [ "role:admin" ],
     "notBefore" : 0,
     "groups" : [ ]
   }, {
@@ -41,7 +41,7 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-local.app", "role:manager" ],
+    "realmRoles" : [ "role:manager" ],
     "notBefore" : 0,
     "groups" : [ ]
   }, {
@@ -63,8 +63,9 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "role:admin", "role:user", "role:manager", "uma_authorization", "offline_access" ],
+    "realmRoles" : [ "role:manager" ],
     "clientRoles" : {
+      "local.backend.bearer" : [ "role:manager" ],
       "account" : [ "manage-account", "view-profile" ]
     },
     "notBefore" : 0,
@@ -88,7 +89,7 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "role:user", "default-roles-local.app" ],
+    "realmRoles" : [ "role:user" ],
     "notBefore" : 0,
     "groups" : [ ]
   }, {
