@@ -1,95 +1,78 @@
 {
   "realm" : "local.app",
   "users" : [ {
-    "id" : "90e86f79-39be-4886-8c1d-7d015158e43a",
-    "createdTimestamp" : 1647124072505,
+    "id" : "67d07c78-65f4-488e-a00c-1508d3296075",
+    "createdTimestamp" : 1647191621176,
     "username" : "newlight77+admin1@gmail.com",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
-    "firstName" : "Kong",
-    "lastName" : "To",
+    "firstName" : "admin1",
+    "lastName" : "admin",
     "email" : "newlight77+admin1@gmail.com",
     "credentials" : [ {
-      "id" : "d698e7c2-ddf7-459e-9d0a-5025c16bb46b",
+      "id" : "b7edb480-83ab-4acf-8fb5-682ce3078ec9",
       "type" : "password",
-      "createdDate" : 1647124081397,
-      "secretData" : "{\"value\":\"PsLggKWV9od7ug2KU5cHT0TFW9d3zs8gnYVYWLLXhdvrqO+DFKElIjp/eESHdfvBnpxPNuo0zx2fscLQmNJ5Sg==\",\"salt\":\"im74sWnwejc4u3d93RD1pw==\",\"additionalParameters\":{}}",
+      "createdDate" : 1647191629007,
+      "secretData" : "{\"value\":\"LBfyhZS4hb9gToLnBY17cy3xHHUHeRpzKoITyiy/kuWDRnsVHw+jMLW4Xqp8RGEHjk8UAAXh7uuR0ZEEgEu0VQ==\",\"salt\":\"Cg2KF8Y9OhIJfacMkeCYMA==\",\"additionalParameters\":{}}",
       "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
     "realmRoles" : [ "role:admin" ],
+    "clientRoles" : {
+      "local.backend.confidential" : [ "role:admin" ]
+    },
     "notBefore" : 0,
     "groups" : [ ]
   }, {
-    "id" : "0d7a2a45-e74d-4bb9-8372-77a24770795f",
-    "createdTimestamp" : 1647124136469,
+    "id" : "37417ccc-7126-4cb5-ad56-62ef8bbce40f",
+    "createdTimestamp" : 1647191569482,
     "username" : "newlight77+manager1@gmail.com",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
-    "firstName" : "Kong",
-    "lastName" : "To",
+    "firstName" : "manager1",
+    "lastName" : "manager",
     "email" : "newlight77+manager1@gmail.com",
     "credentials" : [ {
-      "id" : "ef615e1c-c03c-4fbd-b761-3cc185591bc9",
+      "id" : "63d2e790-7b5f-4ad5-aba5-d0ed1a523365",
       "type" : "password",
-      "createdDate" : 1647124145118,
-      "secretData" : "{\"value\":\"qwjUcFiU/bMi7nJpqHSu72mDjgoAgk8NAh6DXG1GsVKksX+ATkH8pYhJMOBvvsyb4shT6PzFFgo9/3rl8KtkqQ==\",\"salt\":\"gGcA3OPn8CrFOkxenie7Mg==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "role:manager" ],
-    "notBefore" : 0,
-    "groups" : [ ]
-  }, {
-    "id" : "98fc2ec4-1342-48bc-aad5-8d850a4e3c55",
-    "createdTimestamp" : 1605479390940,
-    "username" : "newlight77+test1@gmail.com",
-    "enabled" : true,
-    "totp" : false,
-    "emailVerified" : true,
-    "firstName" : "Kong",
-    "lastName" : "To",
-    "email" : "newlight77+test1@gmail.com",
-    "credentials" : [ {
-      "id" : "9379c066-3cc7-4c9c-bcb3-64eab1f9d48f",
-      "type" : "password",
-      "createdDate" : 1605527390264,
-      "secretData" : "{\"value\":\"RmBf02Tix382Bj8ZyJvlcHkzAaQzoPWq4mWfHzm6r1Y9jr9X/waqhmWyYTzk2txmrF4IGBzjspH0ahRW5wf8Ng==\",\"salt\":\"mn3Tz3eIbY6YQgpzgK3A1Q==\",\"additionalParameters\":{}}",
+      "createdDate" : 1647191588567,
+      "secretData" : "{\"value\":\"NgU2eau6kRY5K69aMiS7awq1mKg21uHBIO+RdmYzUN4lEnGjZlvGnAecpCM9rwml9MjBkUJqDEPVY8PZjS0HyA==\",\"salt\":\"gQNiZNSMCyUI9I/9D49Qig==\",\"additionalParameters\":{}}",
       "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
     "realmRoles" : [ "role:manager" ],
     "clientRoles" : {
-      "local.backend.bearer" : [ "role:manager" ],
-      "account" : [ "manage-account", "view-profile" ]
+      "local.backend.confidential" : [ "role:manager" ]
     },
     "notBefore" : 0,
     "groups" : [ ]
   }, {
-    "id" : "53d128dd-4887-4146-97a7-61c5025ade1a",
-    "createdTimestamp" : 1647124208873,
+    "id" : "75554a6f-09ca-4d7c-a4ca-2de3eafa3c30",
+    "createdTimestamp" : 1647191514184,
     "username" : "newlight77+user1@gmail.com",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
-    "firstName" : "Kong",
-    "lastName" : "To",
+    "firstName" : "user1",
+    "lastName" : "user",
     "email" : "newlight77+user1@gmail.com",
     "credentials" : [ {
-      "id" : "93089e5d-0302-4e6b-80b4-c4cfe712e671",
+      "id" : "7b2875fe-fcf0-4e26-b75a-53adfda3096f",
       "type" : "password",
-      "createdDate" : 1647124224504,
-      "secretData" : "{\"value\":\"WczM+oFtgazNL1cQkseUhM4xKRvIOrQDu5AIhASLbLDz5oCPhODhsO+mOrF/n7CMXv3v/c7YBaZa7dJC2acyuA==\",\"salt\":\"LSPr0tcZFDmxZWALGr++Xw==\",\"additionalParameters\":{}}",
+      "createdDate" : 1647191522574,
+      "secretData" : "{\"value\":\"RCATIXFum7BmstbpB/AR2puoQRrvJmjeQvECmIXMY5vtltiWjpMZ/3yS8RW13W2nBl3xasWBNG75d52LJyKfrw==\",\"salt\":\"+tEEqXVIQzK0V4zsYULTrQ==\",\"additionalParameters\":{}}",
       "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
     "realmRoles" : [ "role:user" ],
+    "clientRoles" : {
+      "local.backend.confidential" : [ "role:user" ]
+    },
     "notBefore" : 0,
     "groups" : [ ]
   }, {
@@ -120,8 +103,9 @@
     "credentials" : [ ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "uma_authorization", "offline_access" ],
+    "realmRoles" : [ "default-roles-local.app" ],
     "clientRoles" : {
+      "local.backend.confidential" : [ "uma_protection" ],
       "account" : [ "manage-account", "view-profile" ]
     },
     "notBefore" : 0,
