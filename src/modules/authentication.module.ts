@@ -8,30 +8,17 @@ import {
   AuthGuard,
 } from 'nest-keycloak-connect';
 import { APP_GUARD } from '@nestjs/core';
-import { ConfigModule, ConfigType } from '@nestjs/config';
 import { JwtAuthGuard } from '../infrastructure/auth/jwt.auth';
 
-import keycloakConfig from '../environment/keycloak.config';
+import { KeycloakConfigService } from '../environment/keycloak.config';
+import { ConfigModule } from './config.module';
 
 @Module({
   imports: [
     HttpModule,
-    ConfigModule.forRoot({
-      envFilePath: 'config/keycloak.env',
-      isGlobal: true,
-    }),
     KeycloakConnectModule.registerAsync({
-      imports: [ConfigModule.forFeature(keycloakConfig)],
-      useFactory: (config: ConfigType<typeof keycloakConfig>) => {
-        return {
-          url: config.authServerUrl,
-          realm: config.realm,
-          clientId: config.clientId,
-          secret: config.secret,
-          cookieKey: 'KEYCLOAK_JWT',
-        };
-      },
-      inject: [keycloakConfig.KEY],
+      imports: [ConfigModule],
+      useExisting: KeycloakConfigService,
     }),
   ],
   providers: [
