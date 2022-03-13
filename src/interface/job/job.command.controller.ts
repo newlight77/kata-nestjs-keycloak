@@ -15,7 +15,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
-import { RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
+import {
+  Resource,
+  RoleMatchingMode,
+  Roles,
+  Scopes,
+} from 'nest-keycloak-connect';
 import {
   DeleteJobCommand,
   EditJobCommand,
@@ -27,14 +32,18 @@ import { JobModel } from './job.model';
 @ApiBearerAuth('access-token')
 @ApiTags('jobs')
 @Controller('jobs')
+@Resource('Job')
 export class JobCommandController {
   constructor(private readonly jobHandler: JobCommandHandler) {}
 
   @Post()
   @ApiOperation({ summary: 'Post a job' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @Scopes('jobs:create')
-  //@Roles({ roles: ['role:manager', 'role:admin'], mode: RoleMatchingMode.ALL })
+  @Scopes('job:create')
+  @Roles({
+    roles: ['realm:manager.role', 'realm:admin.role'],
+    mode: RoleMatchingMode.ALL,
+  })
   async create(
     @Body() job: JobModel,
     @Res() response: Response,
@@ -60,8 +69,11 @@ export class JobCommandController {
     description: 'The job record has been edited',
     type: JobModel,
   })
-  @Roles({ roles: ['role:manager', 'role:admin'] })
-  //@Scopes('jobs:edit')
+  @Roles({
+    roles: ['realm:manager.role', 'realm:admin.role'],
+    mode: RoleMatchingMode.ALL,
+  })
+  @Scopes('job:edit')
   async update(
     @Param('id') id: string,
     @Body() job: JobModel,
@@ -89,8 +101,11 @@ export class JobCommandController {
     description: 'The job record has been removed',
     type: JobModel,
   })
-  @Roles({ roles: ['role:manager', 'role:admin'] })
-  //@Scopes('jobs:delete')
+  @Roles({
+    roles: ['realm:manager.role', 'realm:admin.role'],
+    mode: RoleMatchingMode.ALL,
+  })
+  @Scopes('job:delete')
   async remove(
     @Param('id') id: string,
     @Body() job: JobModel,

@@ -48,14 +48,14 @@
   "roles" : {
     "realm" : [ {
       "id" : "5d721161-e76a-47f6-b082-9ca4ce86a28e",
-      "name" : "role:admin",
+      "name" : "admin.role",
       "composite" : false,
       "clientRole" : false,
       "containerId" : "local.app",
       "attributes" : { }
     }, {
       "id" : "d2dd1d75-9491-4912-841a-dfdc89d1ef8e",
-      "name" : "role:user",
+      "name" : "user.role",
       "composite" : false,
       "clientRole" : false,
       "containerId" : "local.app",
@@ -66,7 +66,7 @@
       "description" : "${role_default-roles}",
       "composite" : true,
       "composites" : {
-        "realm" : [ "role:user" ],
+        "realm" : [ "user.role" ],
         "client" : {
           "account" : [ "manage-account", "view-profile" ]
         }
@@ -76,7 +76,7 @@
       "attributes" : { }
     }, {
       "id" : "ae94713d-e7c1-41c4-83a3-e275c4177559",
-      "name" : "role:manager",
+      "name" : "manager.role",
       "composite" : false,
       "clientRole" : false,
       "containerId" : "local.app",
@@ -278,21 +278,21 @@
       } ],
       "local.backend.confidential" : [ {
         "id" : "eb961d6f-6a8d-45b6-814e-1c166abd373f",
-        "name" : "role:admin",
+        "name" : "admin.role",
         "composite" : false,
         "clientRole" : true,
         "containerId" : "66a38084-c7cd-4c34-a61a-2f63aa4fda5a",
         "attributes" : { }
       }, {
         "id" : "67071f9f-9fd6-4cd4-a4bf-73a03a04a700",
-        "name" : "role:manager",
+        "name" : "manager.role",
         "composite" : false,
         "clientRole" : true,
         "containerId" : "66a38084-c7cd-4c34-a61a-2f63aa4fda5a",
         "attributes" : { }
       }, {
         "id" : "56c4acb5-1b43-4b82-94d7-1981dee709f3",
-        "name" : "role:user",
+        "name" : "user.role",
         "composite" : false,
         "clientRole" : true,
         "containerId" : "66a38084-c7cd-4c34-a61a-2f63aa4fda5a",
