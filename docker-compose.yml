@@ -80,6 +80,7 @@ services:
       - "-Dkeycloak.migration.action=import"
       - "-Dkeycloak.migration.dir=/opt/jboss/keycloak/imports/"
       - "-Dkeycloak.migration.strategy=IGNORE_EXISTING"
+      - "-Dkeycloak.profile.feature.upload_scripts=enabled"
     restart: unless-stopped
 
   dbkeycloak:
