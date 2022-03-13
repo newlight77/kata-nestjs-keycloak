@@ -18,15 +18,14 @@ console.log(`CLIENT_SECRET : ${process.env.CLIENT_SECRET}`);
 export default registerAs('keycloak', () => ({
   authServerUrl: process.env.AUTH_SERVER_URL,
   realm: process.env.REALM,
-  bearerOnly: true,
   clientId: process.env.CLIENT_ID,
   secret: process.env.CLIENT_SECRET,
   cookieKey: 'KEYCLOAK_JWT',
   logLevels: ['verbose'],
   useNestLogger: false,
-  policyEnforcement: PolicyEnforcementMode.PERMISSIVE,
+  policyEnforcement: PolicyEnforcementMode.ENFORCING,
   tokenValidation: TokenValidation.ONLINE,
-  verifyTokenAudience: false,
+  verifyTokenAudience: true,
 }));
 
 @Injectable()
@@ -35,15 +34,14 @@ export class KeycloakConfigService implements KeycloakConnectOptionsFactory {
     return {
       authServerUrl: process.env.AUTH_SERVER_URL,
       realm: process.env.REALM,
-      bearerOnly: true,
       clientId: process.env.CLIENT_ID,
       secret: process.env.CLIENT_SECRET,
       cookieKey: 'KEYCLOAK_JWT',
       logLevels: ['verbose'],
       useNestLogger: false,
-      policyEnforcement: PolicyEnforcementMode.PERMISSIVE,
+      policyEnforcement: PolicyEnforcementMode.ENFORCING,
       tokenValidation: TokenValidation.ONLINE,
-      verifyTokenAudience: false,
+      verifyTokenAudience: true,
     };
   }
 }

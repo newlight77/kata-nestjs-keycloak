@@ -852,20 +852,20 @@
         "_id" : "730bcd7d-d31d-4115-9721-d5e2a156beeb",
         "uris" : [ "/*" ]
       }, {
-        "name" : "Job",
+        "name" : "res:job",
         "ownerManagedAccess" : false,
-        "displayName" : "Job",
+        "displayName" : "res:job",
         "attributes" : { },
         "_id" : "7f29df2c-bd9a-4428-a014-5daf902889eb",
         "uris" : [ ],
         "scopes" : [ {
-          "name" : "job:view"
+          "name" : "scopes:view"
         }, {
-          "name" : "job:edit"
+          "name" : "scopes:edit"
         }, {
-          "name" : "job:create"
+          "name" : "scopes:delete"
         }, {
-          "name" : "job:delete"
+          "name" : "scopes:create"
         } ]
       } ],
       "policies" : [ {
@@ -879,34 +879,54 @@
           "code" : "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
         }
       }, {
-        "id" : "63dfef1e-0213-4ccf-8a83-7b50225a0ca7",
-        "name" : "Admin Policy",
-        "description" : "Admin Policy",
-        "type" : "user",
+        "id" : "7b8f79b6-fd01-4f0a-ae36-85efc75bda2f",
+        "name" : "pol:admin.role",
+        "description" : "pol:admin.role",
+        "type" : "role",
         "logic" : "POSITIVE",
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
-          "users" : "[\"newlight77+admin1@gmail.com\"]"
+          "roles" : "[{\"id\":\"admin.role\",\"required\":false}]"
         }
       }, {
-        "id" : "1b68451e-f518-4cae-8158-8737a36a82fc",
-        "name" : "User policy",
-        "description" : "User policy",
-        "type" : "user",
+        "id" : "b1f49e24-87e1-4fef-bffc-465520cee565",
+        "name" : "pol:admin.role or manager.role or user.role",
+        "description" : "pol:admin.role or manager.role or user.role",
+        "type" : "aggregate",
         "logic" : "POSITIVE",
-        "decisionStrategy" : "UNANIMOUS",
+        "decisionStrategy" : "AFFIRMATIVE",
         "config" : {
-          "users" : "[\"newlight77+user1@gmail.com\"]"
+          "applyPolicies" : "[\"pol:user.role\",\"pol:manager.role\",\"pol:admin.role\"]"
         }
       }, {
-        "id" : "67a66470-f5bf-4502-abc1-3de156476dea",
-        "name" : "Manager Policy",
-        "description" : "Manager Policy",
-        "type" : "user",
+        "id" : "890c1e76-7395-41ad-a4f0-961b3dd5fd17",
+        "name" : "pol:user.role",
+        "description" : "pol:user.role",
+        "type" : "role",
         "logic" : "POSITIVE",
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
-          "users" : "[\"newlight77+manager1@gmail.com\"]"
+          "roles" : "[{\"id\":\"user.role\",\"required\":false}]"
+        }
+      }, {
+        "id" : "23ca2b3c-0448-45f3-aa61-7547bd844830",
+        "name" : "pol:manager.role",
+        "description" : "pol:manager.role",
+        "type" : "role",
+        "logic" : "POSITIVE",
+        "decisionStrategy" : "UNANIMOUS",
+        "config" : {
+          "roles" : "[{\"id\":\"manager.role\",\"required\":false}]"
+        }
+      }, {
+        "id" : "4da17990-5a91-4d96-bd03-16ad77e6692c",
+        "name" : "pol:admin.role or manager.role",
+        "description" : "pol:admin.role or manager.role",
+        "type" : "aggregate",
+        "logic" : "POSITIVE",
+        "decisionStrategy" : "AFFIRMATIVE",
+        "config" : {
+          "applyPolicies" : "[\"pol:manager.role\",\"pol:admin.role\"]"
         }
       }, {
         "id" : "fab094ba-f01e-422e-8a79-65d3d7f38265",
@@ -920,81 +940,70 @@
           "applyPolicies" : "[\"Default Policy\"]"
         }
       }, {
-        "id" : "1f03cf66-5f4c-43e8-b92f-fe4cb823d55a",
-        "name" : "All Permissions",
-        "description" : "All Permissions",
+        "id" : "93384f5e-d9e3-402e-9979-5c3c7e098fe3",
+        "name" : "perm:job-view",
+        "description" : "perm:job-view",
         "type" : "scope",
         "logic" : "POSITIVE",
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
-          "scopes" : "[\"job:create\",\"job:edit\",\"job:view\",\"job:delete\"]",
-          "applyPolicies" : "[\"Admin Policy\"]"
+          "resources" : "[\"res:job\"]",
+          "scopes" : "[\"scopes:view\"]",
+          "applyPolicies" : "[\"pol:admin.role or manager.role or user.role\"]"
         }
       }, {
-        "id" : "eb69a91b-63b3-4650-882d-75949039022d",
-        "name" : "Create Job Scope Permission",
-        "description" : "Create Job Scope Permission",
+        "id" : "2856dc8a-d005-45b3-a990-b1480ff40370",
+        "name" : "perm:job-create",
+        "description" : "perm:job-create",
         "type" : "scope",
         "logic" : "POSITIVE",
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
-          "resources" : "[\"Job\"]",
-          "scopes" : "[\"job:create\"]",
-          "applyPolicies" : "[\"Manager Policy\"]"
+          "resources" : "[\"res:job\"]",
+          "scopes" : "[\"scopes:create\"]",
+          "applyPolicies" : "[\"pol:admin.role or manager.role\"]"
         }
       }, {
-        "id" : "9f206823-4c3f-42f7-9ec8-eef9c9391879",
-        "name" : "Edit Job Scope Permission",
-        "description" : "Edit Job Scope Permission",
+        "id" : "ae8b8645-bdd2-4b22-bedd-e9df254c4931",
+        "name" : "perm:job-edit",
+        "description" : "perm:job-edit",
         "type" : "scope",
         "logic" : "POSITIVE",
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
-          "resources" : "[\"Job\"]",
-          "scopes" : "[\"job:edit\"]",
-          "applyPolicies" : "[\"Manager Policy\"]"
+          "resources" : "[\"res:job\"]",
+          "scopes" : "[\"scopes:edit\"]",
+          "applyPolicies" : "[\"pol:admin.role or manager.role\"]"
         }
       }, {
-        "id" : "34f2ef9f-8b13-40f4-a47e-4a67bf5eb770",
-        "name" : "Delete Job Scope Permission",
-        "description" : "Delete Job Scope Permission",
+        "id" : "e9e6ec42-edfe-4f32-a469-c5730e2cfc08",
+        "name" : "perm:job-delete",
+        "description" : "perm:job-delete",
         "type" : "scope",
         "logic" : "POSITIVE",
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
-          "resources" : "[\"Job\"]",
-          "scopes" : "[\"job:delete\"]",
-          "applyPolicies" : "[\"Manager Policy\"]"
-        }
-      }, {
-        "id" : "78522401-a3b5-4380-a029-5653231a39ee",
-        "name" : "View Jobs Scope Permission",
-        "description" : "View Jobs Scope Permission",
-        "type" : "scope",
-        "logic" : "POSITIVE",
-        "decisionStrategy" : "UNANIMOUS",
-        "config" : {
-          "resources" : "[\"Job\"]",
-          "scopes" : "[\"job:view\"]",
-          "applyPolicies" : "[\"User policy\"]"
+          "resources" : "[\"res:job\"]",
+          "scopes" : "[\"scopes:delete\"]",
+          "applyPolicies" : "[\"pol:admin.role or manager.role\"]"
         }
       } ],
       "scopes" : [ {
         "id" : "0cdd75eb-cbc5-4af8-8db4-96b8ac1cede0",
-        "name" : "job:create",
-        "displayName" : "job:create"
-      }, {
-        "id" : "46a96a4b-3012-46b6-a6ff-70c83c8bc648",
-        "name" : "job:edit",
-        "displayName" : "job:edit"
+        "name" : "scopes:create",
+        "displayName" : "scopes:create"
       }, {
         "id" : "d671acec-1903-4222-a762-59691df4e6f0",
-        "name" : "job:delete",
-        "displayName" : "job:delete"
+        "name" : "scopes:delete",
+        "displayName" : "scopes:delete"
       }, {
         "id" : "d7ae75e8-4f18-4a7c-9c82-7fbbf71abbd4",
-        "name" : "job:view",
-        "displayName" : "job:view"
+        "name" : "scopes:view",
+        "displayName" : "scopes:view"
+      }, {
+        "id" : "46a96a4b-3012-46b6-a6ff-70c83c8bc648",
+        "name" : "scopes:edit",
+        "displayName" : "scopes:edit"
       } ],
       "decisionStrategy" : "AFFIRMATIVE"
     }

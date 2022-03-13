@@ -32,14 +32,14 @@ import { JobModel } from './job.model';
 @ApiBearerAuth('access-token')
 @ApiTags('jobs')
 @Controller('jobs')
-@Resource('Job')
+@Resource('res:job')
 export class JobCommandController {
   constructor(private readonly jobHandler: JobCommandHandler) {}
 
   @Post()
   @ApiOperation({ summary: 'Post a job' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @Scopes('job:create')
+  @Scopes('scopes:create')
   @Roles({
     roles: ['realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ALL,
@@ -73,7 +73,7 @@ export class JobCommandController {
     roles: ['realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ALL,
   })
-  @Scopes('job:edit')
+  @Scopes('scopes:edit')
   async update(
     @Param('id') id: string,
     @Body() job: JobModel,
@@ -105,7 +105,7 @@ export class JobCommandController {
     roles: ['realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ALL,
   })
-  @Scopes('job:delete')
+  @Scopes('scopes:delete')
   async remove(
     @Param('id') id: string,
     @Body() job: JobModel,

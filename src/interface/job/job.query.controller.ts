@@ -23,7 +23,7 @@ import { fromDomain, JobModel } from './job.model';
 @ApiBearerAuth('access-token')
 @ApiTags('jobs')
 @Controller('jobs')
-@Resource('Job')
+@Resource('res:job')
 export class JobQueryController {
   constructor(private readonly handler: JobQueryHandler) {}
 
@@ -38,7 +38,7 @@ export class JobQueryController {
     roles: ['realm:user.role', 'realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ANY,
   })
-  @Scopes('job:view')
+  @Scopes('scopes:view')
   async getById(
     @Param('id') id: string,
     @Res() response: Response,
@@ -59,7 +59,7 @@ export class JobQueryController {
     roles: ['realm:user.role', 'realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ANY,
   })
-  @Scopes('job:view')
+  @Scopes('scopes:view')
   @Public(false)
   async queryAll(): Promise<JobModel[] | void> {
     const jobs = await this.handler.queryAll();
@@ -77,7 +77,7 @@ export class JobQueryController {
     roles: ['realm:user.role', 'realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ANY,
   })
-  @Scopes('job:view')
+  @Scopes('scopes:view')
   async queryJobs(
     @Param('keywords') keywords: string,
     @Param('minSalary') minSalary: number,
