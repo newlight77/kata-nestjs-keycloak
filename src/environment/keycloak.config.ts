@@ -20,12 +20,17 @@ export default registerAs('keycloak', () => ({
   realm: process.env.REALM,
   clientId: process.env.CLIENT_ID,
   secret: process.env.CLIENT_SECRET,
-  cookieKey: 'KEYCLOAK_JWT',
+  cookieKey: process.env.COOKIE_KEY,
   logLevels: ['verbose'],
-  useNestLogger: false,
-  policyEnforcement: PolicyEnforcementMode.ENFORCING,
-  tokenValidation: TokenValidation.ONLINE,
-  verifyTokenAudience: true,
+  policyEnforcement:
+    process.env.POLICY_ENFORCEMENT === 'enforcement'
+      ? PolicyEnforcementMode.ENFORCING
+      : PolicyEnforcementMode.PERMISSIVE,
+  tokenValidation:
+    process.env.TOKEN_VALIDATION === 'online'
+      ? TokenValidation.ONLINE
+      : TokenValidation.OFFLINE,
+  verifyTokenAudience: process.env.VERIFY_TOKEN_AUDIENCE === 'true',
 }));
 
 @Injectable()
@@ -36,12 +41,17 @@ export class KeycloakConfigService implements KeycloakConnectOptionsFactory {
       realm: process.env.REALM,
       clientId: process.env.CLIENT_ID,
       secret: process.env.CLIENT_SECRET,
-      cookieKey: 'KEYCLOAK_JWT',
+      cookieKey: process.env.COOKIE_KEY,
       logLevels: ['verbose'],
-      useNestLogger: false,
-      policyEnforcement: PolicyEnforcementMode.ENFORCING,
-      tokenValidation: TokenValidation.ONLINE,
-      verifyTokenAudience: true,
+      policyEnforcement:
+        process.env.POLICY_ENFORCEMENT === 'enforcing'
+          ? PolicyEnforcementMode.ENFORCING
+          : PolicyEnforcementMode.PERMISSIVE,
+      tokenValidation:
+        process.env.TOKEN_VALIDATION === 'online'
+          ? TokenValidation.ONLINE
+          : TokenValidation.OFFLINE,
+      verifyTokenAudience: process.env.VERIFY_TOKEN_AUDIENCE === 'true',
     };
   }
 }
