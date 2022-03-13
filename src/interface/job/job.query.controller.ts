@@ -6,7 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
-import { Roles, Scopes } from 'nest-keycloak-connect';
+import { RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
 import {
   FindJobByIdCommand,
   FindJobQuery,
@@ -27,7 +27,10 @@ export class JobQueryController {
     description: 'The job record is found',
     type: JobModel,
   })
-  @Roles({ roles: ['role:user', 'role:manager', 'role:admin'] })
+  @Roles({
+    roles: ['role:user', 'role:manager', 'role:admin'],
+    mode: RoleMatchingMode.ANY,
+  })
   //@Scopes('jobs:view')
   async getById(
     @Param('id') id: string,
@@ -45,7 +48,10 @@ export class JobQueryController {
     description: 'The job records are found',
     type: JobModel,
   })
-  @Roles({ roles: ['role:user', 'role:manager', 'role:admin'] })
+  @Roles({
+    roles: ['role:user', 'role:manager', 'role:admin'],
+    mode: RoleMatchingMode.ANY,
+  })
   //@Scopes('jobs:view')
   async findAll(): Promise<JobModel[] | void> {
     const jobs = await this.handler.queryAll();
@@ -59,7 +65,10 @@ export class JobQueryController {
     description: 'The job records are found',
     type: JobModel,
   })
-  @Roles({ roles: ['role:user', 'role:manager', 'role:admin'] })
+  @Roles({
+    roles: ['role:user', 'role:manager', 'role:admin'],
+    mode: RoleMatchingMode.ANY,
+  })
   //@Scopes('jobs:view')
   async queryJobs(
     @Param('keywords') keywords: string,

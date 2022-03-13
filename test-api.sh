@@ -80,6 +80,12 @@ getToken() {
     --data-urlencode "grant_type=password" | jq -r .access_token
 }
 
+helloUser() {
+  token=$1
+  curl --location --request GET "${API_URL}/hello" \
+    -H "Authorization: Bearer ${token}"
+}
+
 secureApi() {
   token=$1
   curl --location --request GET "${API_URL}/jobs" \
@@ -118,11 +124,17 @@ echo "call getToken..."
 TOKEN=$(getToken)
 echo $TOKEN
 echo ""
+echo ""
 
-echo "call secureApi..."
-result=$(secureApi ${TOKEN})
-
+echo "call helloUser..."
+result=$(helloUser ${TOKEN})
 echo $result
+echo ""
+echo ""
+
+#echo "call secureApi..."
+#result=$(secureApi ${TOKEN})
+#echo $result
 
 if [ "$result" != "" ]; then 
   echo $result
