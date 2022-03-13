@@ -38,7 +38,7 @@ export class JobQueryController {
     roles: ['realm:user.role', 'realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ANY,
   })
-  @Scopes('scopes:view')
+  // @Scopes('scopes:view')
   async getById(
     @Param('id') id: string,
     @Res() response: Response,
@@ -59,8 +59,7 @@ export class JobQueryController {
     roles: ['realm:user.role', 'realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ANY,
   })
-  @Scopes('scopes:view')
-  @Public(false)
+  // @Scopes('scopes:view')
   async queryAll(): Promise<JobModel[] | void> {
     const jobs = await this.handler.queryAll();
     if (jobs) return jobs.map((it) => fromDomain(it));
@@ -77,7 +76,7 @@ export class JobQueryController {
     roles: ['realm:user.role', 'realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ANY,
   })
-  @Scopes('scopes:view')
+  // @Scopes('scopes:view')
   async queryJobs(
     @Param('keywords') keywords: string,
     @Param('minSalary') minSalary: number,

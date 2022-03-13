@@ -39,7 +39,7 @@ export class JobCommandController {
   @Post()
   @ApiOperation({ summary: 'Post a job' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @Scopes('scopes:create')
+  // @Scopes('scopes:create')
   @Roles({
     roles: ['realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ALL,
@@ -73,7 +73,7 @@ export class JobCommandController {
     roles: ['realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ALL,
   })
-  @Scopes('scopes:edit')
+  // @Scopes('scopes:edit')
   async update(
     @Param('id') id: string,
     @Body() job: JobModel,
@@ -105,7 +105,7 @@ export class JobCommandController {
     roles: ['realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ALL,
   })
-  @Scopes('scopes:delete')
+  // @Scopes('scopes:delete')
   async remove(
     @Param('id') id: string,
     @Body() job: JobModel,
