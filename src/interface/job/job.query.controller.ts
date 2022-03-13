@@ -6,7 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
-import { RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
+import { Public, Resource, RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
 import {
   FindJobByIdCommand,
   FindJobQuery,
@@ -17,6 +17,7 @@ import { fromDomain, JobModel } from './job.model';
 @ApiBearerAuth('access-token')
 @ApiTags('jobs')
 @Controller('jobs')
+@Resource('Job')
 export class JobQueryController {
   constructor(private readonly handler: JobQueryHandler) {}
 
@@ -28,10 +29,10 @@ export class JobQueryController {
     type: JobModel,
   })
   @Roles({
-    roles: ['role:user', 'role:manager', 'role:admin'],
+    roles: ['realm:user.role', 'realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ANY,
   })
-  //@Scopes('jobs:view')
+  @Scopes('jobs:view')
   async getById(
     @Param('id') id: string,
     @Res() response: Response,
@@ -49,11 +50,12 @@ export class JobQueryController {
     type: JobModel,
   })
   @Roles({
-    roles: ['role:user', 'role:manager', 'role:admin'],
+    roles: ['realm:user.role', 'realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ANY,
   })
-  //@Scopes('jobs:view')
-  async findAll(): Promise<JobModel[] | void> {
+  @Scopes('job:view')
+  @Public(false)
+  async queryAll(): Promise<JobModel[] | void> {
     const jobs = await this.handler.queryAll();
     if (jobs) return jobs.map((it) => fromDomain(it));
   }
@@ -66,10 +68,10 @@ export class JobQueryController {
     type: JobModel,
   })
   @Roles({
-    roles: ['role:user', 'role:manager', 'role:admin'],
+    roles: ['realm:user.role', 'realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ANY,
   })
-  //@Scopes('jobs:view')
+  @Scopes('job:view')
   async queryJobs(
     @Param('keywords') keywords: string,
     @Param('minSalary') minSalary: number,
