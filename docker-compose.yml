@@ -25,8 +25,8 @@ services:
       - DB_PASSWORD=Pa55w0rd
       - AUTH_SERVER_URL=http://keycloak:8080/auth
       - REALM=local.app
-      - CLIENT_ID=local.backend.confidential
-      - CLIENT_SECRET=2964cce2-e875-4c22-92ae-225d544d3571
+      - CLIENT_ID=local.backend.bearer
+      - CLIENT_SECRET=3ce3d1c5-ab8f-412d-9880-217cfa2f2e7a
     volumes:
 #      - ./config/backend.env:/code/app/config/db.env:ro
       - .:/code/app
@@ -53,7 +53,7 @@ services:
     restart: always
 
   keycloak:
-    image: quay.io/keycloak/keycloak:15.1.1
+    image: quay.io/keycloak/keycloak:16.1.1
     container_name: keycloak
     hostname: keycloak
     networks:
