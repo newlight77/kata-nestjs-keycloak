@@ -18,7 +18,9 @@ export class JobCommandService {
   }
 
   async update(id: string, job: JobDomain): Promise<JobUpdatedEvent> {
-    const updatedJob = await this.adapter.update(id, job);
+    const currentJob = await this.adapter.find(id);
+    const mergedJob = { ...currentJob, ...omitNullish(job) };
+    const updatedJob = await this.adapter.update(id, mergedJob);
     const result = { job: updatedJob, message: 'updated' };
     return result;
   }
@@ -29,3 +31,8 @@ export class JobCommandService {
     return result;
   }
 }
+
+const omitNullish = (object) =>
+  Object.fromEntries(
+    Object.entries(object).filter(([, value]) => value != undefined),
+  );
