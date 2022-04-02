@@ -83,3 +83,16 @@ Then('The job is modified as followed', function (dataTable) {
   expect(modifiedJob.salary).to.eql(this.expectedJob.salary);
   expect(modifiedJob.description).to.eql(this.expectedJob.description);
 });
+
+When(
+  'The user delete the job identified by id as below',
+  async function (dataTable) {
+    const id = dataTable.rowsHash().id;
+    this.result = await this.jobCommandService.delete(id);
+  },
+);
+
+Then('The job identified by id as below is deleted', function (dataTable) {
+  const id = dataTable.rowsHash().id;
+  expect(jobsInMemory[id]).to.eql(null);
+});
