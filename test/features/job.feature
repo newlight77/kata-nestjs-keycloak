@@ -17,7 +17,7 @@ Feature: Job Posting
       | company     | wemanity       |
       | description | "Java, Spring, Hibernate" |
     And a message <message> is shown
-      | message  | success |
+      | message  | created |
 
 
   @wip
@@ -42,7 +42,7 @@ Feature: Job Posting
       | company     | wemanity       |
       | description | "Java/kotlin, Spring, Hibernate" |
     And a message <message> is shown
-      | message  | success |
+      | message  | updated |
 
   @wip
   @JobPosting

@@ -46,6 +46,31 @@ describe('should create job Offer', () => {
     jobs.length = 0;
   });
 
+  it('Should find a job offer successfully', async () => {
+    // GIVEN
+    const id = '1';
+    jobs[id] = createJob('1', 50000);
+
+    // WHEN
+    const result = await jobService.findById(id);
+
+    // THEN
+    expect(result).toBe(jobs[id]);
+  });
+
+  it('Should find all job offers successfully', async () => {
+    // GIVEN
+    jobs['0'] = createJob('0', 50000);
+    jobs['1'] = createJob('1', 50000);
+    jobs['2'] = createJob('2', 50000);
+
+    // WHEN
+    const result = await jobService.findAll();
+
+    // THEN
+    expect(result.length).toBe(3);
+    expect(result).toBe(jobs);
+  });
   it('Should find job offers by keyword match', async () => {
     // GIVEN
     jobs['0'] = createJob('0', 50000);

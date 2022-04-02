@@ -7,15 +7,15 @@ import { FindJobByIdCommand, FindJobQuery } from './job.find.query';
 export class JobQueryHandler {
   constructor(private queryService: JobQueryService) {}
 
-  async queryJobs(query: FindJobQuery): Promise<JobDomain[]> {
-    return this.queryService.findByQuery(query);
+  async findById(query: FindJobByIdCommand): Promise<JobDomain> {
+    return this.queryService.findById(query.id);
   }
 
-  async queryAll(): Promise<JobDomain[]> {
+  async findAll(): Promise<JobDomain[]> {
     return this.queryService.findAll();
   }
 
-  async queryJobById(query: FindJobByIdCommand): Promise<JobDomain> {
-    return this.queryService.findById(query.id);
+  async queryJobs(query: FindJobQuery): Promise<JobDomain[]> {
+    return this.queryService.findByQuery(query);
   }
 }

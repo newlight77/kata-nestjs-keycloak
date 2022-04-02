@@ -44,7 +44,7 @@ export class JobQueryController {
     @Res() response: Response,
   ): Promise<JobModel | void> {
     const query = new FindJobByIdCommand({ id });
-    const jobs = await this.handler.queryJobById(query);
+    const jobs = await this.handler.findById(query);
     response.status(HttpStatus.FOUND).send(jobs);
   }
 
@@ -61,7 +61,7 @@ export class JobQueryController {
   })
   // @Scopes('scopes:view')
   async queryAll(): Promise<JobModel[] | void> {
-    const jobs = await this.handler.queryAll();
+    const jobs = await this.handler.findAll();
     if (jobs) return jobs.map((it) => fromDomain(it));
   }
 

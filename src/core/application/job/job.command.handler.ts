@@ -1,6 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { JobDomain, toDomain } from 'src/core/domain/job/job.domain';
-import { JobCrudService } from 'src/core/domain/job/job.crud.service';
+import {
+  JobCreatedEvent,
+  JobUpdatedEvent,
+  JobDeletedEvent,
+  toDomain,
+} from 'src/core/domain/job/job.domain';
+import { JobCommandService } from 'src/core/domain/job/job.command.service';
 import {
   DeleteJobCommand,
   EditJobCommand,
@@ -9,17 +14,17 @@ import {
 
 @Injectable()
 export class JobCommandHandler {
-  constructor(private service: JobCrudService) {}
+  constructor(private service: JobCommandService) {}
 
-  async postJob(command: PostJobCommand): Promise<void | JobDomain> {
+  async postJob(command: PostJobCommand): Promise<void | JobCreatedEvent> {
     return this.service.create(toDomain(command));
   }
 
-  async editJob(command: EditJobCommand): Promise<void | JobDomain> {
+  async editJob(command: EditJobCommand): Promise<void | JobUpdatedEvent> {
     return this.service.update(command.id, toDomain(command));
   }
 
-  async removeJob(command: DeleteJobCommand): Promise<void | JobDomain> {
+  async removeJob(command: DeleteJobCommand): Promise<void | JobDeletedEvent> {
     return this.service.delete(command.id);
   }
 }
