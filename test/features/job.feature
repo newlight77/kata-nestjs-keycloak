@@ -21,6 +21,7 @@ Feature: Job Posting
       | message  | created |
 
 
+  @ignore
   @JobPosting
   Scenario: A client wants to update a posted job
     Given an existing job with details as followed
@@ -45,7 +46,6 @@ Feature: Job Posting
     And a message <message> is shown
       | message  | updated |
 
-  @ignore
   @JobPosting
   Scenario: The user wants to delete a job
     Given an existing job with details as followed
@@ -55,9 +55,9 @@ Feature: Job Posting
       | salary      | 5000 euros     |
       | company     | wemanity       |
       | description | "Java, Spring, Hibernate" |
-    When The user delete the job with n°<id>
+    When The user delete the job identified by id as below
       | id          | 6ba7b810-9dad-11d1-80b4-00c04fd430c8 |
-    Then The job with n°<id> is deleted
+    Then The job identified by id as below is deleted
       | id          | 6ba7b810-9dad-11d1-80b4-00c04fd430c8 |
     And a message <message> is shown
       | message  | deleted |
