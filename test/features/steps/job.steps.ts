@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import { JobDomain } from '../../../src/core/domain/job/job.domain';
 import { JobCommandService } from '../../../src/core/domain/job/job.command.service';
 import { JobPort } from '../../../src/core/domain/job/job.port';
+import { JobQueryService } from '../../../src/core/domain/job/job.query.service';
 
 class JobAdapterMock implements JobPort {
   constructor(private jobs: JobDomain[]) {}
@@ -36,6 +37,7 @@ Before(function () {
   jobsInMemory.length = 0;
   const adapter: any = new JobAdapterMock(jobsInMemory);
   this.jobCommandService = new JobCommandService(adapter);
+  this.jobQueryService = new JobQueryService(adapter);
 });
 
 Given('a user job with details as shown in the table', function (dataTable) {
@@ -95,4 +97,21 @@ When(
 Then('The job identified by id as below is deleted', function (dataTable) {
   const id = dataTable.rowsHash().id;
   expect(jobsInMemory[id]).to.eql(null);
+});
+
+When(
+  'The user opens the job identified by id as below for details',
+  async function (dataTable) {
+    const id = dataTable.rowsHash().id;
+    this.result = await this.jobQueryService.findById(id);
+  },
+);
+
+Then('The job detail is displayed as followed', function (dataTable) {
+  this.expectedJob = new JobDomain(dataTable.rowsHash());
+  const shownJob = this.result;
+  expect(shownJob.title).to.eql(this.expectedJob.title);
+  expect(shownJob.address).to.eql(this.expectedJob.address);
+  expect(shownJob.salary).to.eql(this.expectedJob.salary);
+  expect(shownJob.description).to.eql(this.expectedJob.description);
 });
