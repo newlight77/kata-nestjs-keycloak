@@ -54,7 +54,7 @@ describe('should create job Offer', () => {
     const result = await jobCrudService.create(job1);
 
     // THEN
-    expect(result.job).toBe(job1);
+    expect(result.job).toEqual(job1);
     expect(result.message).toBe('created');
     expect(jobs[id]).toEqual(job1);
   });
@@ -69,7 +69,7 @@ describe('should create job Offer', () => {
     const result = await jobCrudService.update(id, job1);
 
     // THEN
-    expect(result.job).toBe(job1);
+    expect(result.job).toEqual(job1);
     expect(result.message).toBe('updated');
     expect(jobs[id]).toEqual(job1);
   });
@@ -84,7 +84,7 @@ describe('should create job Offer', () => {
     const result = await jobCrudService.delete(id);
 
     // THEN
-    expect(result.job).toBe(job1);
+    expect(result.job).toEqual(job1);
     expect(result.message).toBe('deleted');
     expect(jobs[id]).toEqual(null);
   });
