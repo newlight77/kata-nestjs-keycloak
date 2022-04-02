@@ -8,9 +8,6 @@ const createJob = (id: string, salary: number) => {
     title: 'title' + id,
     address: 'address' + id,
     salary,
-    currency: 'EUR',
-    contract_type: 'contract' + id,
-    author: 'author' + id,
     description: 'description' + id,
   });
 };

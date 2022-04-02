@@ -52,9 +52,6 @@ export class JobCommandController {
       title: job.title,
       address: job.address,
       salary: job.salary,
-      currency: job.currency,
-      contract_type: job.contract_type,
-      author: job.author,
       description: job.description,
     });
 
@@ -84,9 +81,6 @@ export class JobCommandController {
       title: job.title,
       address: job.address,
       salary: job.salary,
-      currency: job.currency,
-      contract_type: job.contract_type,
-      author: job.author,
       description: job.description,
       created_at: job.created_at,
     });
