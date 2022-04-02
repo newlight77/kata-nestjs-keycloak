@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { JobCrudController } from '../interface/job/job.crud.controller';
-import { JobCrudService } from '../core/domain/job/job.crud.service';
+import { JobCommandService } from '../core/domain/job/job.command.service';
 import { JobQueryService } from 'src/core/domain/job/job.query.service';
 import { JobPort } from '../core/domain/job/job.port';
 import { JobRepositoryAdapter } from '../infrastructure/job/job.repository.adapter';
@@ -14,10 +13,10 @@ import { JobCommandController } from 'src/interface/job/job.command.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([JobEntity])],
-  controllers: [JobCrudController, JobCommandController, JobQueryController],
+  controllers: [JobCommandController, JobQueryController],
   providers: [
     //
-    JobCrudService,
+    JobCommandService,
     JobQueryService,
     JobCommandHandler,
     JobQueryHandler,

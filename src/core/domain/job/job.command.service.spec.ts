@@ -1,4 +1,4 @@
-import { JobCrudService } from './job.crud.service';
+import { JobCommandService } from './job.command.service';
 import { JobDomain } from './job.domain';
 import { JobPort } from './job.port';
 
@@ -39,7 +39,7 @@ class JobRepositoryMock implements JobPort {
 describe('should create job Offer', () => {
   const jobs = [];
   const adapter = new JobRepositoryMock(jobs);
-  const jobCrudService = new JobCrudService(adapter);
+  const jobCrudService = new JobCommandService(adapter);
 
   beforeEach(async () => {
     jobs.length = 0;
@@ -54,7 +54,8 @@ describe('should create job Offer', () => {
     const result = await jobCrudService.create(job1);
 
     // THEN
-    expect(result).toBe(job1);
+    expect(result.job).toBe(job1);
+    expect(result.message).toBe('created');
     expect(jobs[id]).toEqual(job1);
   });
 
@@ -68,7 +69,8 @@ describe('should create job Offer', () => {
     const result = await jobCrudService.update(id, job1);
 
     // THEN
-    expect(result).toBe(job1);
+    expect(result.job).toBe(job1);
+    expect(result.message).toBe('updated');
     expect(jobs[id]).toEqual(job1);
   });
 
@@ -82,33 +84,8 @@ describe('should create job Offer', () => {
     const result = await jobCrudService.delete(id);
 
     // THEN
-    expect(result).toBe(job1);
+    expect(result.job).toBe(job1);
+    expect(result.message).toBe('deleted');
     expect(jobs[id]).toEqual(null);
-  });
-
-  it('Should find a job offer successfully', async () => {
-    // GIVEN
-    const id = '1';
-    jobs[id] = createJob('1', 50000);
-
-    // WHEN
-    const result = await jobCrudService.find(id);
-
-    // THEN
-    expect(result).toBe(jobs[id]);
-  });
-
-  it('Should find all job offers successfully', async () => {
-    // GIVEN
-    jobs['0'] = createJob('0', 50000);
-    jobs['1'] = createJob('1', 50000);
-    jobs['2'] = createJob('2', 50000);
-
-    // WHEN
-    const result = await jobCrudService.findAll();
-
-    // THEN
-    expect(result.length).toBe(3);
-    expect(result).toBe(jobs);
   });
 });
