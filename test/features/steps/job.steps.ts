@@ -22,6 +22,7 @@ class JobAdapterMock implements JobPort {
     return job;
   }
   async find(id: string): Promise<JobDomain> {
+    console.log('find', id, this.jobs[id]);
     return this.jobs[id];
   }
   async findAll(): Promise<JobDomain[]> {
@@ -38,9 +39,7 @@ Before(function () {
 });
 
 Given('a user job with details as shown in the table', function (dataTable) {
-  console.log(dataTable.rows());
   this.job = new JobDomain(dataTable.rowsHash());
-  console.log(this.job);
 });
 
 When('the user posts the job', async function () {
@@ -60,4 +59,27 @@ Then('a message <message> is shown', function (dataTable) {
   const expectedMessage = dataTable.rowsHash()['message'];
   const message = this.result['message'];
   expect(message).to.eql(expectedMessage);
+});
+
+Given('an existing job with details as followed', function (dataTable) {
+  this.job = new JobDomain(dataTable.rowsHash());
+  jobsInMemory[this.job.id] = this.job;
+});
+
+When(
+  'The user updates a few attributes of the job identified by id as shown',
+  async function (dataTable) {
+    this.job = new JobDomain(dataTable.rowsHash());
+    this.result = await this.jobCommandService.update(this.job.id, this.job);
+  },
+);
+
+Then('The job is modified as followed', function (dataTable) {
+  this.expectedJob = new JobDomain(dataTable.rowsHash());
+  const modifiedJob = this.result['job'];
+  console.log(modifiedJob);
+  expect(modifiedJob.title).to.eql(this.expectedJob.title);
+  expect(modifiedJob.address).to.eql(this.expectedJob.address);
+  expect(modifiedJob.salary).to.eql(this.expectedJob.salary);
+  expect(modifiedJob.description).to.eql(this.expectedJob.description);
 });

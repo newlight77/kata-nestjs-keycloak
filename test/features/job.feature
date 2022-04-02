@@ -1,5 +1,6 @@
 Feature: Job Posting
 
+  @ignore
   @JobPosting
   Scenario: A user wants to post a job
     Given a user job with details as shown in the table
@@ -20,7 +21,6 @@ Feature: Job Posting
       | message  | created |
 
 
-  @wip
   @JobPosting
   Scenario: A client wants to update a posted job
     Given an existing job with details as followed
@@ -30,21 +30,22 @@ Feature: Job Posting
       | salary      | 5000 euros     |
       | company     | wemanity       |
       | description | "Java, Spring, Hibernate" |
-    When The user updates a few attributes of the job as shown
+    When The user updates a few attributes of the job identified by id as shown
+      | id          | 6ba7b810-9dad-11d1-80b4-00c04fd430c8 |
       | title                   | "fullstack developer Java/Kotlin"    |
       | description             | "Java/Kotlin, Spring, Hibernate"     |
       | salary                  | 5500 euros                           |
     Then The job is modified as followed
       | id          | 6ba7b810-9dad-11d1-80b4-00c04fd430c8 |
-      | title       | "fullstack developer Java/kotlin" |
+      | title       | "fullstack developer Java/Kotlin" |
       | address     | paris          |
-      | salary      | 5000 euros     |
+      | salary      | 5500 euros     |
       | company     | wemanity       |
-      | description | "Java/kotlin, Spring, Hibernate" |
+      | description | "Java/Kotlin, Spring, Hibernate" |
     And a message <message> is shown
       | message  | updated |
 
-  @wip
+  @ignore
   @JobPosting
   Scenario: The user wants to delete a job
     Given an existing job with details as followed
@@ -61,7 +62,7 @@ Feature: Job Posting
     And a message <message> is shown
       | message  | deleted |
 
-  @wip
+  @ignore
   @JobPosting
   Scenario: a user wants to a see a job detail
     Given an existing job with details as followed
@@ -80,7 +81,7 @@ Feature: Job Posting
       | company     | wemanity       |
       | description | "Java, Spring, Hibernate" |
 
-  @wip
+  @ignore
   @JobPosting
   Scenario: The user wants to list all current jobs
     Given An employer
@@ -98,7 +99,7 @@ Feature: Job Posting
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c3  | "Developpeur node react"      | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript java typescript docker" |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c4  | "Developpeur python angular"  | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript"                        |
 
-  @wip
+  @ignore
   @JobPosting
   Scenario: The employer wants to search jobs according to some keywords
     Given An employer
