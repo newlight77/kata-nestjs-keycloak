@@ -5,6 +5,8 @@ import { JobDomain } from '../../../src/core/domain/job/job.domain';
 import { JobCommandService } from '../../../src/core/domain/job/job.command.service';
 import { JobPort } from '../../../src/core/domain/job/job.port';
 import { JobQueryService } from '../../../src/core/domain/job/job.query.service';
+import { JobCommandHandler } from '../../../src/core/application/job/job.command.handler';
+import { JobQueryHandler } from '../../../src/core/application/job/job.query.handler';
 
 class JobAdapterMock implements JobPort {
   constructor(private jobs: JobDomain[]) {}
@@ -36,8 +38,10 @@ const jobsInMemory = [];
 Before(function () {
   jobsInMemory.length = 0;
   const adapter: any = new JobAdapterMock(jobsInMemory);
-  this.jobCommandService = new JobCommandService(adapter);
-  this.jobQueryService = new JobQueryService(adapter);
+  const jobCommandService = new JobCommandService(adapter);
+  this.jobCommandHandler = new JobCommandHandler(jobCommandService);
+  const jobQueryService = new JobQueryService(adapter);
+  this.jobQueryHandler = new JobQueryHandler(jobQueryService);
 });
 
 Given('a user job with details as shown in the table', function (dataTable) {
@@ -45,7 +49,7 @@ Given('a user job with details as shown in the table', function (dataTable) {
 });
 
 When('the user posts the job', async function () {
-  this.result = await this.jobCommandService.create(this.job);
+  this.result = await this.jobCommandHandler.postJob(this.job);
 });
 
 Then('The job is created as shown in the table', function (dataTable) {
@@ -72,7 +76,7 @@ When(
   'The user updates a few attributes of the job identified by id as shown',
   async function (dataTable) {
     this.job = new JobDomain(dataTable.rowsHash());
-    this.result = await this.jobCommandService.update(this.job.id, this.job);
+    this.result = await this.jobCommandHandler.editJob(this.job);
   },
 );
 
@@ -90,7 +94,7 @@ When(
   'The user delete the job identified by id as below',
   async function (dataTable) {
     const id = dataTable.rowsHash().id;
-    this.result = await this.jobCommandService.delete(id);
+    this.result = await this.jobCommandHandler.removeJob({ id });
   },
 );
 
@@ -103,13 +107,16 @@ When(
   'The user opens the job identified by id as below for details',
   async function (dataTable) {
     const id = dataTable.rowsHash().id;
-    this.result = await this.jobQueryService.findById(id);
+    const query = { id };
+    this.result = await this.jobQueryHandler.findById(query);
+    console.log(this.result);
   },
 );
 
 Then('The job detail is displayed as followed', function (dataTable) {
   this.expectedJob = new JobDomain(dataTable.rowsHash());
   const shownJob = this.result;
+  console.log(this.result);
   expect(shownJob.title).to.eql(this.expectedJob.title);
   expect(shownJob.address).to.eql(this.expectedJob.address);
   expect(shownJob.salary).to.eql(this.expectedJob.salary);

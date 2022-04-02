@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { JobQueryService } from 'src/core/domain/job/job.query.service';
-import { JobDomain } from 'src/core/domain/job/job.domain';
+import { JobQueryService } from '../../../../src/core/domain/job/job.query.service';
+import { JobDomain } from '../../../../src/core/domain/job/job.domain';
 import { FindJobByIdCommand, FindJobQuery } from './job.find.query';
 
 @Injectable()
