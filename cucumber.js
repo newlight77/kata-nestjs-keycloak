@@ -3,7 +3,7 @@ const options = [
   '--require test/features/steps/*.ts',
   '--require-module ts-node/register',
   'cucumber-js -f @cucumber/pretty-formatter',
-  '--tags "not @wip and @component"',
+  '--tags "not @wip and @JobPosting"',
 ];
 
 exports.profile = options.join(' ');
@@ -13,7 +13,7 @@ const optionsApi = [
   '--require test/features/api/*.ts',
   '--require-module ts-node/register',
   'cucumber-js -f @cucumber/pretty-formatter',
-  '--tags "not @wip and @api"',
+  '--tags "not @wip and @JobPosting"',
 ];
 
 exports.profileApi = optionsApi.join(' ');

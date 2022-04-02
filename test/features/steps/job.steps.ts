@@ -1,4 +1,5 @@
 import { Given, Then, When } from '@cucumber/cucumber';
+import { BeforeAll } from '@cucumber/cucumber';
 
 import { JobDomain } from '../../../src/core/domain/job/job.domain';
 import { JobCrudService } from '../../../src/core/domain/job/job.crud.service';
@@ -30,46 +31,29 @@ class JobRepositoryMock implements JobPort {
 
 const jobsInMemory = [];
 
-beforeAll(async () => {
+BeforeAll(async () => {
   jobsInMemory.length = 0;
 });
 
-Given(
-  'Creating a job offer with {string}, {string}, {string}, {number}, {string}, {string}, {string}',
-  function (
-    title,
-    address,
-    salary,
-    currency,
-    contract_type,
-    author,
-    description,
-  ) {
-    // Write code here that turns the phrase above into concrete actions
-    this.jobDomain = new JobDomain({
-      id: '0',
-      title,
-      address,
-      salary,
-      currency,
-      contract_type,
-      author,
-      description,
-    });
-
-    this.jobAdapter = new JobRepositoryMock(jobsInMemory);
-    this.jobService = new JobCrudService(this.jobAdapter);
-
-    // this.jobAdapter.getAll = (): Promise<JobDomain[]> => {
-    //   throw new Error('Function not implemented.');
-    // };
-  },
-);
-
-When('I save the job offer', function () {
-  //this.result = this.jobService.create(this.jobDomain);
+Given('a user job with details as shown in the table', function (dataTable) {
+  // Write code here that turns the phrase above into concrete actions
+  console.log(dataTable.rows());
+  this.job = new JobDomain(dataTable.rowsHash());
+  console.log(this.job);
+  return 'pending';
 });
 
-Then('I received a {string} created', function (message: string) {
-  //expect(this.result).to.equals(message);
+When('the user posts the job', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('The job is created as shown in the table', function (dataTable) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('a message <message> is shown', function (dataTable) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
 });

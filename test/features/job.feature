@@ -20,6 +20,7 @@ Feature: Job Posting
       | message  | success |
 
 
+  @wip
   @JobPosting
   Scenario: A client wants to update a posted job
     Given an existing job with details as followed
@@ -43,7 +44,7 @@ Feature: Job Posting
     And a message <message> is shown
       | message  | success |
 
-
+  @wip
   @JobPosting
   Scenario: The user wants to delete a job
     Given an existing job with details as followed
@@ -60,6 +61,7 @@ Feature: Job Posting
     And a message <message> is shown
       | message  | deleted |
 
+  @wip
   @JobPosting
   Scenario: a user wants to a see a job detail
     Given an existing job with details as followed
@@ -78,7 +80,7 @@ Feature: Job Posting
       | company     | wemanity       |
       | description | "Java, Spring, Hibernate" |
 
-
+  @wip
   @JobPosting
   Scenario: The user wants to list all current jobs
     Given An employer
@@ -96,7 +98,7 @@ Feature: Job Posting
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c3  | "Developpeur node react"      | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript java typescript docker" |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c4  | "Developpeur python angular"  | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript"                        |
 
-
+  @wip
   @JobPosting
   Scenario: The employer wants to search jobs according to some keywords
     Given An employer

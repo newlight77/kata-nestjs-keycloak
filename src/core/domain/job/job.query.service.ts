@@ -23,15 +23,14 @@ export class JobQueryService {
       .filter((j) => this.matchSalary(j, query.minSalary, query.maxSalary));
   }
 
-  private matchKeywords(job: JobModel, keywords): boolean {
+  private matchKeywords(job: JobDomain, keywords): boolean {
     if (keywords === null || keywords.length == 0) return true;
     if (includesKeywords(job.title, keywords)) return true;
     if (includesKeywords(job.address, keywords)) return true;
-    if (includesKeywords(job.author, keywords)) return true;
     if (includesKeywords(job.description, keywords)) return true;
   }
 
-  private matchSalary(job: JobModel, min: number, max: number): boolean {
+  private matchSalary(job: JobDomain, min: number, max: number): boolean {
     if (min == null && max == null) return true;
     if (min == null && job.salary <= max) return true;
     if (max == null && min <= job.salary) return true;
