@@ -4,8 +4,8 @@ import {
   JobUpdatedEvent,
   JobDeletedEvent,
   toDomain,
-} from 'src/core/domain/job/job.domain';
-import { JobCommandService } from 'src/core/domain/job/job.command.service';
+} from '../../../../src/core/domain/job/job.domain';
+import { JobCommandService } from '../../../../src/core/domain/job/job.command.service';
 import {
   DeleteJobCommand,
   EditJobCommand,
