@@ -1,31 +1,8 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-  Res,
-} from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { Body, Controller, Delete, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import {
-  Resource,
-  RoleMatchingMode,
-  Roles,
-  Scopes,
-} from 'nest-keycloak-connect';
-import {
-  DeleteJobCommand,
-  EditJobCommand,
-  PostJobCommand,
-} from 'src/core/application/job/job.command';
+import { Resource, RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
+import { DeleteJobCommand, EditJobCommand, PostJobCommand } from 'src/core/application/job/job.command';
 import { JobCommandHandler } from 'src/core/application/job/job.command.handler';
 import { JobModel } from './job.model';
 
@@ -44,10 +21,7 @@ export class JobCommandController {
     roles: ['realm:manager.role', 'realm:admin.role'],
     mode: RoleMatchingMode.ALL,
   })
-  async create(
-    @Body() job: JobModel,
-    @Res() response: Response,
-  ): Promise<JobModel | void> {
+  async create(@Body() job: JobModel, @Res() response: Response): Promise<JobModel | void> {
     const command = new PostJobCommand({
       title: job.title,
       address: job.address,
@@ -71,11 +45,7 @@ export class JobCommandController {
     mode: RoleMatchingMode.ALL,
   })
   // @Scopes('scopes:edit')
-  async update(
-    @Param('id') id: string,
-    @Body() job: JobModel,
-    @Res() response: Response,
-  ): Promise<JobModel | void> {
+  async update(@Param('id') id: string, @Body() job: JobModel, @Res() response: Response): Promise<JobModel | void> {
     const command = new EditJobCommand({
       id: job.id,
       title: job.title,
@@ -100,12 +70,8 @@ export class JobCommandController {
     mode: RoleMatchingMode.ALL,
   })
   // @Scopes('scopes:delete')
-  async remove(
-    @Param('id') id: string,
-    @Body() job: JobModel,
-    @Res() response: Response,
-  ): Promise<JobModel | void> {
-    const command = new DeleteJobCommand({ id });
+  async remove(@Param('id') id: string, @Body() job: JobModel, @Res() response: Response): Promise<JobModel | void> {
+    const command: DeleteJobCommand = { id };
     const jobs = await this.jobHandler.removeJob(command);
     response.status(HttpStatus.OK).send(jobs);
   }
