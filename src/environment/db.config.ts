@@ -45,7 +45,4 @@ export const DBConnectionConfig: ConnectionOptions = {
   // },
 };
 
-export default registerAs(
-  ConfigEnum.TYPEORM,
-  (): ConnectionOptions => DBConnectionConfig,
-);
+export default registerAs(ConfigEnum.TYPEORM, (): ConnectionOptions => DBConnectionConfig);

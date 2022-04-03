@@ -23,9 +23,7 @@ Given('Writing a job with {string}', function (description: string) {
 });
 
 When('I submit the job', async function () {
-  this.jobResponse = request(this.app.getHttpServer())
-    .post('/job')
-    .send(this.payload);
+  this.jobResponse = request(this.app.getHttpServer()).post('/job').send(this.payload);
 });
 
 Then('I received a {string} message', function (message: string) {
