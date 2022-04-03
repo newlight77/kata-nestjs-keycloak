@@ -8,12 +8,12 @@ const options = [
 
 exports.profile = options.join(' ');
 
-const optionsApi = [
+const optionsInterface = [
   'test/features/*',
-  '--require test/cucumber/api/*.ts',
+  '--require test/cucumber/interface/*.ts',
   '--require-module ts-node/register',
   'cucumber-js -f @cucumber/pretty-formatter',
   '--tags "not @ignore and @JobPosting"',
 ];
 
-exports.profileApi = optionsApi.join(' ');
+exports.profileInterface = optionsInterface.join(' ');
