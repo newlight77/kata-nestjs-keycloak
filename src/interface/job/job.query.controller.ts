@@ -1,22 +1,8 @@
 import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import {
-  Public,
-  Resource,
-  RoleMatchingMode,
-  Roles,
-  Scopes,
-} from 'nest-keycloak-connect';
-import {
-  FindJobByIdCommand,
-  FindJobQuery,
-} from 'src/core/application/job/job.find.query';
+import { Public, Resource, RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
+import { FindJobByIdCommand, FindJobQuery } from 'src/core/application/job/job.find.query';
 import { JobQueryHandler } from 'src/core/application/job/job.query.handler';
 import { fromDomain, JobModel } from './job.model';
 
@@ -39,10 +25,7 @@ export class JobQueryController {
     mode: RoleMatchingMode.ANY,
   })
   // @Scopes('scopes:view')
-  async getById(
-    @Param('id') id: string,
-    @Res() response: Response,
-  ): Promise<JobModel | void> {
+  async getById(@Param('id') id: string, @Res() response: Response): Promise<JobModel | void> {
     const query = new FindJobByIdCommand({ id });
     const jobs = await this.handler.findById(query);
     response.status(HttpStatus.FOUND).send(jobs);

@@ -16,9 +16,7 @@ export class JobRepositoryAdapter implements JobPort {
 
   public async update(id: string, job: JobDomain): Promise<JobDomain> {
     const entity = fromDomain(job);
-    return this.jobRepository
-      .updateJob(id, entity)
-      .then((data) => toDomain(data));
+    return this.jobRepository.updateJob(id, entity).then((data) => toDomain(data));
   }
 
   public async delete(id: string): Promise<JobDomain> {
