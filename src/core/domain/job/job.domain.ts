@@ -39,18 +39,3 @@ export const toDomain = (it: Partial<JobDomain>) => {
     description: it.description,
   });
 };
-
-export class JobCreatedEvent {
-  job: JobDomain;
-  message: string;
-}
-
-export class JobUpdatedEvent {
-  job: JobDomain;
-  message: string;
-}
-
-export class JobDeletedEvent {
-  job: JobDomain;
-  message: string;
-}

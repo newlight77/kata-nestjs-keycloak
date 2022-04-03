@@ -1,10 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import {
-  JobCreatedEvent,
-  JobUpdatedEvent,
-  JobDeletedEvent,
-  JobDomain,
-} from './job.domain';
+import { JobDomain } from './job.domain';
+import { JobCreatedEvent, JobDeletedEvent, JobUpdatedEvent } from './job.event';
 import { JobPort } from './job.port';
 
 @Injectable()
@@ -19,6 +15,7 @@ export class JobCommandService {
 
   async update(id: string, job: JobDomain): Promise<JobUpdatedEvent> {
     const currentJob = await this.adapter.find(id);
+    if (!currentJob) throw new Error('job not found for update');
     const mergedJob = { ...currentJob, ...omitNullish(job) };
     const updatedJob = await this.adapter.update(id, mergedJob);
     const result = { job: updatedJob, message: 'updated' };

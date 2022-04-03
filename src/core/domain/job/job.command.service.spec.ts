@@ -39,7 +39,7 @@ class JobRepositoryMock implements JobPort {
 describe('should create job Offer', () => {
   const jobs = [];
   const adapter = new JobRepositoryMock(jobs);
-  const jobCrudService = new JobCommandService(adapter);
+  const jobCommandService = new JobCommandService(adapter);
 
   beforeEach(async () => {
     jobs.length = 0;
@@ -51,7 +51,7 @@ describe('should create job Offer', () => {
     const job1 = createJob(id, 5000);
 
     // WHEN
-    const result = await jobCrudService.create(job1);
+    const result = await jobCommandService.create(job1);
 
     // THEN
     expect(result.job).toEqual(job1);
@@ -66,7 +66,7 @@ describe('should create job Offer', () => {
     const job1 = createJob(id, 50000);
 
     // WHEN
-    const result = await jobCrudService.update(id, job1);
+    const result = await jobCommandService.update(id, job1);
 
     // THEN
     expect(result.job).toEqual(job1);
@@ -81,7 +81,7 @@ describe('should create job Offer', () => {
     jobs[id] = job1;
 
     // WHEN
-    const result = await jobCrudService.delete(id);
+    const result = await jobCommandService.delete(id);
 
     // THEN
     expect(result.job).toEqual(job1);
