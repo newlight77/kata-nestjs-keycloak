@@ -53,7 +53,7 @@ Feature: Job Posting
       | salary      | 5000 euros     |
       | company     | wemanity       |
       | description | "Java, Spring, Hibernate" |
-    When The user delete the job identified by id as below
+    When The user deletes the job identified by id as below
       | id          | 6ba7b810-9dad-11d1-80b4-00c04fd430c8 |
     Then The job identified by id as below is deleted
       | id          | 6ba7b810-9dad-11d1-80b4-00c04fd430c8 |
@@ -79,17 +79,15 @@ Feature: Job Posting
       | company     | wemanity       |
       | description | "Java, Spring, Hibernate" |
 
-  @ignore
   @JobPosting
   Scenario: The user wants to list all current jobs
-    Given An employer
-    And There are existing jobs as followed
+    Given The existing jobs as followed
       | id                                    | title                   | address | salary        | company     | description            | 
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c1  | "Developpeur java"            | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript docker"                 |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c2  | "Developpeur angular"         | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript kubernetes"             |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c3  | "Developpeur node react"      | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript java typescript docker" |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c4  | "Developpeur python angular"  | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript"                        |
-    When The employer list all jobs
+    When The user lists all jobs
     Then All jobs appear in the list as followed:
       | id                                    | title                   | address | salary        | company     | description            | 
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c1  | "Developpeur java"            | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript docker"                 |
