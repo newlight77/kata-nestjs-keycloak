@@ -7,7 +7,10 @@ import { SignupRepository } from './signup.repository';
 
 @Injectable()
 export class SignupAdapter extends SignupPort {
-  constructor(private readonly repository: SignupRepository, private readonly client: SignupClient) {
+  constructor(
+    private readonly repository: SignupRepository,
+    private readonly client: SignupClient,
+  ) {
     super();
   }
 

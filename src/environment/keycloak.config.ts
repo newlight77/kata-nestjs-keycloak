@@ -26,7 +26,8 @@ export default registerAs('keycloak', () => ({
     process.env.POLICY_ENFORCEMENT === 'enforcement'
       ? PolicyEnforcementMode.ENFORCING
       : PolicyEnforcementMode.PERMISSIVE,
-  tokenValidation: process.env.TOKEN_VALIDATION === 'online' ? TokenValidation.ONLINE : TokenValidation.OFFLINE,
+  tokenValidation:
+    process.env.TOKEN_VALIDATION === 'online' ? TokenValidation.ONLINE : TokenValidation.OFFLINE,
   verifyTokenAudience: process.env.VERIFY_TOKEN_AUDIENCE === 'true',
 }));
 
@@ -44,7 +45,10 @@ export class KeycloakConfigService implements KeycloakConnectOptionsFactory {
         process.env.POLICY_ENFORCEMENT === 'enforcing'
           ? PolicyEnforcementMode.ENFORCING
           : PolicyEnforcementMode.PERMISSIVE,
-      tokenValidation: process.env.TOKEN_VALIDATION === 'online' ? TokenValidation.ONLINE : TokenValidation.OFFLINE,
+      tokenValidation:
+        process.env.TOKEN_VALIDATION === 'online'
+          ? TokenValidation.ONLINE
+          : TokenValidation.OFFLINE,
       verifyTokenAudience: process.env.VERIFY_TOKEN_AUDIENCE === 'true',
     };
   }
