@@ -35,11 +35,7 @@ const run = async () => {
         updated_at: new Date(),
       }),
     )
-    .map((job) =>
-      jobRepository
-        .createJob(job)
-        .then((r) => (console.log('done ->', r.title), r)),
-    );
+    .map((job) => jobRepository.createJob(job).then((r) => (console.log('done ->', r.title), r)));
 
   return await Promise.all(work);
 };

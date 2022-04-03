@@ -72,13 +72,10 @@ Given('an existing job with details as followed', function (dataTable) {
   jobsInMemory[this.job.id] = this.job;
 });
 
-When(
-  'The user updates a few attributes of the job identified by id as shown',
-  async function (dataTable) {
-    this.job = new JobDomain(dataTable.rowsHash());
-    this.result = await this.jobCommandHandler.editJob(this.job);
-  },
-);
+When('The user updates a few attributes of the job identified by id as shown', async function (dataTable) {
+  this.job = new JobDomain(dataTable.rowsHash());
+  this.result = await this.jobCommandHandler.editJob(this.job);
+});
 
 Then('The job is modified as followed', function (dataTable) {
   this.expectedJob = new JobDomain(dataTable.rowsHash());
@@ -90,28 +87,22 @@ Then('The job is modified as followed', function (dataTable) {
   expect(modifiedJob.description).to.eql(this.expectedJob.description);
 });
 
-When(
-  'The user delete the job identified by id as below',
-  async function (dataTable) {
-    const id = dataTable.rowsHash().id;
-    this.result = await this.jobCommandHandler.removeJob({ id });
-  },
-);
+When('The user delete the job identified by id as below', async function (dataTable) {
+  const id = dataTable.rowsHash().id;
+  this.result = await this.jobCommandHandler.removeJob({ id });
+});
 
 Then('The job identified by id as below is deleted', function (dataTable) {
   const id = dataTable.rowsHash().id;
   expect(jobsInMemory[id]).to.eql(null);
 });
 
-When(
-  'The user opens the job identified by id as below for details',
-  async function (dataTable) {
-    const id = dataTable.rowsHash().id;
-    const query = { id };
-    this.result = await this.jobQueryHandler.findById(query);
-    console.log(this.result);
-  },
-);
+When('The user opens the job identified by id as below for details', async function (dataTable) {
+  const id = dataTable.rowsHash().id;
+  const query = { id };
+  this.result = await this.jobQueryHandler.findById(query);
+  console.log(this.result);
+});
 
 Then('The job detail is displayed as followed', function (dataTable) {
   this.expectedJob = new JobDomain(dataTable.rowsHash());

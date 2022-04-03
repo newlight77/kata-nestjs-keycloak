@@ -29,4 +29,5 @@ export class JobCommandService {
   }
 }
 
-const omitUndefinedProps = (object) => Object.fromEntries(Object.entries(object).filter(([, value]) => value != undefined));
+const omitUndefinedProps = (object) =>
+  Object.fromEntries(Object.entries(object).filter(([, value]) => value != undefined));

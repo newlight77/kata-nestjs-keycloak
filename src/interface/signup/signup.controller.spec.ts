@@ -33,12 +33,7 @@ describe('SignupController', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [HttpModule, ConfigModule.forFeature(backendConfig)],
       controllers: [SignupController],
-      providers: [
-        SignupService,
-        SignupClient,
-        SignupRepository,
-        { provide: SignupPort, useClass: SignupAdapter },
-      ],
+      providers: [SignupService, SignupClient, SignupRepository, { provide: SignupPort, useClass: SignupAdapter }],
     }).compile();
 
     controller = module.get<SignupController>(SignupController);
