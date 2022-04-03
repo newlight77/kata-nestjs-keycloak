@@ -90,7 +90,7 @@ Then('The job is modified as followed', function (dataTable) {
   expect(modifiedJob.description).to.eql(this.expectedJob.description);
 });
 
-When('The user delete the job identified by id as below', async function (dataTable) {
+When('The user deletes the job identified by id as below', async function (dataTable) {
   const id = dataTable.rowsHash().id;
   this.result = await this.jobCommandHandler.removeJob({ id });
 });
@@ -115,4 +115,23 @@ Then('The job detail is displayed as followed', function (dataTable) {
   expect(shownJob.address).to.eql(this.expectedJob.address);
   expect(shownJob.salary).to.eql(this.expectedJob.salary);
   expect(shownJob.description).to.eql(this.expectedJob.description);
+});
+
+Given('The existing jobs as followed', function (dataTable) {
+  dataTable.hashes().forEach((job) => {
+    jobsInMemory[job.id] = job;
+  });
+});
+
+When('The user lists all jobs', async function () {
+  this.result = await this.jobQueryHandler.findAll();
+});
+
+Then('All jobs appear in the list as followed:', function (dataTable) {
+  const shownJobs = dataTable.hashes();
+  expect(shownJobs.length).to.eql(4);
+  expect(shownJobs[0].id in jobsInMemory).to.eql(true);
+  expect(shownJobs[1].id in jobsInMemory).to.eql(true);
+  expect(shownJobs[2].id in jobsInMemory).to.eql(true);
+  expect(shownJobs[3].id in jobsInMemory).to.eql(true);
 });
