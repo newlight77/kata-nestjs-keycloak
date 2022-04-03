@@ -72,10 +72,13 @@ Given('an existing job with details as followed', function (dataTable) {
   jobsInMemory[this.job.id] = this.job;
 });
 
-When('The user updates a few attributes of the job identified by id as shown', async function (dataTable) {
-  this.job = new JobDomain(dataTable.rowsHash());
-  this.result = await this.jobCommandHandler.editJob(this.job);
-});
+When(
+  'The user updates a few attributes of the job identified by id as shown',
+  async function (dataTable) {
+    this.job = new JobDomain(dataTable.rowsHash());
+    this.result = await this.jobCommandHandler.editJob(this.job);
+  },
+);
 
 Then('The job is modified as followed', function (dataTable) {
   this.expectedJob = new JobDomain(dataTable.rowsHash());

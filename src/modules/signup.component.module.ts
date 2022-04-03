@@ -11,6 +11,11 @@ import { SignupRepository } from '../infrastructure/signup/signup.repository';
 @Module({
   imports: [HttpModule],
   controllers: [SignupController],
-  providers: [SignupService, SignupClient, SignupRepository, { provide: SignupPort, useClass: SignupAdapter }],
+  providers: [
+    SignupService,
+    SignupClient,
+    SignupRepository,
+    { provide: SignupPort, useClass: SignupAdapter },
+  ],
 })
 export class SignupComponentModule {}
