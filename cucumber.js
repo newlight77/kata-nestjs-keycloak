@@ -1,4 +1,4 @@
-const options = [
+const optionsDomain = [
   'test/features/*',
   '--require test/cucumber/usecases/*.ts',
   '--require-module ts-node/register',
@@ -6,7 +6,7 @@ const options = [
   '--tags "not @ignore and @JobPosting"',
 ];
 
-exports.profile = options.join(' ');
+exports.profileDomain = optionsDomain.join(' ');
 
 const optionsInterface = [
   'test/features/*',
