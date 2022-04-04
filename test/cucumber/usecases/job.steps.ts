@@ -135,3 +135,17 @@ Then('All jobs appear in the list as followed:', function (dataTable) {
   expect(shownJobs[2].id in jobsInMemory).to.eql(true);
   expect(shownJobs[3].id in jobsInMemory).to.eql(true);
 });
+
+When('The user searches jobs with keywords as below', async function (dataTable) {
+  const keywords = dataTable.rowsHash().keywords;
+  console.log(keywords);
+  this.result = await this.jobQueryHandler.queryJobs({ keywords: keywords });
+});
+
+Then('All jobs appear in the list by matched order as followed :', function (dataTable) {
+  const shownJobs = dataTable.hashes();
+  expect(shownJobs.length).to.eql(3);
+  expect(shownJobs[0].id in jobsInMemory).to.eql(true);
+  expect(shownJobs[1].id in jobsInMemory).to.eql(true);
+  expect(shownJobs[2].id in jobsInMemory).to.eql(true);
+});
