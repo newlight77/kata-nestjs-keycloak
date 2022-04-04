@@ -95,20 +95,17 @@ Feature: Job Posting
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c3  | "Developpeur node react"      | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript java typescript docker" |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c4  | "Developpeur python angular"  | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript"                        |
 
-  @ignore
   @JobPosting
   Scenario: The employer wants to search jobs according to some keywords
-    Given An employer
-    And There are existing jobs as followed
+    Given The existing jobs as followed
       | id                                    | title                         | address | salary        | company     | description                                 | 
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c1  | "Developpeur java"            | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript docker"                 |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c2  | "Developpeur node"            | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript docker kubernetes"      |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c3  | "Developpeur node react"      | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript java typescript docker" |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c4  | "Developpeur python angular"  | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript"                        |
-    When The employer search jobs with keywords
-      | keywords |
-      | node, docker, kubernetes |
-    Then All jobs appear in the list as followed:
+    When The user searches jobs with keywords as below
+      | keywords | node, docker, kubernetes |
+    Then All jobs appear in the list by matched order as followed :
       | id                                    | title                         | address | salary        | company     | description                                 | matched | 
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c2  | "Developpeur node"            | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript docker kubernetes"      | 3       |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c3  | "Developpeur node react"      | "paris" | "5000 EURO"   | "wemanity"  | "dev web javascript java typescript docker" | 2       |
