@@ -26,7 +26,7 @@ export class JobQueryController {
   })
   // @Scopes('scopes:view')
   async getById(@Param('id') id: string, @Res() response: Response): Promise<JobModel | void> {
-    const query = new FindJobByIdCommand({ id });
+    const query = { id: id };
     const jobs = await this.handler.findById(query);
     response.status(HttpStatus.FOUND).send(jobs);
   }
