@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FindJobQuery } from 'src/core/application/job/job.find.query';
+import { FindJobQuery } from '../../../core/application/job/job.find.query';
 import { JobDomain } from './job.domain';
 import { JobPort } from './job.port';
 

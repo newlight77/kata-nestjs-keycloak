@@ -2,8 +2,8 @@ import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { Public, Resource, RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
-import { FindJobByIdCommand, FindJobQuery } from 'src/core/application/job/job.find.query';
-import { JobQueryHandler } from 'src/core/application/job/job.query.handler';
+import { FindJobByIdCommand, FindJobQuery } from '../../core/application/job/job.find.query';
+import { JobQueryHandler } from '../../core/application/job/job.query.handler';
 import { fromDomain, JobModel } from './job.model';
 
 @ApiBearerAuth('access-token')

@@ -1,5 +1,5 @@
 import fs = require('fs');
-import { DBConnectionConfig } from 'src/environment/db.config';
+import { DBConnectionConfig } from '../environment/db.config';
 
 const writeConfigToFile = () => {
   fs.rm;

@@ -6,8 +6,8 @@ import {
   DeleteJobCommand,
   EditJobCommand,
   PostJobCommand,
-} from 'src/core/application/job/job.command';
-import { JobCommandHandler } from 'src/core/application/job/job.command.handler';
+} from '../../core/application/job/job.command';
+import { JobCommandHandler } from '../../core/application/job/job.command.handler';
 import { JobModel } from './job.model';
 
 @ApiBearerAuth('access-token')
