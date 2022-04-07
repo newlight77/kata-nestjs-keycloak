@@ -9,10 +9,6 @@ console.log(__dirname + '/../../config/db.env');
 console.log(__dirname + '/../**/*.entity.ts');
 console.log(`database url : ${process.env.DB_HOST}`);
 
-export enum ConfigEnum {
-  TYPEORM = 'typeorm',
-}
-
 export const isProduction = () => {
   return process.env.NODE_ENV === 'prod';
 };
@@ -45,4 +41,4 @@ export const DBConnectionConfig: ConnectionOptions = {
   // },
 };
 
-export default registerAs(ConfigEnum.TYPEORM, (): ConnectionOptions => DBConnectionConfig);
+export default registerAs('typeorm', (): ConnectionOptions => DBConnectionConfig);
