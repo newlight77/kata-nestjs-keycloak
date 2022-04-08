@@ -100,3 +100,22 @@ Then('The job is modified as followed', function (dataTable) {
   expect(this.result.job.salary).to.eql(this.expectedJob.salary);
   expect(this.result.job.description).to.eql(this.expectedJob.description);
 });
+
+When('The user deletes the job identified by id as below', async function (dataTable) {
+  const job = dataTable.rowsHash();
+  await request(this.app.getHttpServer())
+    .delete('/jobs/' + job.id)
+    .send()
+    .expect(HttpStatus.OK)
+    .then((res) => {
+      this.result = res.body;
+    });
+});
+
+Then('The job identified by id as below is deleted', async function (dataTable) {
+  const job = dataTable.rowsHash();
+  const entity = fromDomain(this.job);
+  const repository = this.dbConnect.getRepository(entity.constructor.name);
+  const result = await repository.findOne(job.id);
+  expect(result).to.eql(undefined);
+});
