@@ -7,9 +7,12 @@ const createJob = (id: string, salary: number) => {
   return new JobDomain({
     id,
     title: 'title' + id,
+    company: 'company' + id,
     address: 'address' + id,
     salary,
     description: 'description' + id,
+    created_at: new Date(),
+    updated_at: new Date(),
   });
 };
 

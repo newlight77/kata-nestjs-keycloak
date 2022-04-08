@@ -5,6 +5,7 @@ export class DeleteJobCommand {
 export class EditJobCommand {
   id: string;
   title: string;
+  company: string;
   address: string;
   salary: number;
   description: string;
@@ -14,6 +15,7 @@ export class EditJobCommand {
   constructor({
     id,
     title,
+    company,
     address,
     salary,
     description,
@@ -21,6 +23,7 @@ export class EditJobCommand {
   }: {
     id: string;
     title: string;
+    company: string;
     address: string;
     salary: number;
     description: string;
@@ -28,6 +31,7 @@ export class EditJobCommand {
   }) {
     this.id = id;
     this.title = title;
+    this.company = company;
     this.address = address;
     this.salary = salary;
     this.description = description;
@@ -39,6 +43,7 @@ export class EditJobCommand {
 export class PostJobCommand {
   title: string;
   address: string;
+  company: string;
   salary: number;
   description: string;
   created_at: Date;
@@ -46,16 +51,19 @@ export class PostJobCommand {
 
   constructor({
     title,
+    company,
     address,
     salary,
     description,
   }: {
     title: string;
+    company: string;
     address: string;
     salary: number;
     description: string;
   }) {
     this.title = title;
+    this.company = company;
     this.address = address;
     this.salary = salary;
     this.description = description;
