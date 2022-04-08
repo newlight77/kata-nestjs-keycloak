@@ -28,12 +28,12 @@ export class JobCommandController {
   async create(@Body() job: JobModel, @Res() response: Response): Promise<JobModel | void> {
     const command = new PostJobCommand({
       title: job.title,
+      company: job.company,
       address: job.address,
       salary: job.salary,
       description: job.description,
     });
-
-    const status = this.jobHandler.postJob(command);
+    const status = await this.jobHandler.postJob(command);
     response.status(HttpStatus.CREATED).send(status);
   }
 
@@ -56,6 +56,7 @@ export class JobCommandController {
   ): Promise<JobModel | void> {
     const command = new EditJobCommand({
       id: job.id,
+      company: job.company,
       title: job.title,
       address: job.address,
       salary: job.salary,
