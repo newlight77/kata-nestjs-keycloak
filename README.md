@@ -53,10 +53,11 @@ $ npm run test:cov
 ## TODO
 
 - ATTDD using cucumber to test the exposed interface
-- Type-safe Error handling : https://dev.to/_gdelgado/type-safe-error-handling-in-typescript-1p4n
+- setup in-memory databsae for typeorm : https://dkzeb.medium.com/unit-testing-in-ts-jest-with-typeorm-entities-ad5de5f95438
+- type-safe Error handling : https://dev.to/_gdelgado/type-safe-error-handling-in-typescript-1p4n
 - expose a new GraphQL API
-- Persist data in a event store
-- Implement event source
+- persist data in a event store
+- implement event source
 - 
 
 ## DONE
