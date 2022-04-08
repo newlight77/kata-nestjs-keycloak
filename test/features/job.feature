@@ -45,6 +45,7 @@ Feature: Job Posting
     And a message <message> is shown
       | message  | updated |
 
+  @ignore
   @JobPosting
   Scenario: The user wants to delete a job
     Given an existing job with details as followed
@@ -61,7 +62,6 @@ Feature: Job Posting
     And a message <message> is shown
       | message  | deleted |
 
-  @ignore
   @JobPosting
   Scenario: a user wants to a see a job detail
     Given an existing job with details as followed
