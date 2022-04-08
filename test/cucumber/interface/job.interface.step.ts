@@ -119,3 +119,23 @@ Then('The job identified by id as below is deleted', async function (dataTable) 
   const result = await repository.findOne(job.id);
   expect(result).to.eql(undefined);
 });
+
+When('The user opens the job identified by id as below for details', async function (dataTable) {
+  const job = dataTable.rowsHash();
+  await request(this.app.getHttpServer())
+    .get('/jobs/' + job.id)
+    .send()
+    .expect(HttpStatus.FOUND)
+    .then((res) => {
+      this.result = res.body;
+    });
+});
+
+Then('The job detail is displayed as followed', function (dataTable) {
+  this.expectedJob = dataTable.rowsHash();
+  console.log('expectedJob', this.expectedJob);
+  expect(this.result.title).to.eql(this.expectedJob.title);
+  expect(this.result.company).to.eql(this.expectedJob.company);
+  expect('' + this.result.salary).to.eql(this.expectedJob.salary);
+  expect(this.result.description).to.eql(this.expectedJob.description);
+});
