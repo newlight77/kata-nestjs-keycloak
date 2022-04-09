@@ -1,7 +1,7 @@
 import { JobQueryService } from './job.query.service';
 import { JobDomain } from './job.domain';
 import { JobPort } from './job.port';
-import { FindJobQuery } from '../../application/job/job.find.query';
+import { JobQuery } from '../../application/job/job.query';
 
 const createJob = (id: string, salary: number) => {
   return new JobDomain({
@@ -79,7 +79,7 @@ describe('should create job Offer', () => {
     jobs['0'] = createJob('0', 50000);
     jobs['1'] = createJob('1', 50000);
     jobs['2'] = createJob('2', 50000);
-    const query = new FindJobQuery({
+    const query = new JobQuery({
       keywords: '1,5,7'.split(','),
       minSalary: null,
       maxSalary: null,
@@ -98,7 +98,7 @@ describe('should create job Offer', () => {
     jobs['0'] = createJob('0', 40000);
     jobs['1'] = createJob('1', 50000);
     jobs['2'] = createJob('2', 70000);
-    const query = new FindJobQuery({
+    const query = new JobQuery({
       keywords: null,
       minSalary: 50000,
       maxSalary: 60000,
@@ -117,7 +117,7 @@ describe('should create job Offer', () => {
     jobs['0'] = createJob('0', 40000);
     jobs['1'] = createJob('1', 50000);
     jobs['2'] = createJob('2', 60000);
-    const query = new FindJobQuery({
+    const query = new JobQuery({
       keywords: '0,1,7'.split(','),
       minSalary: 50000,
       maxSalary: 60000,
