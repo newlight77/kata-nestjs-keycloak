@@ -97,7 +97,6 @@ Feature: Job Posting
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c3  | "Developpeur node react"      | "paris" | 5000   | "wemanity"  | "dev web javascript java typescript docker" |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c4  | "Developpeur python angular"  | "paris" | 5000   | "wemanity"  | "dev web javascript"                        |
 
-  @ignore
   @JobPosting
   Scenario: The employer wants to search jobs according to some keywords
     Given The existing jobs as followed
@@ -107,7 +106,7 @@ Feature: Job Posting
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c3  | "Developpeur node react"      | "paris" | 5000   | "wemanity"  | "dev web javascript java typescript docker" |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c4  | "Developpeur python angular"  | "paris" | 5000   | "wemanity"  | "dev web javascript"                        |
     When The user searches jobs with keywords as below
-      | keywords | node, docker, kubernetes |
+      | keywords | node,docker,kubernetes |
     Then All jobs appear in the list by matched order as followed :
       | id                                    | title                         | address | salary | company     | description                                 | matched | 
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c2  | "Developpeur node"            | "paris" | 5000   | "wemanity"  | "dev web javascript docker kubernetes"      | 3       |

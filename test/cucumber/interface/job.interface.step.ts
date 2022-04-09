@@ -173,3 +173,23 @@ Then('All jobs appear in the list as followed:', function (dataTable) {
   });
   expect(actualJobs).to.eql(expectedJobs);
 });
+
+When('The user searches jobs with keywords as below', async function (dataTable) {
+  const keywords = dataTable.rowsHash().keywords;
+  await request(this.app.getHttpServer())
+    .get('/jobs?keywords=' + keywords)
+    .send()
+    .expect(HttpStatus.OK)
+    .then((res) => {
+      this.result = res.body;
+    });
+});
+
+Then('All jobs appear in the list by matched order as followed :', function (dataTable) {
+  const expectedJobs = dataTable.hashes().map((job) => {
+    job.salary = +job.salary;
+    return job;
+  });
+
+  expect(this.result.length).to.eql(expectedJobs.length);
+});
