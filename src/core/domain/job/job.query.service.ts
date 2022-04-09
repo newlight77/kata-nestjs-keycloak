@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { FindJobQuery } from '../../../core/application/job/job.find.query';
+import { domainToDto, JobQueryDto } from '../../../core/application/job/job.query.dto';
+import { JobQuery } from '../../application/job/job.query';
 import { JobDomain } from './job.domain';
 import { JobPort } from './job.port';
 
@@ -15,22 +16,31 @@ export class JobQueryService {
     return this.adapter.findAll();
   }
 
-  async findByQuery(query: FindJobQuery): Promise<JobDomain[]> {
+  async findByQuery(query: JobQuery): Promise<JobQueryDto[]> {
     const jobs = await this.adapter.findAll();
     return jobs
-      .filter((j) => this.matchKeywords(j, query.keywords))
-      .filter((j) => this.matchSalary(j, query.minSalary, query.maxSalary));
-    //.sort((a, b) => (a.matched > b.matched) ? 1 : -1);
+      .map((domain) => domainToDto(domain))
+      .map((dto) => this.countMatchedKeywords(dto, query.keywords))
+      .filter((j) => this.matchedKeywords(j))
+      .filter((j) => this.matchSalary(j, query.minSalary, query.maxSalary))
+      .sort((a, b) => (a.matched < b.matched ? 1 : -1));
   }
 
-  private matchKeywords(job: JobDomain, keywords): boolean {
-    if (keywords === null || keywords.length == 0) return true;
-    if (includesKeywords(job.title, keywords)) return true;
-    if (includesKeywords(job.address, keywords)) return true;
-    if (includesKeywords(job.description, keywords)) return true;
+  private matchedKeywords(job: JobQueryDto): boolean {
+    return job.matched > 0;
   }
 
-  private matchSalary(job: JobDomain, min: number, max: number): boolean {
+  private countMatchedKeywords(job: JobQueryDto, keywords): JobQueryDto {
+    if (keywords === null || keywords.length == 0) return job;
+    let count = 0;
+    count += countMatchedKeywords(job.title, keywords);
+    count += countMatchedKeywords(job.address, keywords);
+    count += countMatchedKeywords(job.description, keywords);
+    job.matched = count;
+    return job;
+  }
+
+  private matchSalary(job: JobQueryDto, min: number, max: number): boolean {
     if (min == null && max == null) return true;
     if (min == null && job.salary <= max) return true;
     if (max == null && min <= job.salary) return true;
@@ -38,5 +48,5 @@ export class JobQueryService {
   }
 }
 
-const includesKeywords = (text: string, keywords: string[]): boolean =>
-  keywords.filter((k) => text.includes(k)).length > 0;
+const countMatchedKeywords = (text: string, keywords: string[]): number =>
+  keywords.filter((k) => text.includes(k)).length;

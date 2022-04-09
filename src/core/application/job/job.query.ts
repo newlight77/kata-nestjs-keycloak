@@ -2,7 +2,7 @@ export class FindJobByIdCommand {
   id: string;
 }
 
-export class FindJobQuery {
+export class JobQuery {
   keywords: string[];
   minSalary: number;
   maxSalary: number;

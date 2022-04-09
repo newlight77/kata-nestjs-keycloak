@@ -2,7 +2,8 @@ import { Controller, Get, HttpStatus, Param, Query, Res } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { Public, Resource, RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
-import { FindJobByIdCommand, FindJobQuery } from '../../core/application/job/job.find.query';
+import { domainToDto, JobQueryDto } from '../../core/application/job/job.query.dto';
+import { JobQuery } from '../../core/application/job/job.query';
 import { JobQueryHandler } from '../../core/application/job/job.query.handler';
 import { fromDomain, JobModel } from './job.model';
 
@@ -47,14 +48,14 @@ export class JobQueryController {
     @Query('keywords') keywords: string,
     @Query('minSalary') minSalary: number,
     @Query('maxSalary') maxSalary: number,
-  ): Promise<JobModel[]> {
-    let jobs: JobModel[];
+  ): Promise<JobQueryDto[]> {
     if (keywords || minSalary || maxSalary) {
-      jobs = await this.queryAllJobs(keywords, minSalary, maxSalary);
-    } else {
-      jobs = await this.handler.findAll();
+      return await this.queryAllJobs(keywords, minSalary, maxSalary);
     }
-    if (jobs && jobs.length > 0) return jobs.map((it) => fromDomain(it));
+
+    const jobs = await this.handler.findAll();
+    if (jobs && jobs.length > 0) return jobs.map((it) => domainToDto(it));
+
     return [];
   }
 
@@ -62,8 +63,8 @@ export class JobQueryController {
     keywords: string,
     minSalary: number,
     maxSalary: number,
-  ): Promise<JobModel[]> {
-    const query = new FindJobQuery({
+  ): Promise<JobQueryDto[]> {
+    const query = new JobQuery({
       keywords: keywords.split(','),
       minSalary,
       maxSalary,
