@@ -20,6 +20,7 @@ export class JobQueryService {
     return jobs
       .filter((j) => this.matchKeywords(j, query.keywords))
       .filter((j) => this.matchSalary(j, query.minSalary, query.maxSalary));
+    //.sort((a, b) => (a.matched > b.matched) ? 1 : -1);
   }
 
   private matchKeywords(job: JobDomain, keywords): boolean {

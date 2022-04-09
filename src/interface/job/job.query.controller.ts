@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Query, Res } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { Public, Resource, RoleMatchingMode, Roles, Scopes } from 'nest-keycloak-connect';
@@ -32,23 +32,6 @@ export class JobQueryController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Query all jobs' })
-  @ApiResponse({
-    status: 200,
-    description: 'The job records are found',
-    type: JobModel,
-  })
-  @Roles({
-    roles: ['realm:user.role', 'realm:manager.role', 'realm:admin.role'],
-    mode: RoleMatchingMode.ANY,
-  })
-  // @Scopes('scopes:view')
-  async queryAll(): Promise<JobModel[] | void> {
-    const jobs = await this.handler.findAll();
-    if (jobs) return jobs.map((it) => fromDomain(it));
-  }
-
-  @Get('query')
   @ApiOperation({ summary: 'Query jobs by keywords' })
   @ApiResponse({
     status: 200,
@@ -61,16 +44,30 @@ export class JobQueryController {
   })
   // @Scopes('scopes:view')
   async queryJobs(
-    @Param('keywords') keywords: string,
-    @Param('minSalary') minSalary: number,
-    @Param('maxSalary') maxSalary: number,
-  ): Promise<JobModel[] | void> {
+    @Query('keywords') keywords: string,
+    @Query('minSalary') minSalary: number,
+    @Query('maxSalary') maxSalary: number,
+  ): Promise<JobModel[]> {
+    let jobs: JobModel[];
+    if (keywords || minSalary || maxSalary) {
+      jobs = await this.queryAllJobs(keywords, minSalary, maxSalary);
+    } else {
+      jobs = await this.handler.findAll();
+    }
+    if (jobs && jobs.length > 0) return jobs.map((it) => fromDomain(it));
+    return [];
+  }
+
+  private async queryAllJobs(
+    keywords: string,
+    minSalary: number,
+    maxSalary: number,
+  ): Promise<JobModel[]> {
     const query = new FindJobQuery({
       keywords: keywords.split(','),
       minSalary,
       maxSalary,
     });
-    const jobs = await this.handler.queryJobs(query);
-    if (jobs && jobs.length > 0) return jobs.map((it) => fromDomain(it));
+    return await this.handler.queryJobs(query);
   }
 }
