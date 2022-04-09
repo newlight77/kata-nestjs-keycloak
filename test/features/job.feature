@@ -81,13 +81,12 @@ Feature: Job Posting
       | company     | wemanity       |
       | description | "Java, Spring, Hibernate" |
 
-  @ignore
   @JobPosting
   Scenario: The user wants to list all current jobs
     Given The existing jobs as followed
       | id                                    | title                         | address | salary | company     | description            | 
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c1  | "Developpeur java"            | "paris" | 5000   | "wemanity"  | "dev web javascript docker"                 |
-      | 6ba7b810-9dad-11d1-80b4-00c04fd430c2  | "Developpeur angular"         | "paris" | 5000   | "wemanity"  | "dev web javascript kubernetes"             |
+      | 6ba7b810-9dad-11d1-80b4-00c04fd430c2  | "Developpeur node"            | "paris" | 5000   | "wemanity"  | "dev web javascript docker kubernetes"      |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c3  | "Developpeur node react"      | "paris" | 5000   | "wemanity"  | "dev web javascript java typescript docker" |
       | 6ba7b810-9dad-11d1-80b4-00c04fd430c4  | "Developpeur python angular"  | "paris" | 5000   | "wemanity"  | "dev web javascript"                        |
     When The user lists all jobs
