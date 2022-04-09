@@ -133,9 +133,43 @@ When('The user opens the job identified by id as below for details', async funct
 
 Then('The job detail is displayed as followed', function (dataTable) {
   this.expectedJob = dataTable.rowsHash();
-  console.log('expectedJob', this.expectedJob);
   expect(this.result.title).to.eql(this.expectedJob.title);
   expect(this.result.company).to.eql(this.expectedJob.company);
   expect('' + this.result.salary).to.eql(this.expectedJob.salary);
   expect(this.result.description).to.eql(this.expectedJob.description);
+});
+
+Given('The existing jobs as followed', function (dataTable) {
+  const repository = this.dbConnect.getRepository('JobEntity');
+  const jobs = dataTable.hashes().map((job) => {
+    const entity = fromDomain(job);
+    entity.created_at = new Date();
+    entity.updated_at = new Date();
+    return entity;
+  });
+  repository.save(jobs);
+});
+
+When('The user lists all jobs', async function () {
+  await request(this.app.getHttpServer())
+    .get('/jobs')
+    .send()
+    .expect(HttpStatus.OK)
+    .then((res) => {
+      this.result = res.body;
+    });
+});
+
+Then('All jobs appear in the list as followed:', function (dataTable) {
+  const expectedJobs = dataTable.hashes().map((job) => {
+    job.salary = +job.salary;
+    return job;
+  });
+  // ignore dates in comparison
+  const actualJobs = this.result.map((job) => {
+    delete job.created_at;
+    delete job.updated_at;
+    return job;
+  });
+  expect(actualJobs).to.eql(expectedJobs);
 });
