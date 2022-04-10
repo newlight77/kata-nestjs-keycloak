@@ -1,6 +1,5 @@
 Feature: Job Posting
 
-  @ignore
   @JobPosting
   Scenario: A user wants to post a job
     Given a user job with details as shown in the table
@@ -20,7 +19,6 @@ Feature: Job Posting
     And a message <message> is shown
       | message  | created |
 
-  @ignore
   @JobPosting
   Scenario: A client wants to update a posted job
     Given an existing job with details as followed
@@ -45,7 +43,6 @@ Feature: Job Posting
     And a message <message> is shown
       | message  | updated |
 
-  @ignore
   @JobPosting
   Scenario: The user wants to delete a job
     Given an existing job with details as followed
