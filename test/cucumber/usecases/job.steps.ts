@@ -1,4 +1,4 @@
-import { Before, Given, Then, When } from '@cucumber/cucumber';
+import { Before, After, Given, Then, When } from '@cucumber/cucumber';
 import { expect } from 'chai';
 
 import { JobDomain } from '../../../src/core/domain/job/job.domain';
@@ -25,18 +25,17 @@ class JobAdapterMock implements JobPort {
     return job;
   }
   async find(id: string): Promise<JobDomain> {
-    console.log('find', id, this.jobs[id]);
     return this.jobs[id];
   }
   async findAll(): Promise<JobDomain[]> {
-    return this.jobs;
+    return Object.keys(this.jobs).map((key) => this.jobs[key]);
   }
 }
 
-const jobsInMemory = [];
+let jobsInMemory = [];
 
 Before(function () {
-  jobsInMemory.length = 0;
+  jobsInMemory = [];
   const adapter: any = new JobAdapterMock(jobsInMemory);
   const jobCommandService = new JobCommandService(adapter);
   this.jobCommandHandler = new JobCommandHandler(jobCommandService);
@@ -68,22 +67,21 @@ Then('a message <message> is shown', function (dataTable) {
 });
 
 Given('an existing job with details as followed', function (dataTable) {
-  this.job = new JobDomain(dataTable.rowsHash());
+  this.job = dataTable.rowsHash();
   jobsInMemory[this.job.id] = this.job;
 });
 
 When(
   'The user updates a few attributes of the job identified by id as shown',
   async function (dataTable) {
-    this.job = new JobDomain(dataTable.rowsHash());
+    this.job = dataTable.rowsHash();
     this.result = await this.jobCommandHandler.editJob(this.job);
   },
 );
 
 Then('The job is modified as followed', function (dataTable) {
-  this.expectedJob = new JobDomain(dataTable.rowsHash());
+  this.expectedJob = dataTable.rowsHash();
   const modifiedJob = this.result['job'];
-  console.log(modifiedJob);
   expect(modifiedJob.title).to.eql(this.expectedJob.title);
   expect(modifiedJob.address).to.eql(this.expectedJob.address);
   expect(modifiedJob.salary).to.eql(this.expectedJob.salary);
@@ -104,13 +102,11 @@ When('The user opens the job identified by id as below for details', async funct
   const id = dataTable.rowsHash().id;
   const query = { id };
   this.result = await this.jobQueryHandler.findById(query);
-  console.log(this.result);
 });
 
 Then('The job detail is displayed as followed', function (dataTable) {
-  this.expectedJob = new JobDomain(dataTable.rowsHash());
+  this.expectedJob = dataTable.rowsHash();
   const shownJob = this.result;
-  console.log(this.result);
   expect(shownJob.title).to.eql(this.expectedJob.title);
   expect(shownJob.address).to.eql(this.expectedJob.address);
   expect(shownJob.salary).to.eql(this.expectedJob.salary);
@@ -128,17 +124,14 @@ When('The user lists all jobs', async function () {
 });
 
 Then('All jobs appear in the list as followed:', function (dataTable) {
-  const shownJobs = dataTable.hashes();
-  expect(shownJobs.length).to.eql(4);
-  expect(shownJobs[0].id in jobsInMemory).to.eql(true);
-  expect(shownJobs[1].id in jobsInMemory).to.eql(true);
-  expect(shownJobs[2].id in jobsInMemory).to.eql(true);
-  expect(shownJobs[3].id in jobsInMemory).to.eql(true);
+  const expectedJobs = dataTable.hashes();
+  const shownJobs = this.result;
+  expect(shownJobs.length).to.eql(expectedJobs.length);
+  expect(shownJobs).to.eql(expectedJobs);
 });
 
 When('The user searches jobs with keywords as below', async function (dataTable) {
-  const keywords = dataTable.rowsHash().keywords;
-  console.log(keywords);
+  const keywords = dataTable.rowsHash().keywords.split(',');
   this.result = await this.jobQueryHandler.queryJobs({ keywords: keywords });
 });
 
