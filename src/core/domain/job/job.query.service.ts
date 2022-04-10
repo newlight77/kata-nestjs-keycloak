@@ -21,16 +21,17 @@ export class JobQueryService {
     return jobs
       .map((domain) => domainToDto(domain))
       .map((dto) => this.countMatchedKeywords(dto, query.keywords))
-      .filter((j) => this.matchedKeywords(j))
+      .filter((j) => this.matchedKeywords(j, query.keywords))
       .filter((j) => this.matchSalary(j, query.minSalary, query.maxSalary))
       .sort((a, b) => (a.matched < b.matched ? 1 : -1));
   }
 
-  private matchedKeywords(job: JobQueryDto): boolean {
+  private matchedKeywords(job: JobQueryDto, keywords: string[]): boolean {
+    if (keywords === null || keywords.length == 0) return true;
     return job.matched > 0;
   }
 
-  private countMatchedKeywords(job: JobQueryDto, keywords): JobQueryDto {
+  private countMatchedKeywords(job: JobQueryDto, keywords: string[]): JobQueryDto {
     if (keywords === null || keywords.length == 0) return job;
     let count = 0;
     count += countMatchedKeywords(job.title, keywords);

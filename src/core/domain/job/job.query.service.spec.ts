@@ -2,15 +2,17 @@ import { JobQueryService } from './job.query.service';
 import { JobDomain } from './job.domain';
 import { JobPort } from './job.port';
 import { JobQuery } from '../../application/job/job.query';
+import { JobQueryDto } from '../../application/job/job.query.dto';
 
-const createJob = (id: string, salary: number) => {
-  return new JobDomain({
+const createJob = (id: string, salary: number, matched: number) => {
+  return new JobQueryDto({
     id,
     title: 'title' + id,
     company: 'company' + id,
     address: 'address' + id,
     salary,
     description: 'description' + id,
+    matched,
     created_at: new Date(),
     updated_at: new Date(),
   });
@@ -36,7 +38,7 @@ class JobRepositoryMock implements JobPort {
     return this.jobs[id];
   }
   async findAll(): Promise<JobDomain[]> {
-    return this.jobs;
+    return Object.keys(this.jobs).map((key) => this.jobs[key]);
   }
 }
 
@@ -52,7 +54,7 @@ describe('should create job Offer', () => {
   it('Should find a job offer successfully', async () => {
     // GIVEN
     const id = '1';
-    jobs[id] = createJob('1', 50000);
+    jobs[id] = createJob('1', 50000, 0);
 
     // WHEN
     const result = await jobService.findById(id);
@@ -63,22 +65,22 @@ describe('should create job Offer', () => {
 
   it('Should find all job offers successfully', async () => {
     // GIVEN
-    jobs['0'] = createJob('0', 50000);
-    jobs['1'] = createJob('1', 50000);
-    jobs['2'] = createJob('2', 50000);
+    jobs['0'] = createJob('0', 50000, 0);
+    jobs['1'] = createJob('1', 50000, 0);
+    jobs['2'] = createJob('2', 50000, 0);
 
     // WHEN
     const result = await jobService.findAll();
 
     // THEN
     expect(result.length).toBe(3);
-    expect(result).toBe(jobs);
+    expect(result).toStrictEqual(jobs);
   });
   it('Should find job offers by keyword match', async () => {
     // GIVEN
-    jobs['0'] = createJob('0', 50000);
-    jobs['1'] = createJob('1', 50000);
-    jobs['2'] = createJob('2', 50000);
+    jobs['0'] = createJob('0', 50000, 0);
+    jobs['1'] = createJob('1', 50000, 3);
+    jobs['2'] = createJob('2', 50000, 0);
     const query = new JobQuery({
       keywords: '1,5,7'.split(','),
       minSalary: null,
@@ -95,9 +97,9 @@ describe('should create job Offer', () => {
 
   it('Should find job offers by salary range match', async () => {
     // GIVEN
-    jobs['0'] = createJob('0', 40000);
-    jobs['1'] = createJob('1', 50000);
-    jobs['2'] = createJob('2', 70000);
+    jobs['0'] = createJob('0', 40000, 0);
+    jobs['1'] = createJob('1', 50000, 0);
+    jobs['2'] = createJob('2', 70000, 0);
     const query = new JobQuery({
       keywords: null,
       minSalary: 50000,
@@ -114,9 +116,9 @@ describe('should create job Offer', () => {
 
   it('Should find job offers by keywords and salary range match', async () => {
     // GIVEN
-    jobs['0'] = createJob('0', 40000);
-    jobs['1'] = createJob('1', 50000);
-    jobs['2'] = createJob('2', 60000);
+    jobs['0'] = createJob('0', 40000, 0);
+    jobs['1'] = createJob('1', 50000, 3);
+    jobs['2'] = createJob('2', 60000, 0);
     const query = new JobQuery({
       keywords: '0,1,7'.split(','),
       minSalary: 50000,
