@@ -1,55 +1,6 @@
 
 # Job Posting Application
 
-[repository](https://github.com/newlight77/app-jobs-nestjs-keycloak) maintained by newlight77.
-
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# start database for dev
-$ npm run start:dev:db
-
-# seed data for dev
-$ npm run start:dev:db:seed
-
-# watch mode
-$ npm run start:dev
-
-# debug mode
-$ npm run start:debug:remote
-
-# debug from remote mode
-$ npm run start:debug:remote
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# test cucumber domain
-$ npm run test:features:domain
-
-# test cucumber interface
-$ npm run test:features:interface
-
-# test coverage
-$ npm run test:cov
-```
-
 ## TODO
 
 - ARCHI: type-safe Error handling : https://dev.to/_gdelgado/type-safe-error-handling-in-typescript-1p4n
