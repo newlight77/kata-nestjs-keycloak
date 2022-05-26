@@ -1,0 +1,57 @@
+name: Build and Test React Application
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: npm ci
+        run: npm ci
+
+      - name: unit testing and coverage
+        run: npm run test:coverage
+
+      - name: cucumber domain testing and coverage
+        run: npm run nyc:coverage:domain
+
+      - name: cucumber interface testing and coverage
+        run: npm run nyc:coverage:interface
+
+      - name: coverage merge
+        run: npm run nyc:coverage:merge
+
+      - name: code linting
+        run: npm run lint
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ff93e55e-70e5-4fef-96c2-a4a532282ee1
+          directory: coverage
+          files: ./coverage/lcov.info,./coverage/coverage_cucumber.json
+          fail_ci_if_error: true
+          verbose: true
+
+      - name: Build
+        run: |
+          npm run build
+
+      - name: Deploy the app
+        run: |
+          echo deploy to vercel
