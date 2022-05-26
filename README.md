@@ -15,6 +15,7 @@
 
 ## DONE
 
+- TEST: using [nyc](https://github.com/istanbuljs/nyc) to get code coverage from unit and cucumber tests
 - TEST: setup in-memory databsae for typeorm : https://dkzeb.medium.com/unit-testing-in-ts-jest-with-typeorm-entities-ad5de5f95438
 - TEST: ATTDD using cucumber to test the exposed interfaces
 - TEST: ATTDD using cucumber to test usecases of the domain
