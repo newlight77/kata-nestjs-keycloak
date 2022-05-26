@@ -1,0 +1,88 @@
+stages:
+  - setup
+  - test
+  - quality
+  - package
+  - publish
+
+
+cache:
+  paths:
+    - node_modules/
+    - dist/
+
+default:
+  image: node:16.14.2
+
+dependencies:install:
+  stage: setup
+  script:
+    - npm ci
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 hour
+
+test:coverage:
+  stage: test
+  needs:
+    - job: dependencies:install
+      artifacts: true
+  script:
+    - npm run test:coverage
+    - npm run nyc:coverage:domain
+    - npm run nyc:coverage:interface
+    - npm run nyc:coverage:merge
+  artifacts:
+    paths:
+      - node_modules/
+      - coverage/
+    expire_in: 1 days
+
+lint:
+  stage: quality
+  needs:
+    - job: test:coverage
+      artifacts: true
+  script:
+    - npm run lint
+
+coverage:
+  stage: quality
+  needs:
+    - job: test:coverage
+      artifacts: true
+  script:
+    - mv coverage/lcov-report/ public/
+    - codecov -t ff93e55e-70e5-4fef-96c2-a4a532282ee1
+  artifacts:
+    paths:
+      - public/
+    expire_in: 7 days
+  only:
+    - main
+
+build:
+  stage: package
+  needs:
+    - job: lint
+    - job: coverage
+      artifacts: true
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - build/**
+    expire_in: 1 days
+  only:
+    - main
+
+publish:
+  stage: publish
+  needs:
+    - job: build
+      artifacts: true
+  script:
+    - echo publish
+  only:
+    - main
